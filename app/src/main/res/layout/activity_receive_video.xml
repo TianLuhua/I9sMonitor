@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/tv_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="14px"
+        android:layout_marginTop="15px"
+        android:drawableLeft="@drawable/selector_back"
+        android:drawablePadding="13px"
+        />
+
+    <LinearLayout
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:id="@+id/fl_avatar"
+            android:layout_width="@dimen/dimen_155"
+            android:layout_height="@dimen/dimen_187"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/head_portrait_bg">
+
+            <com.tencent.CircleImageView
+                android:id="@+id/iv_avatar"
+                android:layout_width="@dimen/dimen_145"
+                android:layout_height="@dimen/dimen_145"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/dimen_37" />
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/dimen_12"
+            android:text="@string/app_name"
+            android:textColor="@color/color_4e4e4e"
+            android:textSize="@dimen/text_22" />
+
+        <TextView
+            android:id="@+id/tv_receive_state"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/dimen_33"
+            android:text="@string/app_name"
+            android:textColor="@color/color_2c768a"
+            android:textSize="@dimen/text_18" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/dimen_13"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_hangup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableTop="@drawable/selector_hangup_audio"
+                android:textSize="@dimen/text_0" />
+
+            <TextView
+                android:id="@+id/tv_receive"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableTop="@drawable/selector_receive_audio"
+                android:textSize="@dimen/text_0" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</FrameLayout>

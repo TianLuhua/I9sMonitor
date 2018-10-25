@@ -1,0 +1,95 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/window_background">
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="vertical"
+	    android:scrollbars="vertical">
+	    
+	    <TextView
+	        style="@style/Text_TitleBar_Style"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:maxWidth="300dip"
+	        android:singleLine="true"
+	        android:text="绑定者列表"
+	        android:textColor="@color/Text_BLACK" />
+	
+	    <ImageView
+	        android:layout_width="fill_parent"
+	        android:layout_height="2dip"
+	        android:scaleType="centerCrop"
+	        android:src="@drawable/window_seperator" />
+	
+	    <GridView
+	        android:id="@+id/gridView_binderlist"
+	        android:layout_width="wrap_content"
+	        android:layout_height="140dp"
+	        android:numColumns="3" />
+	
+	    <TextView
+	        android:id="@+id/textView_friendtext"
+	        style="@style/Text_TitleBar_Style"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:text="好友列表"
+	        android:textColor="@color/Text_BLACK" />
+	
+	    <ImageView
+	        android:layout_width="fill_parent"
+	        android:layout_height="2dip"
+	        android:scaleType="centerCrop"
+	        android:src="@drawable/window_seperator" />
+	
+	    <GridView
+	        android:id="@+id/gridView_friendlist"
+	        android:layout_width="match_parent"
+	        android:layout_height="140dp"
+	        android:numColumns="3" >
+	    </GridView>        
+        
+    </LinearLayout>
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_alignParentBottom="true"
+		android:layout_height="80dp"
+		android:orientation="horizontal">
+
+		<Button
+			android:id="@+id/btn_upload_log"
+			style="@style/Text_TitleBar_Style"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_alignParentBottom="true"
+			android:layout_marginLeft="10dp"
+			android:layout_marginRight="10dp"
+			android:layout_weight="1"
+			android:onClick="uploadDeviceLog"
+			android:text="上传设备日志"
+			android:textColor="@color/Text_BLUE"
+			android:textSize="16sp" />
+
+		<Button
+			android:id="@+id/btn_eraseallbinders"
+			style="@style/Text_TitleBar_Style"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:layout_marginLeft="10dp"
+			android:layout_marginRight="10dp"
+			android:layout_above="@id/btn_upload_log"
+			android:onClick="eraseAllBinders"
+			android:text="解除所有绑定者"
+			android:textColor="@color/Text_BLUE"
+			android:textSize="16sp" />
+
+
+	</LinearLayout>
+
+</RelativeLayout>

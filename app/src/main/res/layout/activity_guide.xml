@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg">
+
+    <TextView
+        android:id="@+id/tv_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="14px"
+        android:layout_marginTop="15px"
+        android:drawableLeft="@drawable/selector_back"
+        android:drawablePadding="13px"
+        android:gravity="center"
+        android:text="@string/bind_qq_guide"
+        android:textColor="@color/color_2d6297"
+        android:textSize="@dimen/text_28" />
+
+    <ImageView
+        android:id="@+id/iv_guide"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/image"
+        android:layout_marginLeft="@dimen/dimen_70"
+        android:layout_marginTop="@dimen/dimen_84"/>
+
+    <ImageView
+        android:id="@+id/iv_zxing"
+        android:layout_width="@dimen/dimen_160"
+        android:layout_height="@dimen/dimen_160"
+        android:layout_marginLeft="@dimen/dimen_86"
+        android:layout_marginTop="@dimen/dimen_104"
+        android:background="@drawable/bg" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dimen_93"
+        android:layout_marginTop="@dimen/dimen_290"
+        android:text="@string/zxing_desc"
+        android:textColor="@color/color_4e4e4e"
+        android:textSize="@dimen/text_18" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dimen_309"
+        android:layout_marginTop="@dimen/dimen_450">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/step_one"
+                android:textColor="@color/color_4e4e4e"
+                android:textSize="@dimen/text_16" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:text="@string/step_one_desc"
+                android:textColor="@color/color_4e4e4e"
+                android:textSize="@dimen/text_16" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginLeft="@dimen/dimen_67">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/step_two"
+                android:textColor="@color/color_4e4e4e"
+                android:textSize="@dimen/text_16" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:text="@string/step_two_desc"
+                android:textColor="@color/color_4e4e4e"
+                android:textSize="@dimen/text_16" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginLeft="@dimen/dimen_112">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/step_three"
+                android:textColor="@color/color_4e4e4e"
+                android:textSize="@dimen/text_16" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:text="@string/step_three_desc"
+                android:textColor="@color/color_4e4e4e"
+                android:textSize="@dimen/text_16" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+    <!--android:layout_marginLeft="@dimen/dimen_70"-->
+    <!--android:layout_marginTop="@dimen/dimen_84"-->
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right|bottom"
+        android:layout_marginRight="@dimen/dimen_240"
+        android:layout_marginBottom="@dimen/dimen_24"
+        android:src="@drawable/shuiyinlogo"/>
+
+
+</FrameLayout>

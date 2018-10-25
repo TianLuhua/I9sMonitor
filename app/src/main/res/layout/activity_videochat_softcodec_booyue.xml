@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.tencent.av.opengl.ui.GLRootView
+        android:id="@+id/av_video_gl_root_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <SurfaceView
+        android:id="@+id/av_video_surfaceView"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true" />
+
+
+    <RelativeLayout
+        android:id="@+id/rl_function"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_64"
+        android:layout_alignParentBottom="true"
+        android:background="@color/Text_GRAY"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/dimen_4"
+        android:paddingTop="@dimen/dimen_4">
+
+        <LinearLayout
+            android:id="@+id/ll_recieve_before"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dimen_25"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/btn_receive"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/trans"
+                android:src="@drawable/selector_video_chat_answer" />
+
+            <ImageButton
+                android:id="@+id/btn_refuse"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dimen_30"
+                android:background="@color/trans"
+                android:src="@drawable/selector_video_chat_hangup" />
+
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dimen_88"
+            android:text="@string/time"
+            android:textColor="@color/Text_WHITE"
+            android:textSize="@dimen/text_24" />
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
+            android:maxEms="6"
+            android:singleLine="true"
+            android:textColor="@color/Text_WHITE"
+            android:textSize="@dimen/text_22" />
+
+        <!--<LinearLayout-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_centerVertical="true"-->
+        <!--android:layout_toRightOf="@id/tv_time"-->
+        <!--android:orientation="horizontal">-->
+
+        <!--<Button-->
+        <!--android:id="@+id/av_video_accept"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginLeft="@dimen/dimen_5"-->
+        <!--android:layout_marginRight="@dimen/dimen_5"-->
+        <!--android:background="@drawable/av_btn_red"-->
+        <!--android:contentDescription="@string/accept_video"-->
+        <!--android:onClick="onBtnAccept"-->
+        <!--android:text="@string/accept_video"-->
+        <!--android:textSize="16sp"-->
+        <!--android:visibility="gone" />-->
+
+        <!--<Button-->
+        <!--android:id="@+id/av_video_switch"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginLeft="@dimen/dimen_5"-->
+        <!--android:layout_marginRight="@dimen/dimen_5"-->
+        <!--android:background="@drawable/av_btn_red"-->
+        <!--android:contentDescription="@string/switch_camera"-->
+        <!--android:onClick="onBtnSwitchVideo"-->
+        <!--android:text="@string/switch_camera"-->
+        <!--android:textSize="16sp"-->
+        <!--android:visibility="gone" />-->
+
+        <!--<Button-->
+        <!--android:id="@+id/av_video_switch_definition"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginLeft="@dimen/dimen_5"-->
+        <!--android:layout_marginRight="@dimen/dimen_5"-->
+        <!--android:background="@drawable/av_btn_red"-->
+        <!--android:onClick="onBtnSwitchVideo"-->
+        <!--android:text="@string/definition_first"-->
+        <!--android:textSize="16sp"-->
+        <!--android:visibility="gone" />-->
+
+        <!--<Button-->
+        <!--android:id="@+id/av_video_close"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginLeft="@dimen/dimen_5"-->
+        <!--android:layout_marginRight="@dimen/dimen_5"-->
+        <!--android:background="@drawable/av_btn_red"-->
+        <!--android:contentDescription="@string/close_video"-->
+        <!--android:onClick="onBtnClose"-->
+        <!--android:text="@string/close"-->
+        <!--android:textSize="16sp"-->
+        <!--android:visibility="gone" />-->
+
+        <!--<Button-->
+        <!--android:id="@+id/av_video_reject"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginLeft="@dimen/dimen_5"-->
+        <!--android:layout_marginRight="@dimen/dimen_5"-->
+        <!--android:background="@drawable/av_btn_red"-->
+        <!--android:contentDescription="@string/reject_video"-->
+        <!--android:onClick="onBtnReject"-->
+        <!--android:text="@string/reject"-->
+        <!--android:textSize="16sp"-->
+        <!--android:visibility="gone" />-->
+
+        <!--</LinearLayout>-->
+
+
+        <LinearLayout
+            android:id="@+id/ll_receive_after"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true">
+
+            <ImageButton
+                android:id="@+id/ib_speaker_switcher"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/trans"
+                android:src="@drawable/button_smooth" />
+
+            <ImageButton
+                android:id="@+id/ib_switch_camera"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dimen_30"
+                android:background="@color/trans"
+                android:src="@drawable/button_open_video" />
+
+            <!--<ImageButton-->
+                <!--android:id="@+id/ib_switch_voice"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginLeft="@dimen/dimen_30"-->
+                <!--android:background="@color/trans"-->
+                <!--android:src="@drawable/button_speaker" />-->
+
+            <ImageButton
+                android:id="@+id/ib_hangup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dimen_43"
+                android:layout_marginRight="@dimen/dimen_80"
+                android:background="@color/trans"
+                android:src="@drawable/selector_hangup_video" />
+
+
+        </LinearLayout>
+    </RelativeLayout>
+
+    <!--<Button-->
+    <!--android:id="@+id/textview_scandevice"-->
+    <!--android:layout_width="0dp"-->
+    <!--android:layout_height="45dp"-->
+    <!--android:gravity="center"-->
+    <!--android:onClick="onScanDevice"-->
+    <!--android:text="@string/scan_camera"-->
+    <!--android:textSize="16sp"-->
+    <!--android:visibility="gone" />-->
+
+    <!--<ListView-->
+    <!--android:id="@+id/listView_cameralist"-->
+    <!--android:layout_width="0dp"-->
+    <!--android:layout_height="0dp"-->
+    <!--android:alpha="0.8"-->
+    <!--android:background="#FFFFFFFF"-->
+    <!--android:visibility="gone" />-->
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="@dimen/dimen_75"
+        android:layout_marginRight="@dimen/dimen_11"
+        android:src="@drawable/shuiyinlogo" />
+
+
+</RelativeLayout>

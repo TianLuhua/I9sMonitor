@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/Text_WHITE"
+    tools:context="com.tencent.TestActivity">
+    <EditText
+        android:id="@+id/et_serial"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/Text_BLACK"
+        android:textSize="18sp"
+        tools:text="1700005382;0661A5BC52544b66;3046022100BC0A568B77804346719A345B2A9BE2D28DD4D92569C86CE65F7FC417BC1C2AFC022100D8E472D6681DF4FEAEFD3A31D35A2483BAB0D4EBD2F4578C78ABBE90B9FF3592;04C51918B8B3E2ABB44CD61BFCE7A9E6723EBFE36EA2A6F1C76992F339B26975B7C436444EBF495541CED5E4C0687D108D"/>
+
+
+    <Button
+        android:id="@+id/start_activity"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="@dimen/dimen_20"
+        android:text="进入好友列表页面"
+        android:textSize="18sp"/>
+
+</LinearLayout>

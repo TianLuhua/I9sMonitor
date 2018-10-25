@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">火火兔视频电话</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello device!</string>
+    <string name="close_video">关闭</string>
+    <string name="switch_camera">切换摄像头</string>
+    <string name="camera_image">camera image</string>
+    <string name="reject_video">拒绝</string>
+    <string name="accept_video">接受</string>
+    <string name="unique_identifier">获取唯一标识码错误</string>
+    <string name="content_empty">请输入串号</string>
+    <string name="check_internet">请检测WiFi是否连接</string>
+    <string name="bussiness_name">business_name:\nFileMsg表示发送文件\nImgMsg表示发送图片\nVideoMsg表示发送视频\nAudioMsg表示发送语音\nchanneltype:\n1表示FTN通道，2表示小文件通道\nfiletype:\n4表示其他文件，为1是图片，为2是视频，为3是语音</string>
+
+    <string name="bind_qq_guide">绑定QQ向导</string>
+    <string name="zxing_desc">手机QQ扫描本机\n二维码完成绑定\n(需要在相同wifi下绑定)</string>
+    <string name="step_one">步骤一 :</string>
+    <string name="step_one_desc">打开手机QQ扫一扫，\n扫描左边本机二维码。</string>
+
+    <string name="step_two">步骤二 :</string>
+    <string name="step_two_desc">点击同意并绑定。</string>
+
+    <string name="step_three">步骤三 :</string>
+    <string name="step_three_desc">绑定完成啦!</string>
+
+    <string name="has_invite_friend">已连接好友</string>
+    <string name="time">01:50</string>
+    <string name="calling">正在通话中...</string>
+    <string name="add_friend">添加好友</string>
+    <string name="qrcode_permission_tips">二维码需要保存到本地</string>
+    <string name="wait_friend_receive_audio">等待对方接收音频电话</string>
+    <string name="wait_friend_receive_video">等待对方接收视频</string>
+    <string name="definition_first">优先高清</string>
+    <string name="smooth_first">优先流畅</string>
+    <string name="close">关闭</string>
+    <string name="reject">拒绝</string>
+    <string name="scan_camera">扫描摄像头</string>
+    <string name="network_poor">网络环境较差，请切换到流畅试试</string>
+    <string name="switching">正在切换</string>
+    <string name="launching">启动中...</string>
+    <string name="being_video">视频中...</string>
+    <string name="network_close">当前网络不可用，请连接网络</string>
+    <string name="cancel">取消</string>
+    <string name="dialog_comfirm">确 认</string>
+    <string name="dialog_cancel">取 消</string>
+    <string name="dialog_desc">确认要解除联系人吗？</string>
+    <string name="dialog_desc_header">确认要解除联系人"</string>
+    <string name="dialog_desc_footer">"吗？</string>
+    <string name="dialog_desc_erase_all_binder">确认要解绑所有联系人？</string>
+    <string name="upgrade_desc">1、火火兔出品，母婴类首榜原创\n2、儿歌动画全新上市... \n3、卡拉ok功能</string>
+
+
+    <string name="generate_qrcode_success">生成二维码成功</string>
+    <string name="generate_qrcode_fail">生成二维码失败</string>
+
+</resources>

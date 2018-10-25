@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+    
+    <TextView
+        android:id="@+id/addfirend_textView1"
+        style="@style/Text_TitleBar_Style"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="10dp"
+        android:text="添加设备好友" />
+
+        <LinearLayout
+            android:id="@+id/addfirend_linearlayout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center" >
+
+            <TextView
+                android:id="@+id/addfirend_sociallynum_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:text="设备号："
+                android:textSize="15sp" />
+
+            <EditText
+                android:id="@+id/addfirend_editText"
+                android:layout_width="230dp"
+                android:layout_height="wrap_content"
+                android:focusable="true"
+                android:inputType="number"
+                android:paddingLeft="10dp" />
+        </LinearLayout>
+
+    <Button
+        android:id="@+id/addfirend_confirm_btn"
+        style="@style/Text_TitleBar_Style"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="confirmadd"
+        android:text="确定"
+        android:textColor="@color/Text_BLUE" 
+        android:layout_marginTop="130dip"
+        android:layout_gravity="center_horizontal" />
+
+</LinearLayout>

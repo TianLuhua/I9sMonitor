@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg">
+
+    <TextView
+        android:id="@+id/tv_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="14px"
+        android:layout_marginTop="15px"
+        android:drawableLeft="@drawable/selector_back"
+        android:drawablePadding="13px"
+        android:visibility="gone"/>
+
+    <!--<ImageButton-->
+        <!--android:id="@+id/ib_speaker"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="right|top"-->
+        <!--android:layout_marginRight="@dimen/dimen_94"-->
+        <!--android:layout_marginTop="@dimen/dimen_20"-->
+        <!--android:background="@color/trans"-->
+        <!--android:src="@drawable/button_speaker_nr" />-->
+
+    <ImageButton
+        android:id="@+id/ib_speaker_switcher"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right|top"
+        android:layout_marginRight="@dimen/dimen_22"
+        android:layout_marginTop="@dimen/dimen_20"
+        android:background="@color/trans"
+        android:src="@drawable/button_speaker_nr" />
+
+
+    <LinearLayout
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="@dimen/dimen_155"
+            android:layout_height="@dimen/dimen_187"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/head_portrait_bg">
+
+            <com.tencent.CircleImageView
+                android:id="@+id/iv_avatar"
+                android:layout_width="@dimen/dimen_145"
+                android:layout_height="@dimen/dimen_145"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/dimen_37" />
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/dimen_12"
+            android:text="@string/app_name"
+            android:textColor="@color/color_4e4e4e"
+            android:textSize="@dimen/text_22" />
+
+        <TextView
+            android:id="@+id/tv_state_desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/dimen_33"
+            android:text="@string/calling"
+            android:textColor="@color/color_2c768a"
+            android:textSize="@dimen/text_18" />
+       <TextView
+            android:id="@+id/tv_duration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/dimen_15"
+            android:text="@string/time"
+            android:textColor="@color/color_2c768a"
+            android:textSize="@dimen/text_18" />
+
+        <ImageButton
+            android:id="@+id/tv_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/dimen_13"
+            android:src="@drawable/selector_cancel_audio"
+            android:background="@color/trans"
+             />
+
+        <LinearLayout
+            android:id="@+id/ll_recieve_before"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/dimen_13"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/tv_hangup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/selector_hangup_audio"
+                android:background="@color/trans"
+                />
+
+            <ImageButton
+                android:id="@+id/tv_receive"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/selector_receive_audio"
+                android:background="@color/trans"
+                android:layout_marginLeft="@dimen/dimen_15"
+                 />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right|bottom"
+        android:layout_marginRight="@dimen/dimen_240"
+        android:layout_marginBottom="@dimen/dimen_24"
+        android:src="@drawable/shuiyinlogo"/>
+</FrameLayout>

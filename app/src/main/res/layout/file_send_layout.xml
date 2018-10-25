@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/common_file_path"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="filepath" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/channel_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="channeltype" />
+
+                <EditText
+                    android:id="@+id/file_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="filetype" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/uploadCommonFile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:src="@android:drawable/ic_menu_camera"
+                android:text="发送普通uploadFile"
+                android:textColor="@color/Text_BLUE"
+                android:textSize="16sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/Text_BLACK"/>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <EditText
+                    android:id="@+id/business_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="business_name" />
+
+
+                <Button
+                    android:id="@+id/sendCommonFile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:src="@android:drawable/ic_menu_camera"
+                    android:text="发送普通文件sendFileTo"
+                    android:textColor="@color/Text_BLUE"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/Text_BLACK"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/bussiness_name" />
+    </LinearLayout>
+</ScrollView>
+

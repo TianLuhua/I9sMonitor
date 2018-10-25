@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="14px"
+        android:layout_marginTop="15px"
+        android:drawableLeft="@drawable/selector_back"
+        android:drawablePadding="13px" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center">
+
+        <FrameLayout
+            android:layout_width="@dimen/dimen_155"
+            android:layout_height="@dimen/dimen_187"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/head_portrait_bg">
+
+            <com.tencent.CircleImageView
+                android:id="@+id/iv_avatar"
+                android:layout_width="@dimen/dimen_145"
+                android:layout_height="@dimen/dimen_145"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/dimen_37" />
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/dimen_7"
+            android:text="@string/app_name"
+            android:textColor="@color/color_4e4e4e"
+            android:textSize="@dimen/text_19" />
+       <!-- public int type;
+        public String uin;//对面的uin或者din或者openid
+        public String headUrl; //设备头像url
+        public String nickName; //绑定者QQ昵称或备注
+        public String devName; //如果type为TYPE_FRIEND_DEVICE，有好友的设备名称
+        public int devType;// 如果type为TYPE_FRIEND_DEVICE，有设备的类型
+        public String devDiscript;   //-->
+        <TextView
+            android:id="@+id/tv_devname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/dimen_7"
+            android:text="@string/app_name"
+            android:textColor="@color/color_4e4e4e"
+            android:textSize="@dimen/text_19" />
+
+
+
+    </LinearLayout>
+
+
+</FrameLayout>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <TextView
+        android:id="@+id/wifiinfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp"
+        android:text="配网说明：\n 1. 支持声波配网，手Q扫二维码，进入配网界面，播放声波。手Q版本要求 5.8+。\n 2. 配网过程中手Q尽可能靠近本设备，声波衰减厉害，远了不易成功。\n 3. 本Demo只做wifi信息同步，联网操作需要另作实现。"
+        android:textColor="@android:color/black"
+        android:textSize="20dp" />
+
+</FrameLayout>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/shape_newfriendreq"
+    android:orientation="horizontal" >
+
+    <ImageView
+        android:id="@+id/friendinfo_headpic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="5dip"
+        android:layout_marginRight="5dip"/>
+
+    <TextView
+                android:id="@+id/newfriendreq_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="设备好友请求"
+                android:textSize="15sp" />
+    <Button
+        android:id="@+id/newfriendreq_btn"
+        style="@style/Text_TitleBar_Style"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="查看"
+        android:textColor="@color/Text_BLUE" 
+        android:layout_marginLeft="10dip" /> 
+    
+
+</LinearLayout>
