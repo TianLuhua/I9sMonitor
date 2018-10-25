@@ -33,37 +33,38 @@ android {
         }
     }
     //重命名apk文件
-    def String apkName = defaultConfig.versionName + "_" + defaultConfig.versionCode as String
+    def apkVersion = defaultConfig.versionName + "_" + defaultConfig.versionCode as String
+
 
     applicationVariants.all { variant ->
 
-        if (variant.buildType.name.equals('release')) {
-            variant.outputs.all { output ->
-                def appName = 'BooYue_I9sMonitor_'
-                def buildName = ''
-                variant.productFlavors.each { product ->
-                    //循环取到的是productFlavors的每个名字，也是区分名字的关键
-                    buildName = product.name
-                }
-
-                def releaseApkName = appName + buildName + "${buildTime()}" + "_${apkName}_release.apk"
-                outputFileName = releaseApkName
+        variant.outputs.all { output ->
+            def appName = 'BooYue_I9sMonitor_'
+            def buildName = ''
+            def type = variant.buildType.name
+            variant.productFlavors.each { product ->
+                //循环取到的是productFlavors的每个名字，也是区分名字的关键
+                buildName = product.name
             }
-        } else if (variant.buildType.name.equals('debug')) {
-            variant.outputs.all { output ->
-                def appName = 'BooYue_I9sMonitor_'
-                def buildName = ''
-                variant.productFlavors.each { product ->
-                    //循环取到的是productFlavors的每个名字，也是区分名字的关键
-                    buildName = product.name
-                }
 
-                def releaseApkName = appName + buildName + "${buildTime()}" + "_${apkName}_debug.apk"
-                outputFileName = releaseApkName
-            }
+            def releaseApkName = appName + buildName + "${buildTime()}" + "_" + apkVersion + "_" + type + ".apk"
+            outputFileName = releaseApkName
+
 
         }
 
+
+
+
+        dependencies {
+            implementation files('libs/txdevicesdk.jar')
+            implementation files('libs/zixing-core-3.2.0.jar')
+            implementation "com.android.support:support-v4:$rootProject.supportLibraryVersion"
+            implementation "com.android.support:recyclerview-v7:$rootProject.recyclerViewVersion"
+            implementation "com.android.support:appcompat-v7:$rootProject.appcompat_v7_Version"
+            implementation "com.android.support.constraint:constraint-layout:$rootProject.constraintVersion"
+            implementation "com.squareup.okhttp3:logging-interceptor:$rootProject.okhttp3Version"
+        }
     }
 
 }
@@ -72,14 +73,4 @@ def buildTime() {
     def date = new Date()
     def formattedDate = date.format("yyyyMMdd")
     return formattedDate
-}
-
-dependencies {
-    implementation files('libs/txdevicesdk.jar')
-    implementation files('libs/zixing-core-3.2.0.jar')
-    implementation "com.android.support:support-v4:$rootProject.supportLibraryVersion"
-    implementation "com.android.support:recyclerview-v7:$rootProject.recyclerViewVersion"
-    implementation "com.android.support:appcompat-v7:$rootProject.appcompat_v7_Version"
-    implementation "com.android.support.constraint:constraint-layout:$rootProject.constraintVersion"
-    implementation "com.squareup.okhttp3:logging-interceptor:$rootProject.okhttp3Version"
 }
