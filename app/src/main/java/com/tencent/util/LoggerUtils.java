@@ -4,7 +4,7 @@ import android.util.Log;
 
 public class LoggerUtils {
 	
-	private static boolean isOpen = false;
+	private static boolean isOpen = true;
 	private static String TAG = "LoggerUtils";
 
 	public static void i(String msg){

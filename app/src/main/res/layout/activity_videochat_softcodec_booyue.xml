@@ -170,13 +170,13 @@
                 android:background="@color/trans"
                 android:src="@drawable/button_open_video" />
 
-            <!--<ImageButton-->
-                <!--android:id="@+id/ib_switch_voice"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginLeft="@dimen/dimen_30"-->
-                <!--android:background="@color/trans"-->
-                <!--android:src="@drawable/button_speaker" />-->
+            <ImageButton
+                android:id="@+id/ib_switch_voice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dimen_30"
+                android:background="@color/trans"
+                android:src="@drawable/button_speaker" />
 
             <ImageButton
                 android:id="@+id/ib_hangup"

@@ -9,6 +9,7 @@ import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Parcelable;
@@ -44,6 +45,8 @@ import com.booyue.monitor.R;
 import com.tencent.util.LoggerUtils;
 import com.tencent.util.TimeUtils;
 
+import static android.media.AudioManager.ADJUST_MUTE;
+import static android.media.AudioManager.ADJUST_UNMUTE;
 import static com.tencent.av.VideoController.ACTION_VIDEO_QOS_NOTIFY;
 
 /**
@@ -80,7 +83,7 @@ public class BooyueVideoChatActivitySF extends Activity {
     private Handler mHandler = new Handler();
     private ImageButton ibSwitchDefinition;
     private ImageButton ibSwitchCamera;
-//    private ImageButton ibSwitchVoice;
+    private ImageButton ibSwitchVoice;
     private ImageButton ibHangup;
     private TextView tvTime;
     private long startTime;
@@ -220,7 +223,7 @@ public class BooyueVideoChatActivitySF extends Activity {
 
         ibSwitchDefinition = (ImageButton) findViewById(R.id.ib_speaker_switcher);
         ibSwitchCamera = (ImageButton) findViewById(R.id.ib_switch_camera);
-//        ibSwitchVoice = (ImageButton) findViewById(R.id.ib_switch_voice);
+        ibSwitchVoice = (ImageButton) findViewById(R.id.ib_switch_voice);
         ibHangup = (ImageButton) findViewById(R.id.ib_hangup);
         tvTime = (TextView) findViewById(R.id.tv_time);
         ibSwitchDefinition.setOnClickListener(new View.OnClickListener() {
@@ -250,18 +253,18 @@ public class BooyueVideoChatActivitySF extends Activity {
         ibSwitchCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mSwitchCameraIndex ++;
-                if(mSwitchCameraIndex % 2 == 0){//打开摄像头，对方和自己画面都显示
+                mSwitchCameraIndex++;
+                if (mSwitchCameraIndex % 2 == 0) {//打开摄像头，对方和自己画面都显示
                     VideoController.getInstance().execute(openCamera, null);
                     mGlSmallVideoView.setVisibility(GLView.VISIBLE);
                     mGlBigVideoView.setVisibility(GLView.VISIBLE);
                     ibSwitchCamera.setImageResource(R.drawable.button_open_video);
-                }else {//关闭摄像头，根据条件是来显示大画面还是显示小画面
+                } else {//关闭摄像头，根据条件是来显示大画面还是显示小画面
                     VideoController.getInstance().execute(closeCamera, null);
-                    if(mSwitchVideoIndex % 2 == 0){
+                    if (mSwitchVideoIndex % 2 == 0) {
                         mGlSmallVideoView.setVisibility(GLView.INVISIBLE);
                         mGlBigVideoView.setVisibility(GLView.VISIBLE);
-                    }else {
+                    } else {
                         mGlBigVideoView.setVisibility(GLView.INVISIBLE);
                         mGlSmallVideoView.setVisibility(GLView.VISIBLE);
                     }
@@ -269,30 +272,18 @@ public class BooyueVideoChatActivitySF extends Activity {
                 }
             }
         });
-//        ibSwitchVoice.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                /**modify by : 2018/3/1 18:41 SDK不起作用，用系统方法实现静音与非静音*/
-////                AudioManager audioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
-////                int current = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
-////                LoggerUtils.d(TAG + "curent = " + current);
-////                int direction = current != 0 ? ADJUST_MUTE : ADJUST_UNMUTE;
-////                if(current !=0 ){
-////                    ibSwitchVoice.setImageResource(R.drawable.button_mute);
-////                }else {
-////                    ibSwitchVoice.setImageResource(R.drawable.button_speaker);
-////                }
-////                audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC,direction,0);
-//
-//                if (VideoController.getInstance().isSelfMute()) {
-//                    VideoController.getInstance().setSelfMute(false);
-//                    ibSwitchVoice.setImageResource(R.drawable.button_speaker);
-//                } else {
-//                    VideoController.getInstance().setSelfMute(true);
-//                    ibSwitchVoice.setImageResource(R.drawable.button_mute);
-//                }
-//            }
-//        });
+        ibSwitchVoice.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (VideoController.getInstance().isSelfMute()) {
+                    VideoController.getInstance().setSelfMute2(false);
+                    ibSwitchVoice.setImageResource(R.drawable.button_speaker);
+                } else {
+                    VideoController.getInstance().setSelfMute2(true);
+                    ibSwitchVoice.setImageResource(R.drawable.button_mute);
+                }
+            }
+        });
         ibHangup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -322,7 +313,7 @@ public class BooyueVideoChatActivitySF extends Activity {
 
     }
 
-    private void initReceiver(){
+    private void initReceiver() {
         mBroadcastHandler = new BroadcastHandler();
         IntentFilter filter = new IntentFilter();
         filter.addAction(VideoConstants.ACTION_STOP_VIDEO_CHAT);
@@ -604,7 +595,7 @@ public class BooyueVideoChatActivitySF extends Activity {
             }
             if (mCamera != null) {
                 boolean flag = mCamera.closeCamera();
-                LoggerUtils.d(TAG,"close camera successful : " + flag);
+                LoggerUtils.d(TAG, "close camera successful : " + flag);
             }
             if (QLog.isColorLevel()) {
                 QLog.d(TAG, QLog.CLR, "closeCamera end.");
@@ -619,7 +610,7 @@ public class BooyueVideoChatActivitySF extends Activity {
     }
 
 
-    private void terminateVideo(){
+    private void terminateVideo() {
         VideoController.getInstance().execute(closeCamera, null);
         VideoController.getInstance().stopRing();
 
@@ -789,9 +780,9 @@ public class BooyueVideoChatActivitySF extends Activity {
                 if (currentDefinition == VideoController.DEFINITION_TYPE_CLEAR) {
                     Toast.makeText(context, R.string.network_poor, Toast.LENGTH_SHORT).show();
                 }
-            }else if((Intent.ACTION_CLOSE_SYSTEM_DIALOGS).equals(intent.getAction())){
+            } else if ((Intent.ACTION_CLOSE_SYSTEM_DIALOGS).equals(intent.getAction())) {
                 String reasonKey = intent.getStringExtra(SYSTEM_DIALOG_REASON_KEY);
-                if(SYSTEM_DIALOG_REASON_HOME_KEY.equals(reasonKey)){
+                if (SYSTEM_DIALOG_REASON_HOME_KEY.equals(reasonKey)) {
                     LoggerUtils.d(TAG, "press home key: ");
                     ///按下Home键
                     finish();
@@ -855,7 +846,7 @@ public class BooyueVideoChatActivitySF extends Activity {
     Runnable updateTime = new Runnable() {
         @Override
         public void run() {
-            if(tvTime.getVisibility() == View.GONE){
+            if (tvTime.getVisibility() == View.GONE) {
                 tvTime.setVisibility(View.VISIBLE);
             }
             tvTime.setText(TimeUtils.long2TimeFormat(startTime));
@@ -864,10 +855,9 @@ public class BooyueVideoChatActivitySF extends Activity {
     };
     //
     static public final String SYSTEM_DIALOG_REASON_KEY = "reason";
-//    static public final String SYSTEM_DIALOG_REASON_GLOBAL_ACTIONS = "globalactions";
+    //    static public final String SYSTEM_DIALOG_REASON_GLOBAL_ACTIONS = "globalactions";
 //    static public final String SYSTEM_DIALOG_REASON_RECENT_APPS = "recentapps";
     static public final String SYSTEM_DIALOG_REASON_HOME_KEY = "homekey";
-   
 
 
 }

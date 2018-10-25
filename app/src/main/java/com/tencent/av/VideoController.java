@@ -130,6 +130,8 @@ public class VideoController extends AbstractNetChannel implements IVideoEventLi
     private boolean selfMute;// 标记自己静音
     private int mCurrentDefinitionType;
 
+    private AudioManager audioManager;
+
     public static VideoController getInstance() {
         if (g_Instance == null) {
             g_Instance = new VideoController();
@@ -139,6 +141,7 @@ public class VideoController extends AbstractNetChannel implements IVideoEventLi
 
     /**
      * 是否存在本地摄像头
+     *
      * @return true 存在本地摄像头 false 不存在
      */
     public boolean isHasLocalCam() {
@@ -160,6 +163,14 @@ public class VideoController extends AbstractNetChannel implements IVideoEventLi
 
     //bHwEnc和bHwDec可以组成四种组合：软编软解（支持）、软编硬解（不支持）、硬编硬解（支持）、硬编软解（支持�?
     public void initVcController(Context context, boolean bHwEnc, boolean bHwDec) {
+
+
+        //获取音频服务
+        audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+        //设置声音模式
+        audioManager.setMode(AudioManager.STREAM_MUSIC);
+
+
         //定时器
         tmCommunication = new Timer("communication_timer", true);
         Log.d("initVcController", "create timer ok");
@@ -1674,6 +1685,17 @@ public class VideoController extends AbstractNetChannel implements IVideoEventLi
     }
 
     public boolean isSelfMute() {
-        return selfMute;
+//        return selfMute;
+        return audioManager.isMicrophoneMute();
+    }
+
+    /**
+     * tencen提供的setSelfMute无作用
+     *
+     * @param mute
+     */
+    public void setSelfMute2(boolean mute) {
+        selfMute = mute;
+        audioManager.setMicrophoneMute(mute);
     }
 }
