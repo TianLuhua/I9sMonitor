@@ -5,7 +5,7 @@ import android.graphics.BitmapFactory;
 import android.os.Handler;
 import android.util.Log;
 
-import com.tencent.MyApp;
+import com.MyApp;
 import com.tencent.devicedemo.ListItemInfo;
 import com.booyue.monitor.R;
 

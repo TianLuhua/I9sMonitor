@@ -25,7 +25,7 @@
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
 
     <application
-        android:name="com.tencent.MyApp"
+        android:name="com.MyApp"
         android:allowBackup="true"
         android:debuggable="true"
         android:icon="@drawable/app_logo1"
@@ -43,10 +43,10 @@
             <!-- </intent-filter> -->
         </activity>
         <activity
-            android:name="com.tencent.BooyueGuideActivity"
+            android:name="com.booyue.binding.BooyueGuideActivity"
             android:label="@string/app_name" />
         <activity
-            android:name="com.tencent.BooyueAudioChatActivity"
+            android:name="com.booyue.audiochat.BooyueAudioChatActivity"
             android:alwaysRetainTaskState="true"
             android:configChanges="keyboardHidden|orientation|locale|screenSize"
             android:label="@string/app_name"
@@ -54,7 +54,7 @@
             android:process=":video"
             android:theme="@android:style/Theme.NoTitleBar" />
         <activity
-            android:name="com.tencent.BooyueVideoChatActivitySF"
+            android:name="com.booyue.videochat.BooyueVideoChatActivitySF"
             android:alwaysRetainTaskState="true"
             android:configChanges="keyboardHidden|orientation|locale|screenSize"
             android:label="@string/app_name"
@@ -63,14 +63,14 @@
             android:screenOrientation="landscape"
             android:theme="@android:style/Theme.NoTitleBar" />
         <activity
-            android:name="com.tencent.BooyueFriendInfoActivity"
+            android:name="com.booyue.friend.friendinfo.BooyueFriendInfoActivity"
             android:configChanges="keyboardHidden|orientation|locale|screenSize"
             android:label="@string/app_name"
             android:launchMode="singleTask"
             android:screenOrientation="landscape"
             android:theme="@android:style/Theme.NoTitleBar" />
         <activity
-            android:name="com.tencent.BooyueFriendListActivity"
+            android:name="com.booyue.friend.BooyueFriendListActivity"
             android:alwaysRetainTaskState="true"
             android:configChanges="keyboardHidden|orientation|locale|screenSize"
             android:label="@string/app_name"
@@ -172,17 +172,11 @@
             android:name="com.tencent.devicedemo.VideoMonitorService"
             android:process=":video" />
         <service
+            android:name="com.booyue.monitor.BooyueVideoMonitorService"
+            android:process=":video" />
+        <service
             android:name="com.tencent.av.VideoService"
             android:process=":video" />
-
-        <activity
-            android:name="com.tencent.TestActivity"
-            android:configChanges="keyboardHidden|orientation|locale|screenSize"
-            android:label="@string/app_name"
-            android:launchMode="singleTask"
-            android:screenOrientation="landscape"
-            android:theme="@style/Theme.AppCompat.NoActionBar">
-        </activity>
     </application>
 
 </manifest>

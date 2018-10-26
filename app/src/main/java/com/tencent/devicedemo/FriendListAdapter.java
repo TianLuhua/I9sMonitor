@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FriendListAdapter extends ListAdapter {
-	private static String TAG = "FriendListAdapter";
+	private static String TAG = "BooyueFriendListAdapter";
 	private List<TXFriendInfo> mListFriend = new ArrayList<>();
 	private Context mContext;
 	

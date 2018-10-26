@@ -48,7 +48,7 @@
             android:layout_gravity="center_horizontal"
             android:background="@drawable/head_portrait_bg">
 
-            <com.tencent.CircleImageView
+            <com.booyue.widget.CircleImageView
                 android:id="@+id/iv_avatar"
                 android:layout_width="@dimen/dimen_145"
                 android:layout_height="@dimen/dimen_145"

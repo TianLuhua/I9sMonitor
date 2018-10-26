@@ -1,4 +1,4 @@
-package com.tencent;
+package com.booyue.friend.friendinfo;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -15,6 +15,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.booyue.base.BaseActivity;
+import com.booyue.videochat.BooyueVideoChatActivitySF;
+import com.booyue.widget.CircleImageView;
 import com.tencent.av.VideoController;
 import com.tencent.av.core.VideoConstants;
 import com.tencent.device.FriendInfo;

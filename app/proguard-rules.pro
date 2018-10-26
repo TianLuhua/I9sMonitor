@@ -96,8 +96,8 @@
     -dontwarn okhttp3.**
     -keep class okhttp3.** { *; }
 
-    -dontwarn com.tencent.annotation.**
-    -keep class com.tencent.annotation.** { *; }
+    -dontwarn com.booyue.annotation.**
+    -keep class com.booyue.annotation.** { *; }
 
 
 

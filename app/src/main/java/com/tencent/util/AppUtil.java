@@ -3,7 +3,7 @@ package com.tencent.util;
 import android.app.ActivityManager;
 import android.content.Context;
 
-import com.tencent.MyApp;
+import com.MyApp;
 
 import java.util.List;
 

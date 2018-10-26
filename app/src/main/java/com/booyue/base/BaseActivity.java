@@ -1,4 +1,4 @@
-package com.tencent;
+package com.booyue.base;
 
 import android.app.Activity;
 import android.os.Bundle;

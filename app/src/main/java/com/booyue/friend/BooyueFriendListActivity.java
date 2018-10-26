@@ -1,4 +1,4 @@
-package com.tencent;
+package com.booyue.friend;
 
 
 import android.app.AlertDialog;
@@ -17,6 +17,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.booyue.Conf;
+import com.booyue.base.BaseActivity;
+import com.booyue.serial.SerialNumberManager;
+import com.booyue.widget.CommonDialog;
+import com.booyue.widget.DialogManager;
 import com.tencent.device.TXBinderInfo;
 import com.tencent.device.TXDeviceService;
 import com.booyue.monitor.R;
@@ -43,7 +48,6 @@ import okhttp3.Response;
 /**
  * Created by Administrator on 2017/5/23.
  * app主页（绑定列表页面）
- *
  */
 public class BooyueFriendListActivity extends BaseActivity {
     private static final String TAG = "BooyueFriendListActivity-------";
@@ -58,7 +62,7 @@ public class BooyueFriendListActivity extends BaseActivity {
     //通知广播
     private NotifyReceiver mNotifyReceiver;
     //列表适配器
-    private FriendListAdapter mBinderAdapter;
+    private BooyueFriendListAdapter mBinderAdapter;
     //RecyclerView的显示布局
     private LinearLayoutManager linearLayoutManager;
     //解除所有绑定
@@ -78,7 +82,7 @@ public class BooyueFriendListActivity extends BaseActivity {
          * 同步：本地获取
          * 异步：网络获取之后通过回调调用
          */
-        SerialNumberManager.readSerialNumber(this, new SerialNumberListener() {
+        SerialNumberManager.readSerialNumber(this, new SerialNumberManager.SerialNumberListener() {
             //异步获取之后回调，同步不回调此方法，同步方法执行在line 70
             @Override
             public void onSerailNumberListener(final int ret) {
@@ -86,20 +90,19 @@ public class BooyueFriendListActivity extends BaseActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                         startService();
+                        startService();
                     }
                 });
             }
         });
         LoggerUtils.d(TAG + "-------------------------");
-        // TODO: 2018/2/26
         // 晨芯方案商&串号没有写入文件，
         // 不需要做任何操作，此时启动线程网络获取串号并写入文件，操作执行在接口回调中（line 60）
         /**modify by : 2018/3/5 16:17*/ //T6改用服务端获取数据
-        if(!FileUtil.isSNCached() && SerialNumberManager.matchDevice()){//启动线程通过回调获取
+        if (!FileUtil.isSNCached() && SerialNumberManager.matchDevice()) {//启动线程通过回调获取
 
-        }else {
-           startService();
+        } else {
+            startService();
         }
 
 
@@ -111,7 +114,6 @@ public class BooyueFriendListActivity extends BaseActivity {
 ////        String sn = "1700005382;FB8BFCD862274d43;3045022100BB556608E834992CBCA928D740D689B3C657A5457162CCCC664C524DE65497B402205BAE197702729A6A4EA1CDC12C7C6678D66A75F85BC122CEA594ADCDA1547BB6;04C51918B8B3E2ABB44CD61BFCE7A9E6723EBFE36EA2A6F1C76992F339B26975B7C436444EBF495541CED5E4C0687D108D";
 //        SerialNumberManager.spilitSerailNumber(sn);
 //        startService();
-
 
 
         tvBack = (TextView) findViewById(R.id.tv_back);
@@ -157,7 +159,7 @@ public class BooyueFriendListActivity extends BaseActivity {
 
         initRecyclerView();
 
-        if(!checkUpgrade){
+        if (!checkUpgrade) {
             checkUpgrade();
         }
     }
@@ -165,7 +167,7 @@ public class BooyueFriendListActivity extends BaseActivity {
     /**
      * 启动服务
      */
-    public void startService(){
+    public void startService() {
         if (Conf.PRODUCT_ID == 0 || TextUtils.isEmpty(Conf.LICENSE) || TextUtils.isEmpty(Conf.SERIAL_NUMBER)
                 || TextUtils.isEmpty(Conf.SERVER_PUBLIC_KEY)) {
             showToast(R.string.unique_identifier);
@@ -217,7 +219,7 @@ public class BooyueFriendListActivity extends BaseActivity {
         //设置布局
         recyclerView.setLayoutManager(linearLayoutManager);
         //创建适配器
-        mBinderAdapter = new FriendListAdapter(this);
+        mBinderAdapter = new BooyueFriendListAdapter(this);
         //设置适配器
         recyclerView.setAdapter(mBinderAdapter);
 
@@ -357,7 +359,7 @@ public class BooyueFriendListActivity extends BaseActivity {
     /**
      * 检测升级
      */
-    private void checkUpgrade(){
+    private void checkUpgrade() {
         UpgradeUtil.checkUpgrade(this, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -366,9 +368,9 @@ public class BooyueFriendListActivity extends BaseActivity {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                if(response != null && response.isSuccessful()){
+                if (response != null && response.isSuccessful()) {
                     String result = response.body().string();
-                    LoggerUtils.d(TAG +"checkUpgrade response = " + result);
+                    LoggerUtils.d(TAG + "checkUpgrade response = " + result);
                     processResult(result);
                 }
             }
@@ -377,16 +379,16 @@ public class BooyueFriendListActivity extends BaseActivity {
     }
 
 
-    private  void processResult(String result) {
-        if(result == null || result == "")return;
+    private void processResult(String result) {
+        if (result == null || result == "") return;
         try {
             JSONObject jsonObject = new JSONObject(result);
-            if("1".equals(jsonObject.getString("ret"))){
+            if ("1".equals(jsonObject.getString("ret"))) {
                 JSONObject contentOject = jsonObject.getJSONObject("content");
                 final String apk = contentOject.getString("apk");
                 String newVersion = contentOject.getString("newVersion");
                 final String tips = contentOject.getString("video_content");
-                if(!TextUtils.isEmpty(apk)){
+                if (!TextUtils.isEmpty(apk)) {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -405,8 +407,9 @@ public class BooyueFriendListActivity extends BaseActivity {
 
     /**
      * 初始化升级对话框
-     * @param view 升级对话框
-     * @param tips 提示语
+     *
+     * @param view   升级对话框
+     * @param tips   提示语
      * @param apkUrl 新版本apk地址
      */
     private void initUpgradeView(View view, String tips, final String apkUrl) {

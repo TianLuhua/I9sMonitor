@@ -20,8 +20,7 @@ import android.util.Log;
 import android.view.WindowManager;
 import android.widget.Toast;
 
-import com.tencent.BooyueAudioChatActivity;
-import com.tencent.BooyueVideoChatActivitySF;
+import com.booyue.monitor.BooyueVideoMonitorService;
 import com.tencent.util.LoggerUtils;
 import com.tencent.av.camera.AndroidCamera;
 import com.tencent.av.camera.VcCamera;
@@ -41,8 +40,6 @@ import com.tencent.device.FriendInfo;
 import com.tencent.device.ITXDeviceService;
 import com.tencent.device.QLog;
 import com.tencent.device.TXDeviceService;
-import com.tencent.devicedemo.VideoChatActivityHW;
-import com.tencent.devicedemo.VideoChatActivityNFC;
 import com.tencent.devicedemo.VideoMonitorService;
 import com.tencent.sharp.jni.TraeAudioManager;
 
@@ -833,43 +830,50 @@ public class VideoController extends AbstractNetChannel implements IVideoEventLi
             rejectRequest(fromUin);
         } else {
             if (mContext != null) {
-                if (Long.parseLong(bindID) == 4100) {
-                    QLog.d(TAG, QLog.CLR, "recv video monitor request");
-                    Intent intent = new Intent(mContext, VideoMonitorService.class);
-                    intent.putExtra("peerid", fromUin);
-                    LoggerUtils.d(TAG + "onRequestVideo VideoMonitorService");
-                    mContext.startService(intent);
-                } else if (onlyAudio) {
-//                    Intent intent = new Intent(mContext, AudioChatActivity.class);
-                    Intent intent = new Intent(mContext, BooyueAudioChatActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    intent.putExtra("receive", true);
-                    intent.putExtra("peerid", fromUin);
-                    intent.putExtra("dinType", uinType);
-                    LoggerUtils.d(TAG + "onRequestVideo AudioChatActivity");
-                    mContext.startActivity(intent);
-                } else {
-                    QLog.d(TAG, QLog.CLR, "recv video chat request");
-                    Intent intent = null;
-                    if (VideoController.getInstance().isHasLocalCam()) {
-                        if (VideoController.isHardwareEncoderEnabled()) {
-                            intent = new Intent(mContext, VideoChatActivityHW.class);
-                            LoggerUtils.d(TAG + "onRequestVideo VideoChatActivityHW");
-                        } else {
-//                            intent = new Intent(mContext, VideoChatActivitySF.class);
-                            intent = new Intent(mContext, BooyueVideoChatActivitySF.class);
-//                            intent = new Intent(mContext, BooyueFriendInfoActivity.class);
-                            LoggerUtils.d(TAG + "onRequestVideo VideoChatActivitySF");
-                        }
-                    } else {
-                        intent = new Intent(mContext, VideoChatActivityNFC.class);
-                        LoggerUtils.d(TAG + "onRequestVideo VideoChatActivityNFC");
-                    }
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    intent.putExtra("receive", true);
-                    intent.putExtra("peerid", fromUin);
-                    mContext.startActivity(intent);
-                }
+
+                QLog.d(TAG, QLog.CLR, "recv video monitor request");
+                Intent intent = new Intent(mContext, BooyueVideoMonitorService.class);
+                intent.putExtra("peerid", fromUin);
+                LoggerUtils.d(TAG + "onRequestVideo VideoMonitorService");
+                mContext.startService(intent);
+
+//                if (Long.parseLong(bindID) == 4100) {
+//                    QLog.d(TAG, QLog.CLR, "recv video monitor request");
+//                    Intent intent = new Intent(mContext, VideoMonitorService.class);
+//                    intent.putExtra("peerid", fromUin);
+//                    LoggerUtils.d(TAG + "onRequestVideo VideoMonitorService");
+//                    mContext.startService(intent);
+//                } else if (onlyAudio) {
+////                    Intent intent = new Intent(mContext, AudioChatActivity.class);
+//                    Intent intent = new Intent(mContext, BooyueAudioChatActivity.class);
+//                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                    intent.putExtra("receive", true);
+//                    intent.putExtra("peerid", fromUin);
+//                    intent.putExtra("dinType", uinType);
+//                    LoggerUtils.d(TAG + "onRequestVideo AudioChatActivity");
+//                    mContext.startActivity(intent);
+//                } else {
+//                    QLog.d(TAG, QLog.CLR, "recv video chat request");
+//                    Intent intent = null;
+//                    if (VideoController.getInstance().isHasLocalCam()) {
+//                        if (VideoController.isHardwareEncoderEnabled()) {
+//                            intent = new Intent(mContext, VideoChatActivityHW.class);
+//                            LoggerUtils.d(TAG + "onRequestVideo VideoChatActivityHW");
+//                        } else {
+////                            intent = new Intent(mContext, VideoChatActivitySF.class);
+//                            intent = new Intent(mContext, BooyueVideoChatActivitySF.class);
+////                            intent = new Intent(mContext, BooyueFriendInfoActivity.class);
+//                            LoggerUtils.d(TAG + "onRequestVideo VideoChatActivitySF");
+//                        }
+//                    } else {
+//                        intent = new Intent(mContext, VideoChatActivityNFC.class);
+//                        LoggerUtils.d(TAG + "onRequestVideo VideoChatActivityNFC");
+//                    }
+//                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                    intent.putExtra("receive", true);
+//                    intent.putExtra("peerid", fromUin);
+//                    mContext.startActivity(intent);
+//                }
             }
 
             mMapUinPending.put(fromUin, false);

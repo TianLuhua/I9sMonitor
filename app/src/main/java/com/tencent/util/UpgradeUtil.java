@@ -8,7 +8,7 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Environment;
 
-import com.tencent.UserRequestManager;
+import com.booyue.serial.UserRequestManager;
 
 import java.io.BufferedInputStream;
 import java.io.File;

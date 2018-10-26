@@ -1,4 +1,4 @@
-package com.tencent;
+package com.booyue.widget;
 
 import android.app.AlertDialog;
 import android.content.Context;

@@ -1,4 +1,4 @@
-package com.tencent.annotation;
+package com.booyue.annotation;
 
 /**
  * Created by Administrator on 2018/4/26.09:29
@@ -6,7 +6,7 @@ package com.tencent.annotation;
 
 import android.support.annotation.StringDef;
 
-import com.tencent.SerialNumberManager;
+import com.booyue.serial.SerialNumberManager;
 
 @StringDef({SerialNumberManager.MAC,SerialNumberManager.SN})
 public @interface Unique {

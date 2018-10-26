@@ -1,4 +1,4 @@
-package com.tencent;
+package com.booyue.widget;
 
 import android.content.Context;
 import android.content.res.TypedArray;

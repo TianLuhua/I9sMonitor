@@ -1,4 +1,4 @@
-package com.tencent;
+package com.booyue.videochat;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -9,7 +9,6 @@ import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
-import android.media.AudioManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Parcelable;
@@ -45,8 +44,6 @@ import com.booyue.monitor.R;
 import com.tencent.util.LoggerUtils;
 import com.tencent.util.TimeUtils;
 
-import static android.media.AudioManager.ADJUST_MUTE;
-import static android.media.AudioManager.ADJUST_UNMUTE;
 import static com.tencent.av.VideoController.ACTION_VIDEO_QOS_NOTIFY;
 
 /**

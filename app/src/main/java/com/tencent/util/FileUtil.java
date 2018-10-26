@@ -1,6 +1,6 @@
 package com.tencent.util;
 
-import com.tencent.MyApp;
+import com.MyApp;
 
 import java.io.File;
 import java.io.FileOutputStream;

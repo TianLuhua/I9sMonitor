@@ -10,8 +10,8 @@ import android.content.ServiceConnection;
 import android.os.IBinder;
 import android.widget.Toast;
 
-import com.tencent.BooyueAudioChatActivity;
-import com.tencent.BooyueVideoChatActivitySF;
+import com.booyue.audiochat.BooyueAudioChatActivity;
+import com.booyue.videochat.BooyueVideoChatActivitySF;
 import com.tencent.util.LoggerUtils;
 import com.tencent.device.ITXDeviceService;
 import com.tencent.device.TXDeviceService;

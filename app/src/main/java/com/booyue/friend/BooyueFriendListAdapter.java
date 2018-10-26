@@ -1,4 +1,4 @@
-package com.tencent;
+package com.booyue.friend;
 
 import android.app.Activity;
 import android.content.Context;
@@ -17,12 +17,15 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.MyApp;
+import com.booyue.binding.BooyueGuideActivity;
+import com.booyue.monitor.R;
+import com.booyue.widget.CircleImageView;
 import com.tencent.av.VideoController;
 import com.tencent.device.TXBinderInfo;
 import com.tencent.device.TXDeviceService;
 import com.tencent.devicedemo.ListItemInfo;
 import com.tencent.devicedemo.MainActivity;
-import com.booyue.monitor.R;
 import com.tencent.util.NetWorkUtils;
 
 import java.io.File;
@@ -40,8 +43,8 @@ import java.util.Set;
  * <p/>
  * 朋友列表适配器
  */
-class FriendListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private static String TAG = "FriendListAdapter";
+class BooyueFriendListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    private static String TAG = "BooyueFriendListAdapter";
     private Context mContext;
     private String mHeadPicPath;
     private Handler mHandler = null;
@@ -51,7 +54,7 @@ class FriendListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 //    private final ImageUtils imageUtils;
 
 
-    public FriendListAdapter(Context context) {
+    public BooyueFriendListAdapter(Context context) {
         this.mContext = context;
         layoutInflater = LayoutInflater.from(this.mContext);
         mHeadPicPath = mContext.getCacheDir().getAbsolutePath() + "/head";
@@ -62,7 +65,7 @@ class FriendListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         mHandler = new Handler(mContext.getMainLooper()) {
             @Override
             public void handleMessage(Message msg) {
-                FriendListAdapter.this.notifyDataSetChanged();
+                BooyueFriendListAdapter.this.notifyDataSetChanged();
             }
         };
 //        imageUtils = new ImageUtils(mHandler, mSetFetching);

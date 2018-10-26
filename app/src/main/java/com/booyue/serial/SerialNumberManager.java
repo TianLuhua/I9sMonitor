@@ -1,12 +1,14 @@
-package com.tencent;
+package com.booyue.serial;
 
 import android.content.Context;
 import android.os.Build;
 import android.text.TextUtils;
 import android.widget.Toast;
 
-import com.tencent.annotation.Unique;
+import com.MyApp;
+import com.booyue.Conf;
 import com.booyue.monitor.R;
+import com.booyue.annotation.Unique;
 import com.tencent.util.FileUtil;
 import com.tencent.util.LoggerUtils;
 import com.tencent.util.NetUtil;
@@ -49,16 +51,12 @@ public class SerialNumberManager {
      */
     public static void readSerialNumber(final Context context, final SerialNumberListener serialNumberListener) {
         LoggerUtils.d(TAG + "readSerialNumber");
-//        if(I6SC_MODEL.equals(Build.MODEL)){
-//            spilitSerailNumber("1700004781;07F45DD1247E4735;3045022100BC55639A5FAD37777BB8D478659CA370A6F3752A82D9EA788C8BEF0F5339BA840220053A0A14AE2939544503D06532CB23DF259CF96D676864CAFEEA1F43BE256D0E;04D0B6C03324295914363D34E0801043CFAC3159AE89B6150057AC3E59BB2DE3B3BE43FF4C424A734892C78CA8125CF3EC");
-//            return;
-//        }
-        if("SM-N9100".equals(Build.MODEL)){
+        if ("SM-N9100".equals(Build.MODEL)) {
             spilitSerailNumber("1700004781;083311670AA04c77;304502206F4BD9650E43D9E80753441F53983BD6A56351ADDF776E184F4DC7B268FB4FE7022100EEDA27D4A6668A431114820281C68FAA596470BED8FA8D5457D6C311BBD62C85;04D0B6C03324295914363D34E0801043CFAC3159AE89B6150057AC3E59BB2DE3B3BE43FF4C424A734892C78CA8125CF3EC");
             return;
         }
 
-        if("田露华的华清平板".equals(Build.MODEL)){
+        if ("田露华的华清平板".equals(Build.MODEL)) {
             spilitSerailNumber("1700004781;083311670AA04c77;304502206F4BD9650E43D9E80753441F53983BD6A56351ADDF776E184F4DC7B268FB4FE7022100EEDA27D4A6668A431114820281C68FAA596470BED8FA8D5457D6C311BBD62C85;04D0B6C03324295914363D34E0801043CFAC3159AE89B6150057AC3E59BB2DE3B3BE43FF4C424A734892C78CA8125CF3EC");
             return;
         }
@@ -76,7 +74,7 @@ public class SerialNumberManager {
                 //L1的model型号，这个是不会变的
             } else if (L1_MODEL.equals(Build.MODEL)) {
                 handleRequestSerialNumber(MAC, serialNumberListener, "L1");
-            }else if(I6SC_MODEL.equals(Build.MODEL)){
+            } else if (I6SC_MODEL.equals(Build.MODEL)) {
                 handleRequestSerialNumber(MAC, serialNumberListener, "I6SC");
             }
         } else {
@@ -95,43 +93,32 @@ public class SerialNumberManager {
      */
     public static void handleRequestI6SSerialNumber(final SerialNumberListener serialNumberListener) {
         LoggerUtils.d(TAG + ":handleRequestI6SSerialNumber");
-//        new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                String mac = NetUtil.getAdresseMAC(MyApp.getContext());
-//                LoggerUtils.d(TAG + "mac = " + mac);
-//                String response = UserRequestManager.getI6SSerialNumber(mac);
-//                LoggerUtils.d(TAG + "response = : " + response);
-//                processI6SResponse(response, serialNumberListener);
-//            }
-//        }).start();
-               String mac = NetUtil.getAdresseMAC(MyApp.getContext());
+        String mac = NetUtil.getAdresseMAC(MyApp.getContext());
 //               String mac = "20:18:0E:13:74:C3";
-               UserRequestManager.getI6SSerialNumber(mac, new Callback() {
-                    @Override
-                    public void onFailure(Call call, IOException e) {
-                        LoggerUtils.d(TAG + "异常 --" + e.getMessage());
-                        if (serialNumberListener != null) {
-                            serialNumberListener.onSerailNumberListener(0);
-                        }
-                    }
+        UserRequestManager.getI6SSerialNumber(mac, new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                LoggerUtils.d(TAG + "异常 --" + e.getMessage());
+                if (serialNumberListener != null) {
+                    serialNumberListener.onSerailNumberListener(0);
+                }
+            }
 
-                    @Override
-                    public void onResponse(Call call, Response response) throws IOException {
-                        boolean successful = response.isSuccessful();
-                        if (successful) {
-                            String content = response.body().string();
-                            LoggerUtils.d(TAG + "response = : " + content);
-                            processI6SResponse(content, serialNumberListener);
-                        }
-                    }
-                });
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                boolean successful = response.isSuccessful();
+                if (successful) {
+                    String content = response.body().string();
+                    LoggerUtils.d(TAG + "response = : " + content);
+                    processI6SResponse(content, serialNumberListener);
+                }
+            }
+        });
 
     }
 
     /**
      * 从我们自己的内部服务器获取串号
-     *
      *
      * @param uniqueWay            唯一值获取方式  Mac地址 sn
      * @param serialNumberListener 回调监听
@@ -156,6 +143,7 @@ public class SerialNumberManager {
                     serialNumberListener.onSerailNumberListener(0);
                 }
             }
+
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 boolean successful = response.isSuccessful();
@@ -252,7 +240,7 @@ public class SerialNumberManager {
                 }
                 e.printStackTrace();
             }
-        }else {
+        } else {
             if (serialNumberListener != null) {
                 serialNumberListener.onSerailNumberListener(0);
             }
@@ -314,22 +302,35 @@ public class SerialNumberManager {
 
     /**
      * 是否走网络请求串号
+     *
      * @return true 是网络 false 本地
      */
-    public static boolean matchDevice(){
+    public static boolean matchDevice() {
         LoggerUtils.d("Build.ID = " + Build.ID + ",Build.MODEL = " + Build.MODEL);
 
-       boolean matchI6S = (SerialNumberManager.CHENXIN_ID.equals(Build.ID));
+        boolean matchI6S = (SerialNumberManager.CHENXIN_ID.equals(Build.ID));
 
-       boolean matchI6SPro = (SerialNumberManager.CHENXIN_PRO_ID.equals(Build.ID));
+        boolean matchI6SPro = (SerialNumberManager.CHENXIN_PRO_ID.equals(Build.ID));
 
-       boolean matchT6 = (SerialNumberManager.T6_ID.equals(Build.ID));
+        boolean matchT6 = (SerialNumberManager.T6_ID.equals(Build.ID));
 
-       boolean matchL1 = (SerialNumberManager.L1_MODEL.equals(Build.MODEL));
+        boolean matchL1 = (SerialNumberManager.L1_MODEL.equals(Build.MODEL));
 
-       boolean matchI6SC = (SerialNumberManager.I6SC_MODEL.equals(Build.MODEL));
+        boolean matchI6SC = (SerialNumberManager.I6SC_MODEL.equals(Build.MODEL));
 
         return matchI6S || matchT6 || matchL1 || matchI6SC || matchI6SPro;
-//        return true;
     }
+
+
+    /**
+     * 串号返回监听
+     */
+    public interface SerialNumberListener {
+
+        /**
+         * @param ret ret=1 成功  ret=0失败
+         */
+        void onSerailNumberListener(int ret);
+    }
+
 }

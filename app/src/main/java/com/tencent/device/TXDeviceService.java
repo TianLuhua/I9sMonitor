@@ -13,7 +13,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.tencent.Conf;
+import com.booyue.Conf;
 import com.tencent.util.FileUtil;
 import com.tencent.util.LoggerUtils;
 import com.tencent.av.VideoController;

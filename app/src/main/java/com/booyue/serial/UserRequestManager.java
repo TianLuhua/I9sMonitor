@@ -1,4 +1,4 @@
-package com.tencent;
+package com.booyue.serial;
 
 import com.tencent.util.LoggerUtils;
 
@@ -27,8 +27,9 @@ public class UserRequestManager {
 
     /**
      * 获取串号
-     * @param mac 机器唯一值
-     * @param callback 回调
+     *
+     * @param mac          机器唯一值
+     * @param callback     回调
      * @param productModel 产品id（L1,T6,I6S+）
      */
     public static void getSerialNumber(String mac, Callback callback, String productModel) {
@@ -40,33 +41,35 @@ public class UserRequestManager {
                 .add("mac", mac)
                 .add("product", productModel)
                 .build();
-        RequestManager.post(GET_SERIAL_NUMBER,requestBody,callback);
+        RequestManager.post(GET_SERIAL_NUMBER, requestBody, callback);
     }
 
     /**
      * 版本升级
+     *
      * @param versionName 版本名
-     * @param callback 回调
+     * @param callback    回调
      */
-    public static void checkUpgrade(String versionName,Callback callback){
+    public static void checkUpgrade(String versionName, Callback callback) {
         LoggerUtils.d(TAG + "versionName = " + versionName);
         RequestBody requestBody = new FormBody.Builder()
                 .add("version", versionName)
                 .build();
         LoggerUtils.d(TAG + "upgrade url = " + UPGRADE_URL + "version=" + versionName);
-        RequestManager.post(UPGRADE_URL,requestBody,callback);
+        RequestManager.post(UPGRADE_URL, requestBody, callback);
     }
 
     /**
      * 获取I6S串号请求
+     *
      * @param mac 唯一标识（mac地址）
      * @return json字符串
      */
-    public static void getI6SSerialNumber(String mac,Callback callback) {
+    public static void getI6SSerialNumber(String mac, Callback callback) {
         LoggerUtils.d(TAG + "mac = " + mac);
         String path = CHENXIN_GET_SERIAL_NUMBER + mac;
         LoggerUtils.d(TAG + "path= " + path);
-        RequestManager.get(path,callback);
+        RequestManager.get(path, callback);
     }
 
 

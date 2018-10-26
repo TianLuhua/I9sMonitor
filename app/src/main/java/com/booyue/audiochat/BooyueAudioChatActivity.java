@@ -1,4 +1,4 @@
-package com.tencent;
+package com.booyue.audiochat;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -17,6 +17,9 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.booyue.base.BaseActivity;
+import com.booyue.widget.CircleImageView;
+import com.booyue.serial.SerialNumberManager;
 import com.tencent.av.VideoController;
 import com.tencent.av.core.VideoConstants;
 import com.tencent.device.FriendInfo;
@@ -90,7 +93,7 @@ public class BooyueAudioChatActivity extends BaseActivity {
             QLog.e(TAG, QLog.CLR, "invalid peerId: " + mPeerId + " invalid selfDin: " + mSelfDin);
             finish();
         }
-        //                FriendListAdapter.this.notifyDataSetChanged();
+        //                BooyueFriendListAdapter.this.notifyDataSetChanged();
     }
 
     @Override
@@ -140,7 +143,7 @@ public class BooyueAudioChatActivity extends BaseActivity {
         mHandler1 = new Handler(this.getMainLooper()) {
             @Override
             public void handleMessage(Message msg) {
-//                FriendListAdapter.this.notifyDataSetChanged();
+//                BooyueFriendListAdapter.this.notifyDataSetChanged();
                 setBitmapToImageView(friendInfo);
             }
         };
