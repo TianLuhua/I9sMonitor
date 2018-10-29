@@ -27,7 +27,7 @@ import java.util.List;
 //import com.tencent.common.app.BaseApplicationImpl;
 
 public class VcCamera extends AndroidCamera{
-	
+
 	static{
 		PREVIEW_WIDTH = 320;
 		PREVIEW_HEIGHT = 240;
@@ -41,22 +41,22 @@ public class VcCamera extends AndroidCamera{
 		context = mVideoCtrl.getContext();
 		devDisplay = ((WindowManager) context
 						.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
-						
+
 		mbIsTablet = false; //PhoneStatusTools.isTablet(context);
         mIsPreviewInvertedDevices = false; //PhoneStatusTools.isPreviewInvertedDevices();
-		
+
 		SDK_VERSION = getVersion();
 		DEV_MODEL = android.os.Build.MODEL;
 		DEV_MANUFACTURER = android.os.Build.MANUFACTURER;
 		Info.orientation = -1;
         Info.rotation = -1;
-		
+
 		if (QLog.isColorLevel()) {
 		    QLog.d(TAG, QLog.CLR, "Device_Tag = " + DEV_MANUFACTURER + ": " + DEV_MODEL);
 		    QLog.d(TAG, QLog.CLR, "Rom_Tag = " + android.os.Build.VERSION.INCREMENTAL);
 		}
 	}
-	
+
 //	public VcCamera(Context context1) {
 //		super(context1);
 //		context = context1;
@@ -71,7 +71,7 @@ public class VcCamera extends AndroidCamera{
 //		if(QLog.isColorLevel()) QLog.d(TAG, QLog.CLR, "Device_Tag = " + DEV_MANUFACTURER + ": " + DEV_MODEL);
 //		if(QLog.isColorLevel()) QLog.d(TAG, QLog.CLR, "Rom_Tag = " + android.os.Build.VERSION.INCREMENTAL);
 //	}
-	
+
 	@Override
 	protected boolean setCameraDisplayOrientation(int cameraId, Camera camera) {
 		CameraInformation tempInfo = getCameraDisplayOrientation(cameraId, camera);
@@ -87,20 +87,20 @@ public class VcCamera extends AndroidCamera{
 		//预留，新逻辑暂不使用
 		CompenSateSendAngle = getSendAngleCompensation();
 		CompenSateRecvAngle = getRecvAngleCompensation();
-		
+
 		if (tempInfo.facing == 1) {
 			result = (getOrientation() + getRotation()) % 360;
 			result = (360 - result) % 360; // compensate the mirror
 		} else { // back-facing
 			result = (getOrientation() - getRotation() + 360) % 360;
 		}
-		
+
 		if (tempInfo.facing == 1) {
             result = (result + getPreviewAngleForFrontCamera()) % 360;
         } else { // back-facing
             result = (result + getPreviewAngleForBackCamera()) % 360;
         }
-		
+
 		// Camera.CameraInfo.CAMERA_FACING_FRONT Constant Value: 1 (0x00000001)
 
 		setDisplayOrientation(camera, result);
@@ -108,7 +108,7 @@ public class VcCamera extends AndroidCamera{
 		//rotation信息使用sensor得到的，因为sensor先设置rotation，如果此处更新rotation sensor的值不改变90度以上情况下不会重新设置rotation
 		Info.facing = tempInfo.facing;
 		Info.orientation = tempInfo.orientation;
-		
+
 		return true;
 	}
 
@@ -126,10 +126,10 @@ public class VcCamera extends AndroidCamera{
 				adjustDirection(camera);
 			}
 		}
-		
+
 		Camera.Parameters parameters = camera.getParameters();
 		VcControllerImpl.setCameraParameters(parameters.flatten());
-		
+
 
 		int supportFormat = PixelFormat.UNKNOWN;
 
@@ -159,7 +159,7 @@ public class VcCamera extends AndroidCamera{
 				else if (formats.contains(842094169))  // YV12
 				{
 					supportFormat = 842094169;
-				}			 
+				}
 				else if (formats.contains(4))//ImageFormat.RGB_565
 				{
 					supportFormat = 4;
@@ -183,7 +183,7 @@ public class VcCamera extends AndroidCamera{
 				else if (formats.contains(PixelFormat.RGB_565))
 				{
 					supportFormat = PixelFormat.RGB_565;
-				} 
+				}
 				// 后面几种实际上不会运行到，先留着
 				else if (formats.contains(100)) // YUV420. Tencent custom. To Be Implement
 				{
@@ -207,7 +207,7 @@ public class VcCamera extends AndroidCamera{
 				}
 			}
 		} catch (Exception e) {
-			getSupportedPreviewFormats = null;			
+			getSupportedPreviewFormats = null;
 		}
 
 		try {
@@ -230,7 +230,7 @@ public class VcCamera extends AndroidCamera{
 		if (nInFPS == 0) {
 			nInFPS = 10;
 		}
-		
+
 		try {
 			Method getSupportedPreviewFrameRates = parameters.getClass()
 					.getMethod("getSupportedPreviewFrameRates", new Class[] {});
@@ -268,7 +268,7 @@ public class VcCamera extends AndroidCamera{
 		        ) {
 			parameters.setPreviewSize(320, 240);
 		} else {
-			parameters.setPreviewSize(PREVIEW_WIDTH, 
+			parameters.setPreviewSize(PREVIEW_WIDTH,
 					PREVIEW_HEIGHT);
 		}
 
@@ -296,7 +296,7 @@ public class VcCamera extends AndroidCamera{
 //				parameters.set("rotation", 90);
 //			}
 //		}
-		
+
 		//Enable auto focus when available
 //		if(SDK_VERSION >= Build.VERSION_CODES.GINGERBREAD){
 //			List<String> modes = camera.getParameters().getSupportedFocusModes();
@@ -312,7 +312,7 @@ public class VcCamera extends AndroidCamera{
 		}
 
 		Size frameSize = parameters.getPreviewSize();
-		
+
 		int videoFormat = parameters.getPreviewFormat();
 		if(QLog.isColorLevel()) QLog.d(TAG, QLog.CLR, "videoFormat = " + videoFormat);
 		PREVIEW_WIDTH = (frameSize.width);
@@ -334,7 +334,7 @@ public class VcCamera extends AndroidCamera{
 		*/
 	}
 
-	
+
 
 	@Override
 	protected boolean openFrontCamera() {
@@ -344,7 +344,7 @@ public class VcCamera extends AndroidCamera{
 			isCameraOpened = false;
 			return false;
 		}
-		
+
 		if (NUM_CAMERA == 0) {
 			NUM_CAMERA = 2;
 		}
@@ -353,13 +353,13 @@ public class VcCamera extends AndroidCamera{
 		if(QLog.isColorLevel()) QLog.d(TAG, QLog.CLR, "openFrontCamera success");
 		return true;
 	}
-	
+
 	protected boolean openBackCamera() {
 		try {
 			camera = Camera.open();
 		} catch (Exception e) {
-			isCameraOpened = false;			
-			
+			isCameraOpened = false;
+
 			if (camera != null) {
 				camera.release();
 				camera = null;
@@ -379,7 +379,7 @@ public class VcCamera extends AndroidCamera{
 			return false;
 		}
 	}
-	
+
 	/** 查找设置后置摄像头的CameraId add by xuzhouzhang **/
 	private void findBackCameraId() {
 		CameraId = 0;
@@ -460,8 +460,8 @@ public class VcCamera extends AndroidCamera{
 		}
 
 	}
-	
-	public synchronized boolean openCamera(SurfaceHolder holder) {
+
+	public synchronized boolean openCameraWithSilent( ) {
 //		LoggerUtils.d(TAG + "--openCamera: ");
 		if(QLog.isColorLevel()) QLog.d(TAG, QLog.CLR, "openCamera begin.");
 
@@ -471,13 +471,13 @@ public class VcCamera extends AndroidCamera{
 //        }
 
 		boolean result = false;
-		
+
 		do {
 			if (isCameraOpened) {
 				result = true;
 				break;
-	        }
-			
+			}
+
 			if (context == null) {
 				if(QLog.isColorLevel()) QLog.d(TAG, QLog.CLR, "openCamera context == null");
 				result = false;
@@ -499,7 +499,86 @@ public class VcCamera extends AndroidCamera{
 					result = false;
 					break;
 				}
-				
+
+				setCameraPara(PREVIEW_WIDTH, PREVIEW_HEIGHT);
+				result = true;
+			} else {
+				switch (CUR_CAMERA) {
+					case FRONT_CAMERA:
+						if (openFrontCamera()) {
+							setCameraPara(PREVIEW_WIDTH, PREVIEW_HEIGHT);
+							result = true;
+						}
+						break;
+					case BACK_CAMERA:
+						if (openBackCamera()) {
+							setCameraPara(PREVIEW_WIDTH, PREVIEW_HEIGHT);
+							result = true;
+						}
+						break;
+				}
+			}
+
+			if (!result) {
+				CUR_CAMERA = 0;
+				break;
+			}
+
+			try {
+				camera.setPreviewCallback(cameraCallback);
+				camera.startPreview();
+				result = true;
+			} catch (Exception e) {
+				if(QLog.isColorLevel()) QLog.d(TAG, QLog.CLR, "setPreviewDisplay error", e);
+				result = false;
+			}
+		} while (false);
+
+		isCameraOpened = result;
+		if(QLog.isColorLevel()) QLog.d(TAG, QLog.CLR, "openCamera end.");
+
+		return result;
+	}
+
+	public synchronized boolean openCamera(SurfaceHolder holder) {
+//		LoggerUtils.d(TAG + "--openCamera: ");
+		if(QLog.isColorLevel()) QLog.d(TAG, QLog.CLR, "openCamera begin.");
+
+//        if (mVideoCtrl != null) {
+//            mVideoCtrl.invalidVideoFrameCount = 0;
+//            mVideoCtrl.detectCamerahasImage = false;
+//        }
+
+		boolean result = false;
+
+		do {
+			if (isCameraOpened) {
+				result = true;
+				break;
+	        }
+
+			if (context == null) {
+				if(QLog.isColorLevel()) QLog.d(TAG, QLog.CLR, "openCamera context == null");
+				result = false;
+				break;
+			}
+
+			// 第一次打开摄像头
+			if (CUR_CAMERA == 0) {
+				if (!openFrontCamera()) {
+					if(!openBackCamera()) {
+						if(QLog.isColorLevel()) QLog.d(TAG, QLog.CLR, "openCamera failed");
+						result = false;
+						break;
+					}
+				}
+
+				if (camera == null) {
+					if(QLog.isColorLevel()) QLog.d(TAG, QLog.CLR, "openCamera camera == null");
+					result = false;
+					break;
+				}
+
 				setCameraPara(PREVIEW_WIDTH, PREVIEW_HEIGHT);
 				result = true;
 			} else {
@@ -518,13 +597,13 @@ public class VcCamera extends AndroidCamera{
 					break;
 				}
 			}
-			
+
 			if (!result) {
 				CUR_CAMERA = 0;
 				break;
 			}
-			
-			try {			
+
+			try {
 			    camera.setPreviewCallback(cameraCallback);
 			    camera.setPreviewDisplay(holder);
 			    camera.startPreview();
@@ -534,13 +613,13 @@ public class VcCamera extends AndroidCamera{
 				result = false;
 			}
 		} while (false);
-		
+
 		isCameraOpened = result;
 		if(QLog.isColorLevel()) QLog.d(TAG, QLog.CLR, "openCamera end.");
-		
+
 		return result;
 	}
-	
+
 	public synchronized boolean switchCamera(SurfaceHolder holder) {
 		boolean result = false;
 		do {
@@ -548,10 +627,10 @@ public class VcCamera extends AndroidCamera{
 				result = false;
 				break;
 			}
-			
+
 			if(QLog.isColorLevel()) QLog.d(TAG, QLog.CLR,"switchCamera: " + ((CUR_CAMERA == FRONT_CAMERA) ? "FRONT_CAMERA" : "BACK_CAMERA"));
 			closeCamera();
-			
+
 			switch(CUR_CAMERA) {
 			case FRONT_CAMERA:
 				if(openBackCamera()) {
@@ -566,12 +645,12 @@ public class VcCamera extends AndroidCamera{
 				}
 				break;
 			}
-			
+
 			if (!result) {
 				break;
 			}
-			
-			try {			
+
+			try {
 			    camera.setPreviewCallback(cameraCallback);
 			    camera.setPreviewDisplay(holder);
 			    camera.startPreview();
@@ -581,10 +660,10 @@ public class VcCamera extends AndroidCamera{
 				result = false;
 			}
 		} while (false);
-		
+
 		return result;
 	}
-	
+
 	public synchronized boolean reopenCamera(SurfaceHolder holder) {
 		LoggerUtils.d(TAG + "reopenCamera");
 		boolean result = false;
@@ -593,10 +672,10 @@ public class VcCamera extends AndroidCamera{
 				result = false;
 				break;
 			}
-			
+
 			if(QLog.isColorLevel()) QLog.d(TAG, QLog.CLR,"switchCamera: " + ((CUR_CAMERA == FRONT_CAMERA) ? "FRONT_CAMERA" : "BACK_CAMERA"));
 			closeCamera();
-			
+
 			switch(CUR_CAMERA) {
 			case BACK_CAMERA:
 				if(openBackCamera()) {
@@ -611,12 +690,12 @@ public class VcCamera extends AndroidCamera{
 				}
 				break;
 			}
-			
+
 			if (!result) {
 				break;
 			}
-			
-			try {			
+
+			try {
 			    camera.setPreviewCallback(cameraCallback);
 			    camera.setPreviewDisplay(holder);
 			    camera.startPreview();
@@ -626,13 +705,13 @@ public class VcCamera extends AndroidCamera{
 				result = false;
 			}
 		} while (false);
-		
+
 		return result;
 	}
 
 	public synchronized boolean closeCamera() {
 		if(QLog.isColorLevel()) QLog.d(TAG, QLog.CLR, "closeCamera begin.");
-		
+
 		if (camera == null && !isCameraOpened) {
 			if(QLog.isColorLevel()) QLog.d(TAG, QLog.CLR, "Camera not open.");
 		}
@@ -650,21 +729,21 @@ public class VcCamera extends AndroidCamera{
 			if(QLog.isColorLevel()) QLog.d(TAG, QLog.CLR, "closeCamera Exception", e);
 			LoggerUtils.d(TAG ,"closeCamera Exception : " + e.getMessage());
 		}
-		
+
 		isCameraOpened = false;
 		if(QLog.isColorLevel()) QLog.d(TAG, QLog.CLR, "closeCamera end.");
 //		LoggerUtils.d(TAG,"closeCamera end. : ");
 		return true;
 	}
-	
+
 	long mStartTime = 0;
 	long mTotalFrames = 0;
 	long mTotalBytes = 0;
-	
+
 	private PreviewCallback cameraCallback = new PreviewCallback() {
         @TargetApi(Build.VERSION_CODES.FROYO)
         public void onPreviewFrame(byte[] data, Camera arg1) {
-          
+
             if (nInFPS > 0) {
                 int degree = 0;
                 if (fitSdkVersion()) {
@@ -681,7 +760,7 @@ public class VcCamera extends AndroidCamera{
                     }
 
                     degree = getRotation() + result;
-                    
+
                     if (getOrientation() == 270 || getOrientation() == 90) {
                         if (getRotation() % 180 == 0) {
                             if (CUR_CAMERA == FRONT_CAMERA) {
@@ -710,7 +789,7 @@ public class VcCamera extends AndroidCamera{
                         	}
                         }
                     }
-                    
+
 					if (CUR_CAMERA == FRONT_CAMERA) {
 						if (mFrontCameraAngle > 0) {
 							degree = 360 - mFrontCameraAngle + degree;
@@ -742,7 +821,7 @@ public class VcCamera extends AndroidCamera{
 						//	}
 						//}
 					}
-                    
+
                     if (CUR_CAMERA == FRONT_CAMERA) {
                         /*
                         //ZTE手机4.0以下不转180
@@ -752,7 +831,7 @@ public class VcCamera extends AndroidCamera{
                             degree += 180;
                         }
                         */
-                        
+
 //						if (!PhoneStatusTools.get(context, "ro.qq.orientation").equalsIgnoreCase("ZTE")
 //                                || mIsPreviewInvertedDevices) {
 //							degree += 180;
@@ -760,7 +839,7 @@ public class VcCamera extends AndroidCamera{
                     } else {
                         degree += 180;
                     }
-                    
+
 					if (CUR_CAMERA == FRONT_CAMERA) {
 						if (mFrontCameraAngle > 0) {
 							degree = 360 - mFrontCameraAngle + degree;
@@ -775,14 +854,14 @@ public class VcCamera extends AndroidCamera{
 						}
 					}
                 }
-                
+
 //				if (mVideoCtrl.getSessionInfo().isCameraLandspace && CUR_CAMERA == FRONT_CAMERA) {
 //					degree -= 180;
 //					if (degree < 0) {
 //						degree += 360;
 //					}
 //				}
-    			
+
         		degree %= 360;
                 degree /= 90;
 
@@ -792,12 +871,12 @@ public class VcCamera extends AndroidCamera{
                 if (mCallback != null) {
                     mCallback.onPreviewData(data, degree, nInFPS, CUR_CAMERA == FRONT_CAMERA);
                 }
-                
+
                 if (mStartTime == 0)
                 {
                 		mStartTime = System.currentTimeMillis();
                 }
-                
+
                 mTotalFrames++;
                 mTotalBytes += data.length;
                 long time = (System.currentTimeMillis() - mStartTime) / 1000;
@@ -808,8 +887,8 @@ public class VcCamera extends AndroidCamera{
             }
         }
     };
-	
-	
-	
- 
+
+
+
+
 }

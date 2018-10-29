@@ -2,61 +2,82 @@ package com.booyue.monitor.videomonitor;
 
 import android.app.Service;
 import android.content.Context;
-import android.graphics.PixelFormat;
-import android.view.Gravity;
-import android.view.LayoutInflater;
+import android.content.Intent;
+import android.os.Handler;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-import android.view.View;
-import android.view.WindowManager;
 
 import com.booyue.monitor.BooyueVideoMonitorService;
-import com.booyue.monitor.R;
+import com.booyue.videochat.BooyueVideoChatActivitySF;
 import com.tencent.av.VideoController;
 import com.tencent.av.camera.VcCamera;
-import com.tencent.av.opengl.GraphicRenderMgr;
 import com.tencent.device.QLog;
+import com.tencent.device.TXDeviceService;
+import com.tencent.util.LoggerUtils;
 
 /**
  * Created by Tianluhua on 2018\10\29 0029.
  */
 public class VideoMonitorSF implements BooyueVideoMonitorService.IVideoMonitor {
 
-    public static final String TAG = "VideoMonitorSF";
+    public static String TAG = "VideoMonitorSF";
 
     private VcCamera mCamera;
-    private SurfaceView mSurfaceView;
+    private String mPeerId;
+    private boolean mIsReceiver;
 
+    private Handler mHandler = new Handler();
+    private int counter = 0;
+    private Context mContext;
+
+    private SurfaceView mSurfaceView;
 
     @Override
     public void start(Service service, String peerId) {
-        WindowManager mWindowManager = (WindowManager) service.getApplication()
-                .getSystemService(Context.WINDOW_SERVICE);
-        WindowManager.LayoutParams wmParams = new WindowManager.LayoutParams();
-        wmParams.type = WindowManager.LayoutParams.TYPE_PHONE;
-        wmParams.format = PixelFormat.RGBA_8888;
-        wmParams.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
-        wmParams.gravity = Gravity.LEFT | Gravity.TOP;
-
-        LayoutInflater inflater = LayoutInflater.from(service.getApplication());
-        View rootView = inflater.inflate(R.layout.activity_videomonitor_softcodec, null);
-        mWindowManager.addView(rootView, wmParams);
-
+//        WindowManager mWindowManager = (WindowManager) service.getApplication()
+//                .getSystemService(Context.WINDOW_SERVICE);
+//        WindowManager.LayoutParams wmParams = new WindowManager.LayoutParams();
+//        wmParams.type = WindowManager.LayoutParams.TYPE_PHONE;
+//        wmParams.format = PixelFormat.RGBA_8888;
+//        wmParams.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
+//        wmParams.gravity = Gravity.LEFT | Gravity.TOP;
+//        wmParams.x = -100;
+//        wmParams.y = -100;
+//        wmParams.width = 0;
+//        wmParams.height = 0;
+//
+//        LayoutInflater inflater = LayoutInflater.from(service.getApplication());
+//        LinearLayout mFloatLayout = (LinearLayout) inflater.inflate(R.layout.activity_videomonitor_softcodec, null);
+//        mWindowManager.addView(mFloatLayout, wmParams);
+        this.mContext = service.getApplicationContext();
+        this.mPeerId = peerId;
+        mIsReceiver = true;
         mCamera = VideoController.getInstance().getCamera();
-
-        mSurfaceView = rootView.findViewById(R.id.av_video_surfaceView);
-        SurfaceHolder holder = mSurfaceView.getHolder();
-        holder.addCallback(mSurfaceHolderListener);
-        holder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
-        mSurfaceView.setZOrderMediaOverlay(true);
-
+//
+//        mSurfaceView = (SurfaceView) mFloatLayout.findViewById(R.id.camera_surfaceView_monitor);
+//        SurfaceHolder holder = mSurfaceView.getHolder();
+//        holder.addCallback(mSurfaceHolderListener);
+//        holder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
+//        mSurfaceView.setZOrderMediaOverlay(true);
+//
+//        GLRootView rootView = (GLRootView) mFloatLayout.findViewById(R.id.av_video_gl_root_view_monitor);
+//        GLVideoView glPeerVideoView = new GLVideoView(service);
+//        rootView.setContentPane(glPeerVideoView);
+//        glPeerVideoView.setIsPC(false);
+//        glPeerVideoView.enableLoading(false);
+//        glPeerVideoView.setMirror(true);
+//        glPeerVideoView.setNeedRenderVideo(true);
+//        glPeerVideoView.setVisibility(GLView.VISIBLE);
+//        glPeerVideoView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+//        glPeerVideoView.setBackground(R.drawable.qav_video_bg_s);
+//
+//        GraphicRenderMgr.getInstance().setGlRender(VideoController.getInstance().GetSelfDin(), glPeerVideoView.getYuvTexture());
+        VideoController.getInstance().execute(openCamera, null);
     }
-
 
     @Override
     public void stop() {
-        VideoController.getInstance().execute(closeCamera, null);
-        GraphicRenderMgr.getInstance().setGlRender(VideoController.getInstance().GetSelfDin(), null);
+        terminateVideo();
     }
 
     @Override
@@ -92,22 +113,16 @@ public class VideoMonitorSF implements BooyueVideoMonitorService.IVideoMonitor {
     Runnable openCamera = new Runnable() {
         @Override
         public void run() {
-            SurfaceHolder holder = mSurfaceView.getHolder();
-            VideoController.getInstance().execute(new AsyncOpenCamera(holder));
+            VideoController.getInstance().execute(new AsyncOpenCamera());
         }
     };
 
     class AsyncOpenCamera implements Runnable {
-        SurfaceHolder mHolder;
-
-        public AsyncOpenCamera(SurfaceHolder holder) {
-            mHolder = holder;
-        }
 
         @Override
         public void run() {
             try {
-                if (mCamera == null || !mCamera.openCamera(mHolder)) {
+                if (mCamera == null || !mCamera.openCameraWithSilent()) {
                     if (QLog.isColorLevel()) {
                         QLog.d(TAG, QLog.CLR, "asyncOpenCamera failed to start camera.");
                     }
@@ -116,12 +131,28 @@ public class VideoMonitorSF implements BooyueVideoMonitorService.IVideoMonitor {
                     if (QLog.isColorLevel()) {
                         QLog.d(TAG, QLog.CLR, "asyncOpenCamera success.");
                     }
+                    mHandler.post(updateTime);
                 }
             } catch (Exception e) {
 
             }
         }
     }
+
+
+    private void terminateVideo() {
+        VideoController.getInstance().execute(closeCamera, null);
+        VideoController.getInstance().stopRing();
+
+        if (mIsReceiver) {
+            VideoController.getInstance().closeVideo(mPeerId);
+        }
+        VideoController.getInstance().closeVideo(mPeerId);
+        if (TXDeviceService.VideoProcessEnable) {
+            VideoController.getInstance().exitProcess();
+        }
+    }
+
 
     Runnable closeCamera = new Runnable() {
         @Override
@@ -131,4 +162,25 @@ public class VideoMonitorSF implements BooyueVideoMonitorService.IVideoMonitor {
             }
         }
     };
+
+
+    Runnable updateTime = new Runnable() {
+        @Override
+        public void run() {
+            counter++;
+            if (counter == 5) {
+                LoggerUtils.e("counter:" + counter);
+                mHandler.removeCallbacks(updateTime);
+                Intent intent = new Intent(mContext, BooyueVideoChatActivitySF.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("receive", true);
+                intent.putExtra("peerid", mPeerId);
+                mContext.startActivity(intent);
+                return;
+            }
+            mHandler.postDelayed(updateTime, 1000);
+        }
+    };
+
+
 }
