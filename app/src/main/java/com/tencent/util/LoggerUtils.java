@@ -13,10 +13,8 @@ public class LoggerUtils {
 		}
 	}
 	public static void d(String msg){
-
 		if(isOpen&& msg!= null){
 			Log.d(TAG, msg);
-
 		}
 	}
 

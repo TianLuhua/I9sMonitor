@@ -15,6 +15,7 @@ import com.tencent.av.VideoController;
 import com.tencent.av.core.VideoConstants;
 import com.tencent.device.TXBinderInfo;
 import com.tencent.device.TXDeviceService;
+import com.tencent.util.LoggerUtils;
 
 public class BooyueVideoMonitorService extends Service {
     private static final String TAG = "BooyueVideoMonitorService";
@@ -39,7 +40,6 @@ public class BooyueVideoMonitorService extends Service {
         if (intent != null) {
             mPeerId = intent.getStringExtra("peerid");
             Log.d(TAG, "peerId = " + mPeerId);
-
             IntentFilter filter = new IntentFilter();
             filter.addAction(VideoConstants.ACTION_STOP_VIDEO_CHAT);
             filter.addAction(VideoController.ACTION_NETMONIOTR_INFO);
@@ -47,6 +47,8 @@ public class BooyueVideoMonitorService extends Service {
             filter.addAction(VideoController.ACTION_VIDEO_QOS_NOTIFY);
             filter.addAction(TXDeviceService.BinderListChange);
             filter.addAction(TXDeviceService.OnEraseAllBinders);
+            //添加电量变化监听
+            filter.addAction(Intent.ACTION_BATTERY_CHANGED);
             registerReceiver(mBroadcastHandler, filter);
 
             //VideoController.mEnableHWEncoder = false;
@@ -68,9 +70,6 @@ public class BooyueVideoMonitorService extends Service {
         super.unregisterReceiver(mBroadcastHandler);
         mVideoMonitor.setVideoConnected(false);
         mVideoMonitor.stop();
-        if (TXDeviceService.VideoProcessEnable) {
-            VideoController.getInstance().exitProcess();
-        }
     }
 
     private BroadcastReceiver mBroadcastHandler = new BroadcastReceiver() {
@@ -110,6 +109,12 @@ public class BooyueVideoMonitorService extends Service {
             } else if (intent.getAction() == TXDeviceService.OnEraseAllBinders) {
                 mVideoMonitor.setVideoConnected(false);
                 BooyueVideoMonitorService.this.stopSelf();
+            } else if (intent.getAction() == Intent.ACTION_BATTERY_CHANGED) {
+                //电量发生变化，通知手Q端
+                int level = intent.getIntExtra("level", 0);
+                LoggerUtils.e("ACTION_BATTERY_CHANGED  level：" + level);
+            } else {
+                LoggerUtils.e("没有定义的Action");
             }
         }
     };

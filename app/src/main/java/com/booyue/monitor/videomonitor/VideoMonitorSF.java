@@ -134,7 +134,7 @@ public class VideoMonitorSF implements BooyueVideoMonitorService.IVideoMonitor {
                     mHandler.post(updateTime);
                 }
             } catch (Exception e) {
-
+                LoggerUtils.e("AsyncOpenCamera  fail，" + e.getMessage());
             }
         }
     }
@@ -143,11 +143,9 @@ public class VideoMonitorSF implements BooyueVideoMonitorService.IVideoMonitor {
     private void terminateVideo() {
         VideoController.getInstance().execute(closeCamera, null);
         VideoController.getInstance().stopRing();
-
         if (mIsReceiver) {
             VideoController.getInstance().closeVideo(mPeerId);
         }
-        VideoController.getInstance().closeVideo(mPeerId);
         if (TXDeviceService.VideoProcessEnable) {
             VideoController.getInstance().exitProcess();
         }
