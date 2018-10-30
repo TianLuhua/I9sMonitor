@@ -27,7 +27,7 @@ import java.util.List;
 
 /**
  * @author dennyfeng
- *         腾讯设备服务
+ * 腾讯设备服务
  */
 public class TXDeviceService extends Service {
     static String TAG = "TXDeviceService------";
@@ -151,6 +151,10 @@ public class TXDeviceService extends Service {
 
 //        init("TV_demo", strLicense.getBytes(), strGUID, srvPubKey, 1700004781, 1, NETWORK_TYPE_WIFI, SDK_RUN_MODE_DEFAULT,
 //                this.getCacheDir().getAbsolutePath(), 102400, logPath, 1024000, this.getCacheDir().getAbsolutePath() + "/", 1024000);
+
+
+        LoggerUtils.e(TAG+"：Conf.LICENSE:" + Conf.LICENSE + " Conf.SERIAL_NUMBER:" + Conf.SERIAL_NUMBER + "  Conf.SERVER_PUBLIC_KEY:" + Conf.SERVER_PUBLIC_KEY + " Conf.PRODUCT_ID:" + Conf.PRODUCT_ID);
+
         init("TV_demo", Conf.LICENSE.getBytes(), Conf.SERIAL_NUMBER, Conf.SERVER_PUBLIC_KEY, Conf.PRODUCT_ID, 1, NETWORK_TYPE_WIFI, SDK_RUN_MODE_DEFAULT,
                 logPath1, 102400, logPath1, 1024000, logPath1 + "/", 1024000);
 
@@ -570,7 +574,7 @@ public class TXDeviceService extends Service {
             showToastMessage("用户列表刷新成功");
             LoggerUtils.d(TAG + "BinderList Fresh Success");
         } else {
-            showToastMessage("用户列表刷新失败");
+            showToastMessage("用户列表刷新失败 Error Code：" + error);
             LoggerUtils.d(TAG + "BinderList Fresh Failed");
             /**modify by : 2018/3/7 9:23*/
             FileUtil.cleanSNFile();
@@ -611,7 +615,7 @@ public class TXDeviceService extends Service {
         if (error == 0) {
             showToastMessage("登录成功");
         } else {
-            showToastMessage("登录失败");
+            showToastMessage("登录失败 Error Code:" + error);
             /**modify by : 2018/3/7 9:23*/
             FileUtil.cleanSNFile();
         }
