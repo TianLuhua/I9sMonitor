@@ -1,3 +1,2 @@
-*.js linguist-language=Kotlin
-*.css linguist-language=Kotlin
-*.html linguist-language=Kotlin
+*.java linguist-language=Kotlin
+*.xml linguist-language=Kotlin
