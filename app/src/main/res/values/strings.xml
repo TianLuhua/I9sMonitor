@@ -51,6 +51,11 @@
     <string name="dialog_desc_erase_all_binder">确认要解绑所有联系人？</string>
     <string name="upgrade_desc">1、火火兔出品，母婴类首榜原创\n2、儿歌动画全新上市... \n3、卡拉ok功能</string>
 
+    <string name="voip_reason_reject_by_friend">对方拒绝</string>
+    <string name="voip_reason_closed_by_friend">对方主动关闭</string>
+    <string name="voip_reason_self_wait_relayinfo_timeout">请求超时</string>
+    <string name="voip_reason_other">意外中断</string>
+
 
     <string name="generate_qrcode_success">生成二维码成功</string>
     <string name="generate_qrcode_fail">生成二维码失败</string>

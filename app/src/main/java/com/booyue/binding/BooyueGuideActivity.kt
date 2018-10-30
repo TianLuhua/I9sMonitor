@@ -42,14 +42,17 @@ class BooyueGuideActivity : BaseActivity() {
 
 
     fun generateQRCode() {
-        filePath = getFileRoot(this) + File.separator + "qr_" + System.currentTimeMillis() + ".jpg"
+        filePath = getFileRoot(this@BooyueGuideActivity) + File.separator + "qr_" + System.currentTimeMillis() + ".jpg"
         LoggerUtils.d(QRCODE_URL)
         //二维码图片较大时，生成图片、保存文件的时间可能较长，因此放在新线程中
-        Thread(Runnable {
-            val success = QRCodeUtils.createQRImage(QRCODE_URL, 160, 160,
-                    BitmapFactory.decodeResource(resources, R.drawable.logo), filePath)
-            LoggerUtils.d(TAG + "success = " + success)
-            showQRCode(success)
+        Thread(object : Runnable {
+            override fun run() {
+                val success = QRCodeUtils.createQRImage(QRCODE_URL, 160, 160,
+                        BitmapFactory.decodeResource(resources, R.drawable.logo), filePath)
+                LoggerUtils.d(TAG + "success = " + success)
+                showQRCode(success)
+            }
+
         }).start()
     }
 
