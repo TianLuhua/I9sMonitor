@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_desc"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_0"
+        android:layout_weight="1"
+        android:paddingLeft="@dimen/dimen_33"
+        android:paddingRight="@dimen/dimen_33"
+        android:textColor="@color/Text_WHITE"
+        android:textSize="@dimen/text_20"
+        android:gravity="center"
+        android:text="@string/dialog_desc_erase_all_binder"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dimen_44">
+
+        <Button
+            android:id="@+id/btn_positive"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dimen_44"
+            android:background="@drawable/queding"
+            android:text="@string/dialog_comfirm"
+            android:textColor="@color/Text_WHITE" />
+
+        <Button
+            android:id="@+id/btn_negative"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dimen_60"
+            android:background="@drawable/quxiao"
+            android:text="@string/dialog_cancel"
+            android:textColor="@color/Text_WHITE" />
+
+
+    </LinearLayout>
+
+</LinearLayout>

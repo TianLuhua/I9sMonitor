@@ -118,20 +118,20 @@ public class BooyueAudioChatActivity extends BaseActivity {
         ibSpeakerSwitcher.setVisibility(View.GONE);
         //扬声器切换
         /**modify by : 2018/6/22 9:09 由于扬声器无效，去掉图标*/
-//        ibSpeakerSwitcher.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if (VideoController.getInstance().isSelfMute()) {//如果是静音
-//                    //切换成非静音
-//                    VideoController.getInstance().setSelfMute(false);
-//                    ibSpeakerSwitcher.setImageResource(R.drawable.button_speaker_hi);
-//                } else {//如果是静音
-//                    //切换成静音
-//                    VideoController.getInstance().setSelfMute(true);
-//                    ibSpeakerSwitcher.setImageResource(R.drawable.button_speaker_nr);
-//                }
-//            }
-//        });
+        ibSpeakerSwitcher.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (VideoController.getInstance().isSelfMute()) {//如果是静音
+                    //切换成非静音
+                    VideoController.getInstance().setSelfMute2(false);
+                    ibSpeakerSwitcher.setImageResource(R.drawable.button_speaker_hi);
+                } else {//如果是静音
+                    //切换成静音
+                    VideoController.getInstance().setSelfMute2(true);
+                    ibSpeakerSwitcher.setImageResource(R.drawable.button_speaker_nr);
+                }
+            }
+        });
         tvStateDesc = (TextView) findViewById(R.id.tv_state_desc);
         ivAvatar = (CircleImageView) findViewById(R.id.iv_avatar);
         //针对T6机器头像有点偏下，所以需要稍微调整一下
@@ -282,9 +282,9 @@ public class BooyueAudioChatActivity extends BaseActivity {
 //                    ibSpeakerSwitcher.setVisibility(View.VISIBLE);
 //                }
                 /**modify by : 2018/6/22 9:08*/
-//                if(ibSpeakerSwitcher.getVisibility() == View.GONE){
-//                    ibSpeakerSwitcher.setVisibility(View.VISIBLE);
-//                }
+                if(ibSpeakerSwitcher.getVisibility() == View.GONE){
+                    ibSpeakerSwitcher.setVisibility(View.VISIBLE);
+                }
 
             } else if (intent.getAction() == TXDeviceService.BinderListChange) {
                 boolean bFind = false;
