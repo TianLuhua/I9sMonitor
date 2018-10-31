@@ -65,11 +65,6 @@ public class SerialNumberManager {
             return;
         }
 
-        if ("田露华的华清平板".equals(Build.MODEL)) {
-            spilitSerailNumber("1700004781;083311670AA04c77;304502206F4BD9650E43D9E80753441F53983BD6A56351ADDF776E184F4DC7B268FB4FE7022100EEDA27D4A6668A431114820281C68FAA596470BED8FA8D5457D6C311BBD62C85;04D0B6C03324295914363D34E0801043CFAC3159AE89B6150057AC3E59BB2DE3B3BE43FF4C424A734892C78CA8125CF3EC");
-            return;
-        }
-
         if (!NetWorkUtils.isWifiActive(context)) {
             Toast.makeText(context, R.string.check_internet, Toast.LENGTH_SHORT).show();
             return;
