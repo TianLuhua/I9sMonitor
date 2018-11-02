@@ -33,6 +33,10 @@ SDK 版本1.6.205
 2018-10-25
     1.增加视屏时候关闭/开启Microphone功能.
 
-20118-10-30 
+2018-10-30 
     1.音频聊天界面增加 关闭/开启 Microphone功能
+   
+2018-11-02
+    1.和H5同事商量好进行DataPoint通信，接受到Property_id为:100006162,Property_value为：type时，回复Property_id为:100006162，Property_value为：i9s。
+    让其进行对应的逻辑操作
 

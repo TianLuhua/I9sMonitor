@@ -5,6 +5,7 @@ import android.app.ActivityManager.RunningAppProcessInfo;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
@@ -153,7 +154,7 @@ public class TXDeviceService extends Service {
 //                this.getCacheDir().getAbsolutePath(), 102400, logPath, 1024000, this.getCacheDir().getAbsolutePath() + "/", 1024000);
 
 
-        LoggerUtils.e(TAG+"：Conf.LICENSE:" + Conf.LICENSE + " Conf.SERIAL_NUMBER:" + Conf.SERIAL_NUMBER + "  Conf.SERVER_PUBLIC_KEY:" + Conf.SERVER_PUBLIC_KEY + " Conf.PRODUCT_ID:" + Conf.PRODUCT_ID);
+        LoggerUtils.e(TAG + "：Conf.LICENSE:" + Conf.LICENSE + " Conf.SERIAL_NUMBER:" + Conf.SERIAL_NUMBER + "  Conf.SERVER_PUBLIC_KEY:" + Conf.SERVER_PUBLIC_KEY + " Conf.PRODUCT_ID:" + Conf.PRODUCT_ID);
 
         init("TV_demo", Conf.LICENSE.getBytes(), Conf.SERIAL_NUMBER, Conf.SERVER_PUBLIC_KEY, Conf.PRODUCT_ID, 1, NETWORK_TYPE_WIFI, SDK_RUN_MODE_DEFAULT,
                 logPath1, 102400, logPath1, 1024000, logPath1 + "/", 1024000);
@@ -675,6 +676,14 @@ public class TXDeviceService extends Service {
 
             String strText = "收到DataPoint Property ID：" + arrayDataPoint[i].property_id + "   Property Value：" + arrayDataPoint[i].property_val;
             showToastMessage(strText);
+
+            //此处根据property_id和property_val来应答H5同事替换页面操作
+            if (arrayDataPoint[i].property_id == 100006162L || "type".equals(arrayDataPoint[i].property_val.toLowerCase())) {
+                arrayDataPoint[i].property_val = "i9s";//Build.MODEL;
+                TXDeviceService.ackDataPoint(from, arrayDataPoint);
+            }
+
+
         }
 
         Intent intent = new Intent();
