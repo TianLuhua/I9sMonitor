@@ -5,8 +5,8 @@ import android.os.Build;
 import android.text.TextUtils;
 import android.widget.Toast;
 
-import com.MyApp;
 import com.booyue.Conf;
+import com.booyue.MonitorApplication;
 import com.booyue.monitor.R;
 import com.booyue.annotation.Unique;
 import com.tencent.util.FileUtil;
@@ -97,7 +97,7 @@ public class SerialNumberManager {
      */
     public static void handleRequestI6SSerialNumber(final SerialNumberListener serialNumberListener) {
         LoggerUtils.d(TAG + ":handleRequestI6SSerialNumber");
-        String mac = NetUtil.getAdresseMAC(MyApp.getContext());
+        String mac = NetUtil.getAdresseMAC(MonitorApplication.Companion.getContext());
 //               String mac = "20:18:0E:13:74:C3";
         UserRequestManager.getI6SSerialNumber(mac, new Callback() {
             @Override
@@ -134,7 +134,7 @@ public class SerialNumberManager {
         //一恒科 获取sn 手动烧写所以不会变化
         String unique = "";//获取为空
         if (MAC.equals(uniqueWay)) {
-            unique = NetUtil.getAdresseMAC(MyApp.getContext());
+            unique = NetUtil.getAdresseMAC(MonitorApplication.Companion.getContext());
         } else if (SN.equals(uniqueWay)) {
             unique = getSerialNumber();
         }
@@ -165,7 +165,7 @@ public class SerialNumberManager {
      * 从本地获取腾讯串号
      */
     public static void getTXSNFromDiskMemory() {
-        File file = new File(MyApp.getContext().getFilesDir(), "serial.txt");
+        File file = new File(MonitorApplication.Companion.getContext().getFilesDir(), "serial.txt");
         StringBuilder stringBuilder = new StringBuilder();
         try {
             FileInputStream fileInputStream = new FileInputStream(file);
@@ -201,16 +201,16 @@ public class SerialNumberManager {
         if (s.contains(";")) {
             String[] splites = s.split(";");
             if (splites.length == 4) {
-                Conf.PRODUCT_ID = Long.parseLong(splites[0]);
-                Conf.SERIAL_NUMBER = splites[1];
-                Conf.LICENSE = splites[2];
-                Conf.SERVER_PUBLIC_KEY = splites[3];
+                Conf.Companion.setPRODUCT_ID(Long.parseLong(splites[0]));
+                Conf.Companion.setSERIAL_NUMBER(splites[1]);
+                Conf.Companion.setLICENSE(splites[2]);
+                Conf.Companion.setSERVER_PUBLIC_KEY(splites[3]);
             }
         }
-        LoggerUtils.d(TAG + "Conf.PRODUCT_ID = " + Conf.PRODUCT_ID);
-        LoggerUtils.d(TAG + "Conf.SERIAL_NUMBER = " + Conf.SERIAL_NUMBER);
-        LoggerUtils.d(TAG + "Conf.LICENSE = " + Conf.LICENSE);
-        LoggerUtils.d(TAG + "Conf.SERVER_PUBLIC_KEY = " + Conf.SERVER_PUBLIC_KEY);
+        LoggerUtils.d(TAG + "Conf.PRODUCT_ID = " + Conf.Companion.getPRODUCT_ID());
+        LoggerUtils.d(TAG + "Conf.SERIAL_NUMBER = " + Conf.Companion.getSERIAL_NUMBER());
+        LoggerUtils.d(TAG + "Conf.LICENSE = " + Conf.Companion.getLICENSE());
+        LoggerUtils.d(TAG + "Conf.SERVER_PUBLIC_KEY = " + Conf.Companion.getSERVER_PUBLIC_KEY());
     }
 
     /**

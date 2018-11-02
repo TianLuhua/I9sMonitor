@@ -145,8 +145,8 @@ public class TXDeviceService extends Service {
         if (!file.exists()) {
             file.mkdirs();
         }
-        if (Conf.PRODUCT_ID == 0 || TextUtils.isEmpty(Conf.LICENSE) || TextUtils.isEmpty(Conf.SERIAL_NUMBER)
-                || TextUtils.isEmpty(Conf.SERVER_PUBLIC_KEY)) {
+        if (Conf.Companion.getPRODUCT_ID() == 0 || TextUtils.isEmpty(Conf.Companion.getLICENSE()) || TextUtils.isEmpty(Conf.Companion.getSERIAL_NUMBER())
+                || TextUtils.isEmpty(Conf.Companion.getSERVER_PUBLIC_KEY())) {
             return;
         }
 
@@ -154,9 +154,9 @@ public class TXDeviceService extends Service {
 //                this.getCacheDir().getAbsolutePath(), 102400, logPath, 1024000, this.getCacheDir().getAbsolutePath() + "/", 1024000);
 
 
-        LoggerUtils.e(TAG + "：Conf.LICENSE:" + Conf.LICENSE + " Conf.SERIAL_NUMBER:" + Conf.SERIAL_NUMBER + "  Conf.SERVER_PUBLIC_KEY:" + Conf.SERVER_PUBLIC_KEY + " Conf.PRODUCT_ID:" + Conf.PRODUCT_ID);
+        LoggerUtils.e(TAG + "：Conf.LICENSE:" + Conf.Companion.getLICENSE() + " Conf.SERIAL_NUMBER:" + Conf.Companion.getSERIAL_NUMBER() + "  Conf.SERVER_PUBLIC_KEY:" + Conf.Companion.getSERVER_PUBLIC_KEY() + " Conf.PRODUCT_ID:" + Conf.Companion.getPRODUCT_ID());
 
-        init("TV_demo", Conf.LICENSE.getBytes(), Conf.SERIAL_NUMBER, Conf.SERVER_PUBLIC_KEY, Conf.PRODUCT_ID, 1, NETWORK_TYPE_WIFI, SDK_RUN_MODE_DEFAULT,
+        init("TV_demo", Conf.Companion.getLICENSE().getBytes(), Conf.Companion.getSERIAL_NUMBER(), Conf.Companion.getSERVER_PUBLIC_KEY(), Conf.Companion.getPRODUCT_ID(), 1, NETWORK_TYPE_WIFI, SDK_RUN_MODE_DEFAULT,
                 logPath1, 102400, logPath1, 1024000, logPath1 + "/", 1024000);
 
         initOTA(5 * 60, this.getCacheDir().getAbsolutePath() + "/ota.apk");

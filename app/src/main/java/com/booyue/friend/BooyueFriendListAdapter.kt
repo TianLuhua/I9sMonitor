@@ -17,7 +17,7 @@ import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
-import com.MyApp
+import com.booyue.MonitorApplication
 import com.booyue.binding.BooyueGuideActivity
 import com.booyue.monitor.R
 import com.booyue.widget.CircleImageView
@@ -132,27 +132,27 @@ class BooyueFriendListAdapter : RecyclerView.Adapter<BooyueFriendListAdapter.MyV
             holder.ibPhone.setOnClickListener {
                 if (NetWorkUtils.isNetWorkAvailable(mContext)) {
                     if (false == VideoController.getInstance().hasPendingChannel()) {
-                        Toast.makeText(MyApp.getContext(), R.string.launching, Toast.LENGTH_SHORT).show()
+                        Toast.makeText(MonitorApplication.getContext(), R.string.launching, Toast.LENGTH_SHORT).show()
                         TXDeviceService.getInstance().startAudioChatActivity(item.id, VideoController.UINTYPE_QQ)
                         (mContext as Activity).overridePendingTransition(R.anim.dialog_enter_anim_scale, R.anim.dialog_exit_anim_scale)
                     } else {
-                        Toast.makeText(MyApp.getContext(), R.string.being_video, Toast.LENGTH_SHORT).show()
+                        Toast.makeText(MonitorApplication.getContext(), R.string.being_video, Toast.LENGTH_SHORT).show()
                     }
                 } else {
-                    Toast.makeText(MyApp.getContext(), R.string.network_close, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(MonitorApplication.getContext(), R.string.network_close, Toast.LENGTH_SHORT).show()
                 }
             }
             holder.ibVideo.setOnClickListener {
                 if (MainActivity.isNetworkAvailable(mContext)) {
                     if (false == VideoController.getInstance().hasPendingChannel()) {
-                        Toast.makeText(MyApp.getContext(), R.string.launching, Toast.LENGTH_SHORT).show()
+                        Toast.makeText(MonitorApplication.getContext(), R.string.launching, Toast.LENGTH_SHORT).show()
                         TXDeviceService.getInstance().startVideoChatActivity(item.id, VideoController.UINTYPE_QQ)
                         (mContext as Activity).overridePendingTransition(R.anim.dialog_enter_anim_scale, R.anim.dialog_exit_anim_scale)
                     } else {
-                        Toast.makeText(MyApp.getContext(), R.string.being_video, Toast.LENGTH_SHORT).show()
+                        Toast.makeText(MonitorApplication.getContext(), R.string.being_video, Toast.LENGTH_SHORT).show()
                     }
                 } else {
-                    Toast.makeText(MyApp.getContext(), R.string.network_close, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(MonitorApplication.getContext(), R.string.network_close, Toast.LENGTH_SHORT).show()
                 }
             }
         }

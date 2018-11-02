@@ -71,49 +71,4 @@ public class UserRequestManager {
         LoggerUtils.d(TAG + "path= " + path);
         RequestManager.get(path, callback);
     }
-
-
-//    public static String getI6SSerialNumber(String mac) {
-//        try {
-//            String path = CHENXIN_GET_SERIAL_NUMBER + mac;
-//            URL url = new URL(path);
-//            LoggerUtils.d(TAG + "getI6SSerialNumber");
-//            LoggerUtils.d(TAG + "url = " + path);
-//            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-//            // 设置连接超时为5秒
-//            conn.setConnectTimeout(10000);
-//            // 设置请求类型为Get类型
-//            conn.setRequestMethod("GET");
-//            conn.connect();
-//            // 判断请求Url是否成功
-//            if (conn.getResponseCode() != 200) {
-//                throw new RuntimeException("请求url失败");
-//            }
-//            // 获取响应的输入流对象
-//            InputStream is = conn.getInputStream();
-//            // 创建字节输出流对象
-//            ByteArrayOutputStream message = new ByteArrayOutputStream();
-//            // 定义读取的长度
-//            int len = 0;
-//            // 定义缓冲区
-//            byte buffer[] = new byte[1024];
-//            // 按照缓冲区的大小，循环读取
-//            while ((len = is.read(buffer)) != -1) {
-//                // 根据读取的长度写入到os对象中
-//                message.write(buffer, 0, len);
-//            }
-//            message.flush();
-//            // 释放资源
-//            is.close();
-//            message.close();
-//            // 返回字符串
-//            String msg = new String(message.toByteArray());
-//            LoggerUtils.d(TAG + "msg = " + msg);
-//            return msg;
-//        } catch (Exception e) {
-//            LoggerUtils.d(TAG + "异常 ：：" + e.getMessage());
-//            e.printStackTrace();
-//        }
-//        return "";
-//    }
 }

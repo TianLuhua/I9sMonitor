@@ -3,7 +3,8 @@ package com.tencent.util;
 import android.app.ActivityManager;
 import android.content.Context;
 
-import com.MyApp;
+
+import com.booyue.MonitorApplication;
 
 import java.util.List;
 
@@ -17,8 +18,8 @@ public class AppUtil {
         // Returns a list of application processes that are running on the
         // device
 
-        ActivityManager activityManager = (ActivityManager) MyApp.getContext().getSystemService(Context.ACTIVITY_SERVICE);
-        String packageName = MyApp.getContext().getPackageName();
+        ActivityManager activityManager = (ActivityManager) MonitorApplication.Companion.getContext().getSystemService(Context.ACTIVITY_SERVICE);
+        String packageName = MonitorApplication.Companion.getContext().getPackageName();
 
         List<ActivityManager.RunningAppProcessInfo> appProcesses = activityManager.getRunningAppProcesses();
         if (appProcesses == null)

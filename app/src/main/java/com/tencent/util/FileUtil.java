@@ -1,6 +1,7 @@
 package com.tencent.util;
 
-import com.MyApp;
+
+import com.booyue.MonitorApplication;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -16,7 +17,7 @@ public class FileUtil {
      */
     public static void cleanSNFile() {
         if (isSNCached()) {//判断是否文件存在
-            File file = new File(MyApp.getContext().getFilesDir(), "serial.txt");
+            File file = new File(MonitorApplication.Companion.getContext().getFilesDir(), "serial.txt");
             if (file != null && file.exists()) {
                 file.delete();
             }
@@ -30,7 +31,7 @@ public class FileUtil {
      * @param serialNumber 串号
      */
     public static void saveSN(String serialNumber) {
-        File file = new File(MyApp.getContext().getFilesDir(), "serial.txt");
+        File file = new File(MonitorApplication.Companion.getContext().getFilesDir(), "serial.txt");
         FileOutputStream fileOutputStream = null;
         if (!file.exists()) {//如果不存在就写入文件
             try {
@@ -58,7 +59,7 @@ public class FileUtil {
      * @return true 写入过，false 没有写入
      */
     public static boolean isSNCached() {
-        File file = new File(MyApp.getContext().getFilesDir(), "serial.txt");
+        File file = new File(MonitorApplication.Companion.getContext().getFilesDir(), "serial.txt");
         if (file != null && file.exists() && file.length() != 0) {
             return true;
         } else {

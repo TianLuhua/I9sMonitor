@@ -5,7 +5,7 @@ import android.graphics.BitmapFactory;
 import android.os.Handler;
 import android.util.Log;
 
-import com.MyApp;
+import com.booyue.MonitorApplication;
 import com.tencent.devicedemo.ListItemInfo;
 import com.booyue.monitor.R;
 
@@ -32,7 +32,7 @@ public class ImageUtils {
     public ImageUtils(Handler handler,Set<Long> mSetFetching) {
         this.mHandler = handler;
         this.mSetFetching = mSetFetching;
-        mHeadPicPath = MyApp.getContext().getCacheDir().getAbsolutePath() + "/head";
+        mHeadPicPath = MonitorApplication.Companion.getContext().getCacheDir().getAbsolutePath() + "/head";
         File file = new File(mHeadPicPath);
         if (!file.exists()) {
             file.mkdirs();
@@ -50,7 +50,7 @@ public class ImageUtils {
         Bitmap bitmap = null;
         try {
             if (ListItemInfo.LISTITEM_TYPE_ADD_FRIEND == type) {
-                bitmap = BitmapFactory.decodeResource(MyApp.getContext().getResources(), R.drawable.add_more);
+                bitmap = BitmapFactory.decodeResource(MonitorApplication.Companion.getContext().getResources(), R.drawable.add_more);
             } else {
                 String strHeadPic = mHeadPicPath + "/" + uin + ".png";
                 bitmap = BitmapFactory.decodeFile(strHeadPic);
