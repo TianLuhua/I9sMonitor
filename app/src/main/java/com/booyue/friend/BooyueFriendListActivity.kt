@@ -11,7 +11,10 @@ import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
-import com.booyue.Conf
+import com.booyue.LICENSE
+import com.booyue.PRODUCT_ID
+import com.booyue.SERIAL_NUMBER
+import com.booyue.SERVER_PUBLIC_KEY
 import com.booyue.base.BaseActivity
 import com.booyue.monitor.R
 import com.booyue.serial.SerialNumberManager
@@ -211,8 +214,8 @@ class BooyueFriendListActivity : BaseActivity() {
      * 启动QQ物联核心服务服务
      */
     private fun startService() {
-        if (Conf.PRODUCT_ID == 0L || TextUtils.isEmpty(Conf.LICENSE) || TextUtils.isEmpty(Conf.SERIAL_NUMBER)
-                || TextUtils.isEmpty(Conf.SERVER_PUBLIC_KEY)) {
+        if (PRODUCT_ID == 0L || TextUtils.isEmpty(LICENSE) || TextUtils.isEmpty(SERIAL_NUMBER)
+                || TextUtils.isEmpty(SERVER_PUBLIC_KEY)) {
             showToast(R.string.unique_identifier)
         } else {
             val startIntent = Intent(this@BooyueFriendListActivity, TXDeviceService::class.java)

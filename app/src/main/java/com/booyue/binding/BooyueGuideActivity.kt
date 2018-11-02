@@ -4,7 +4,8 @@ import android.content.Context
 import android.graphics.BitmapFactory
 import android.os.Environment
 import android.widget.Toast
-import com.booyue.Conf
+import com.booyue.PRODUCT_ID
+import com.booyue.SERIAL_NUMBER
 import com.booyue.base.BaseActivity
 import com.booyue.monitor.R
 import com.bumptech.glide.Glide
@@ -21,7 +22,7 @@ class BooyueGuideActivity : BaseActivity() {
 
     companion object {
         val TAG = "BooyueGuideActivity"
-        val QRCODE_URL = "http://iot.qq.com/add?pid=" + "${Conf.PRODUCT_ID}" + "&sn=" + "${Conf.SERIAL_NUMBER}"
+        val QRCODE_URL = "http://iot.qq.com/add?pid=" + "${PRODUCT_ID}" + "&sn=" + "${SERIAL_NUMBER}"
     }
 
     private var filePath: String? = null

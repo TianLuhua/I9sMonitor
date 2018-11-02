@@ -5,7 +5,7 @@ import android.os.Build;
 import android.text.TextUtils;
 import android.widget.Toast;
 
-import com.booyue.Conf;
+import com.booyue.ConfKt;
 import com.booyue.MonitorApplication;
 import com.booyue.monitor.R;
 import com.booyue.annotation.Unique;
@@ -201,16 +201,16 @@ public class SerialNumberManager {
         if (s.contains(";")) {
             String[] splites = s.split(";");
             if (splites.length == 4) {
-                Conf.Companion.setPRODUCT_ID(Long.parseLong(splites[0]));
-                Conf.Companion.setSERIAL_NUMBER(splites[1]);
-                Conf.Companion.setLICENSE(splites[2]);
-                Conf.Companion.setSERVER_PUBLIC_KEY(splites[3]);
+                ConfKt.setPRODUCT_ID(Long.parseLong(splites[0]));
+                ConfKt.setSERIAL_NUMBER(splites[1]);
+                ConfKt.setLICENSE(splites[2]);
+                ConfKt.setSERVER_PUBLIC_KEY(splites[3]);
             }
         }
-        LoggerUtils.d(TAG + "Conf.PRODUCT_ID = " + Conf.Companion.getPRODUCT_ID());
-        LoggerUtils.d(TAG + "Conf.SERIAL_NUMBER = " + Conf.Companion.getSERIAL_NUMBER());
-        LoggerUtils.d(TAG + "Conf.LICENSE = " + Conf.Companion.getLICENSE());
-        LoggerUtils.d(TAG + "Conf.SERVER_PUBLIC_KEY = " + Conf.Companion.getSERVER_PUBLIC_KEY());
+        LoggerUtils.d(TAG + "Conf.PRODUCT_ID = " + ConfKt.getPRODUCT_ID());
+        LoggerUtils.d(TAG + "Conf.SERIAL_NUMBER = " + ConfKt.getSERIAL_NUMBER());
+        LoggerUtils.d(TAG + "Conf.LICENSE = " + ConfKt.getLICENSE());
+        LoggerUtils.d(TAG + "Conf.SERVER_PUBLIC_KEY = " + ConfKt.getSERVER_PUBLIC_KEY());
     }
 
     /**

@@ -22,7 +22,7 @@ class MonitorApplication : Application() {
         super.onCreate()
         instance = this@MonitorApplication
         //初始化Bugly
-        CrashReport.initCrashReport(applicationContext, APP_ID, false)
+        CrashReport.initCrashReport(applicationContext,APP_ID, false)
         //debug 开关
         val file = File(filesDir, "debug.txt")
         if (file.exists()) {
