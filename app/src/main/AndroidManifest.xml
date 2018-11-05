@@ -63,13 +63,6 @@
             android:screenOrientation="landscape"
             android:theme="@android:style/Theme.NoTitleBar" />
         <activity
-            android:name="com.booyue.friend.friendinfo.BooyueFriendInfoActivity"
-            android:configChanges="keyboardHidden|orientation|locale|screenSize"
-            android:label="@string/app_name"
-            android:launchMode="singleTask"
-            android:screenOrientation="landscape"
-            android:theme="@android:style/Theme.NoTitleBar" />
-        <activity
             android:name="com.booyue.friend.BooyueFriendListActivity"
             android:alwaysRetainTaskState="true"
             android:configChanges="keyboardHidden|orientation|locale|screenSize"
