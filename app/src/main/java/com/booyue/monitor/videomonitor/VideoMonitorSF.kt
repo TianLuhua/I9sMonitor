@@ -2,9 +2,12 @@ package com.booyue.monitor.videomonitor
 
 import android.app.Service
 import android.content.Context
+import android.widget.Toast
 import com.booyue.monitor.BooyueVideoMonitorService
 import com.tencent.av.VideoController
 import com.tencent.av.camera.VcCamera
+import com.tencent.av.thread.Future
+import com.tencent.av.thread.FutureListener
 import com.tencent.device.QLog
 import com.tencent.device.TXDeviceService
 import com.tencent.util.LoggerUtils
@@ -18,18 +21,24 @@ class VideoMonitorSF : BooyueVideoMonitorService.IVideoMonitor {
         val TAG = "VideoMonitorSF"
     }
 
-    lateinit var mCamera: VcCamera
-    lateinit var mPeerId: String
-    lateinit var mContext: Context
+    var mCamera: VcCamera
+    var mPeerId: String
+    var mContext: Context
     var mIsReceiver = false
 
-
-    override fun start(service: Service, peerId: String) {
+    constructor(service: Service, peerId: String) {
         this.mContext = service.application
         this.mPeerId = peerId
-        this.mIsReceiver = true
         this.mCamera = VideoController.getInstance().camera
-        VideoController.getInstance().execute(AsyncOpenCamera(), null)
+    }
+
+    override fun start() {
+        this.mIsReceiver = true
+        VideoController.getInstance().execute(AsyncOpenCamera(), object : FutureListener<Boolean> {
+            override fun onFutureDone(p0: Future<Boolean>?) {
+                //打开Camera完成！
+            }
+        })
     }
 
     override fun stop() {
@@ -65,11 +74,11 @@ class VideoMonitorSF : BooyueVideoMonitorService.IVideoMonitor {
     }
 
     private fun terminateVideo() {
-        VideoController.getInstance().execute({
+        VideoController.getInstance().execute {
             if (mCamera != null) {
                 mCamera.closeCamera()
             }
-        }, null)
+        }
         VideoController.getInstance().stopRing()
         if (mIsReceiver) {
             VideoController.getInstance().closeVideo(mPeerId)
