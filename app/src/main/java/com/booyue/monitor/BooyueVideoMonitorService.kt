@@ -48,10 +48,8 @@ class BooyueVideoMonitorService : Service() {
             //添加电量变化监听
             filter.addAction(Intent.ACTION_BATTERY_CHANGED)
             registerReceiver(mBroadcasterHandler, filter)
-            mVideoMonitor = VideoMonitorSF(this, mPeerId)
+            mVideoMonitor = VideoMonitorSF(applicationContext, mPeerId)
             mVideoMonitor.start()
-
-            VideoController.getInstance().acceptRequest(mPeerId)
         } else {
             stopSelf()
         }

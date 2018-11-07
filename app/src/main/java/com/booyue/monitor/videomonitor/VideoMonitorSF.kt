@@ -1,6 +1,5 @@
 package com.booyue.monitor.videomonitor
 
-import android.app.Service
 import android.content.Context
 import android.widget.Toast
 import com.booyue.CameraOperation
@@ -29,8 +28,8 @@ class VideoMonitorSF : IVideoMonitor {
     var mContext: Context
     var mIsReceiver = false
 
-    constructor(service: Service, peerId: String) {
-        this.mContext = service.application
+    constructor(mContext: Context, peerId: String) {
+        this.mContext = mContext
         this.mPeerId = peerId
         this.mCamera = VideoController.getInstance().camera
     }
@@ -40,6 +39,7 @@ class VideoMonitorSF : IVideoMonitor {
      */
     override fun start() {
         this.mIsReceiver = true
+        VideoController.getInstance().acceptRequest(mPeerId)
         VideoController.getInstance().execute(AsyncOpenCamera(), object : FutureListener<Boolean> {
             override fun onFutureDone(p0: Future<Boolean>?) {
                 //打开Camera完成！
