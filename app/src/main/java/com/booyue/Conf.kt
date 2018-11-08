@@ -6,7 +6,7 @@ package com.booyue
  */
 
 //Bugly app_id
-val APP_ID = "9824f36e23"
+const val APP_ID = "9824f36e23"
 
 //QQ物联注册相关参数
 var PRODUCT_ID: Long = 0
@@ -19,9 +19,9 @@ var SERVER_PUBLIC_KEY: String? = null
 /**
  * Camera相关
  */
-val TXDATAPOINT_CAMERA_ID = 100006163L
-val TXDATAPOINT_CAMERA_ON = 1.toString()
-val TXDATAPOINT_CAMERA_OFF = 0.toString()
+const val TXDATAPOINT_CAMERA_ID = 100006163L
+const val TXDATAPOINT_CAMERA_ON = 1.toString()
+const val TXDATAPOINT_CAMERA_OFF = 0.toString()
 
 sealed class CameraOperation {
     class ON(val value: String) : CameraOperation()
@@ -31,9 +31,9 @@ sealed class CameraOperation {
 /**
  * MicPhone相关
  */
-val TXDATAPOINT_MICPHONE_ID = 100006164L
-val TXDATAPOINT_MICPHONE_ON = 1.toString()
-val TXDATAPOINT_MICPHONE_OFF = 0.toString()
+const val TXDATAPOINT_MICPHONE_ID = 100006164L
+const val TXDATAPOINT_MICPHONE_ON = 1.toString()
+const val TXDATAPOINT_MICPHONE_OFF = 0.toString()
 
 sealed class MicPhoneOperation {
     class ON(val value: String) : MicPhoneOperation()
@@ -43,11 +43,11 @@ sealed class MicPhoneOperation {
 /**
  * 驱动轮相关的操作封装
  */
-val TXDATAPOINT_WHEEL_ID = 100006164L
-val TXDATAPOINT_WHEEL_FORWARD = 1.toString()
-val TXDATAPOINT_WHEEL_BACKWARD = 2.toString()
-val TXDATAPOINT_WHEEL_LEFT = 3.toString()
-val TXDATAPOINT_WHEEL_RIGHT = 4.toString()
+const val TXDATAPOINT_WHEEL_ID = 100006164L
+const val TXDATAPOINT_WHEEL_FORWARD = 1.toString()
+const val TXDATAPOINT_WHEEL_BACKWARD = 2.toString()
+const val TXDATAPOINT_WHEEL_LEFT = 3.toString()
+const val TXDATAPOINT_WHEEL_RIGHT = 4.toString()
 
 sealed class WheelOperation {
     class Forward(val value: String) : WheelOperation()
@@ -57,11 +57,11 @@ sealed class WheelOperation {
 }
 
 
-val TXDATAPOINT_BATTERY_CHANG_ID = 10101L
-val TXDATAPOINT_SWITCH_MOBITOR_ID = 100006165L
-val TXDATAPOINT_SHUTDOWN_ID = 100006166L
-val TXDATAPOINT_TURN_MOBITOR_ID = 100006167L
-val TXDATAPOINT_HAS_OPERATION_ID = 100006168L
+const val TXDATAPOINT_BATTERY_CHANG_ID = 10101L
+const val TXDATAPOINT_SWITCH_MOBITOR_ID = 100006165L
+const val TXDATAPOINT_SHUTDOWN_ID = 100006166L
+const val TXDATAPOINT_TURN_MOBITOR_ID = 100006167L
+const val TXDATAPOINT_HAS_OPERATION_ID = 100006168L
 
 
 

@@ -17,20 +17,17 @@ import com.tencent.util.LoggerUtils
 /**
  * Created by Tianluhua on 2018\10\31 0031.
  */
-class VideoMonitorSF : IVideoMonitor {
+class VideoMonitorSF(private var mContext: Context, peerId: String) : IVideoMonitor {
 
     companion object {
         val TAG = "VideoMonitorSF"
     }
 
-    var mCamera: VcCamera
-    var mPeerId: String
-    var mContext: Context
-    var mIsReceiver = false
+    private var mCamera: VcCamera
+    private var mPeerId: String = peerId
+    private var mIsReceiver = false
 
-    constructor(mContext: Context, peerId: String) {
-        this.mContext = mContext
-        this.mPeerId = peerId
+    init {
         this.mCamera = VideoController.getInstance().camera
     }
 
@@ -69,14 +66,9 @@ class VideoMonitorSF : IVideoMonitor {
      */
     override fun setMicPhoneStatu(operation: MicPhoneOperation) {
         if (mIsReceiver) {
-            var mute = false
-            when (operation) {
-                is MicPhoneOperation.ON -> {
-                    mute = true
-                }
-                is MicPhoneOperation.OFF -> {
-                    mute = false
-                }
+            val mute = when (operation) {
+                is MicPhoneOperation.ON -> true
+                is MicPhoneOperation.OFF -> false
             }
             VideoController.getInstance().setSelfMute2(mute)
         }
@@ -90,14 +82,9 @@ class VideoMonitorSF : IVideoMonitor {
      */
     override fun setCameraStatu(operation: CameraOperation) {
         if (mIsReceiver) {
-            var runnable: Runnable
-            when (operation) {
-                is CameraOperation.ON -> {
-                    runnable = AsyncOpenCamera()
-                }
-                is CameraOperation.OFF -> {
-                    runnable = AsyncCloseCamera()
-                }
+            val runnable = when (operation) {
+                is CameraOperation.ON -> AsyncOpenCamera()
+                is CameraOperation.OFF -> AsyncCloseCamera()
             }
             VideoController.getInstance().execute(runnable)
         }
@@ -111,20 +98,18 @@ class VideoMonitorSF : IVideoMonitor {
      *   WheelOperation.Left 左
      *   WheelOperation.Right 右
      */
-    override fun operationWheel(operation: WheelOperation) {
-        when (operation) {
-            is WheelOperation.Forward -> {
-                Toast.makeText(mContext, "向前", Toast.LENGTH_SHORT).show()
-            }
-            is WheelOperation.Backward -> {
-                Toast.makeText(mContext, "向后", Toast.LENGTH_SHORT).show()
-            }
-            is WheelOperation.Left -> {
-                Toast.makeText(mContext, "向左", Toast.LENGTH_SHORT).show()
-            }
-            is WheelOperation.Right -> {
-                Toast.makeText(mContext, "向右", Toast.LENGTH_SHORT).show()
-            }
+    override fun operationWheel(operation: WheelOperation) = when (operation) {
+        is WheelOperation.Forward -> {
+            Toast.makeText(mContext, "向前", Toast.LENGTH_SHORT).show()
+        }
+        is WheelOperation.Backward -> {
+            Toast.makeText(mContext, "向后", Toast.LENGTH_SHORT).show()
+        }
+        is WheelOperation.Left -> {
+            Toast.makeText(mContext, "向左", Toast.LENGTH_SHORT).show()
+        }
+        is WheelOperation.Right -> {
+            Toast.makeText(mContext, "向右", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -154,7 +139,7 @@ class VideoMonitorSF : IVideoMonitor {
 
         override fun run() {
             try {
-                if (mCamera == null || !mCamera.openCameraWithSilent()) {
+                if (!mCamera.openCameraWithSilent()) {
                     if (QLog.isColorLevel()) {
                         QLog.d(TAG, QLog.CLR, "asyncOpenCamera failed to start camera.")
                     }

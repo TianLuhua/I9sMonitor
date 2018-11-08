@@ -35,9 +35,9 @@ class BooyueVideoChatActivitySF : BaseActivity() {
 
 
     companion object {
-        val TAG = "BooyueVideoChatActivity"
-        val SYSTEM_DIALOG_REASON_KEY = "reason"
-        val SYSTEM_DIALOG_REASON_HOME_KEY = "homekey"
+        const val TAG = "BooyueVideoChatActivity"
+        const val SYSTEM_DIALOG_REASON_KEY = "reason"
+        const val SYSTEM_DIALOG_REASON_HOME_KEY = "homekey"
     }
 
     private lateinit var mPeerId: String
@@ -90,14 +90,14 @@ class BooyueVideoChatActivitySF : BaseActivity() {
 
         val intent = getIntent()
         if (intent == null) {
-            LoggerUtils.e(TAG + " Intent is null")
+            LoggerUtils.e("$TAG Intent is null")
         }
         mPeerId = intent.getStringExtra("peerid")
         mDinType = intent.getIntExtra("dinType", VideoController.UINTYPE_QQ)
         mSelfDin = VideoController.getInstance().GetSelfDin()
         mIsReceiver = intent.getBooleanExtra("receive", false)
         if (mPeerId.toLong() == 0.toLong() || mSelfDin.toLong() == 0.toLong()) {
-            LoggerUtils.e(TAG + " invalid peerId: " + mPeerId + " invalid selfDin: " + mSelfDin)
+            LoggerUtils.e("$TAG invalid peerId: $mPeerId invalid selfDin: $mSelfDin")
             finish()
         }
         mCamera = VideoController.getInstance().camera
@@ -132,8 +132,8 @@ class BooyueVideoChatActivitySF : BaseActivity() {
 
     // 这里对大小两个画面进行排布
     fun layoutGlVideoView() {
-        val width = av_video_gl_root_view.getWidth()
-        val height = av_video_gl_root_view.getHeight()
+        val width = av_video_gl_root_view.width
+        val height = av_video_gl_root_view.height
 
         //layout的四个参数定义： public void layout(int left, int top, int right, int bottom)
         //        mGlBigVideoView.layout(0, 0, width / 2, width / 2);
@@ -195,8 +195,8 @@ class BooyueVideoChatActivitySF : BaseActivity() {
         //设置边框颜色和边框宽度，不需要可以注释下面这两行代码
 //        mGlSmallVideoView.setPaddingColor(Color.WHITE);
 //        mGlSmallVideoView.setPaddings(2, 2, 2, 2);
-        GraphicRenderMgr.getInstance().setGlRender(mSelfDin, mGlSmallVideoView.getYuvTexture())
-        GraphicRenderMgr.getInstance().setGlRender(mPeerId, mGlBigVideoView.getYuvTexture())
+        GraphicRenderMgr.getInstance().setGlRender(mSelfDin, mGlSmallVideoView.yuvTexture)
+        GraphicRenderMgr.getInstance().setGlRender(mPeerId, mGlBigVideoView.yuvTexture)
     }
 
     private fun switchVideo() {
@@ -222,22 +222,22 @@ class BooyueVideoChatActivitySF : BaseActivity() {
 
     override fun initView() {
         val friendInfo = VideoController.getInstance().getFriendInfo(mPeerId)
-        tv_name.setText(friendInfo.name)
+        tv_name.text = friendInfo.name
 
 
-        btn_receive.setOnClickListener({
+        btn_receive.setOnClickListener {
             VideoController.getInstance().stopRing()
             if (java.lang.Long.parseLong(mPeerId) != 0L) {
                 VideoController.getInstance().acceptRequest(mPeerId)
                 afterReceive()
             }
-        })
+        }
 
-        btn_refuse.setOnClickListener({
+        btn_refuse.setOnClickListener {
             finish()
-        })
+        }
 
-        ib_speaker_switcher.setOnClickListener({
+        ib_speaker_switcher.setOnClickListener {
             if (currentDefinition == 1) {
                 currentDefinition = VideoController.DEFINITION_TYPE_CLEAR
                 ib_speaker_switcher.setImageResource(R.drawable.button_smooth)
@@ -247,11 +247,11 @@ class BooyueVideoChatActivitySF : BaseActivity() {
             }
             Toast.makeText(this@BooyueVideoChatActivitySF, R.string.switching, Toast.LENGTH_SHORT).show()
             VideoController.getInstance().setVideoModeType(java.lang.Long.valueOf(mPeerId), currentDefinition)// 切换时间为0-2s
-            mHandler.postDelayed({ ib_speaker_switcher.setEnabled(true) }, 2000)
-        })
+            mHandler.postDelayed({ ib_speaker_switcher.isEnabled = true }, 2000)
+        }
 
 
-        ib_switch_camera.setOnClickListener({
+        ib_switch_camera.setOnClickListener {
             mSwitchCameraIndex++
             if (mSwitchCameraIndex % 2 == 0L) {//打开摄像头，对方和自己画面都显示
                 VideoController.getInstance().execute(openCamera, null)
@@ -269,8 +269,8 @@ class BooyueVideoChatActivitySF : BaseActivity() {
                 }
                 ib_switch_camera.setImageResource(R.drawable.button_close_the_video)
             }
-        })
-        ib_switch_voice.setOnClickListener({
+        }
+        ib_switch_voice.setOnClickListener {
             if (VideoController.getInstance().isSelfMute) {
                 VideoController.getInstance().setSelfMute2(false)
                 ib_switch_voice.setImageResource(R.drawable.button_speaker)
@@ -278,10 +278,10 @@ class BooyueVideoChatActivitySF : BaseActivity() {
                 VideoController.getInstance().setSelfMute2(true)
                 ib_switch_voice.setImageResource(R.drawable.button_mute)
             }
-        })
-        ib_hangup.setOnClickListener({
+        }
+        ib_hangup.setOnClickListener {
             finish()
-        })
+        }
         beforeReceive()
     }
 
@@ -290,8 +290,8 @@ class BooyueVideoChatActivitySF : BaseActivity() {
      * 接听之后的视图
      */
     private fun beforeReceive() {
-        ll_receive_after.setVisibility(View.GONE)
-        tv_time.setVisibility(View.GONE)
+        ll_receive_after.visibility = View.GONE
+        tv_time.visibility = View.GONE
 
     }
 
@@ -299,9 +299,9 @@ class BooyueVideoChatActivitySF : BaseActivity() {
      * 接听之后的视图
      */
     private fun afterReceive() {
-        ll_recieve_before.setVisibility(View.GONE)
-        tv_time.setVisibility(View.VISIBLE)
-        ll_receive_after.setVisibility(View.VISIBLE)
+        ll_recieve_before.visibility = View.GONE
+        tv_time.visibility = View.VISIBLE
+        ll_receive_after.visibility = View.VISIBLE
     }
 
 
@@ -432,26 +432,12 @@ class BooyueVideoChatActivitySF : BaseActivity() {
             when (action) {
                 VideoConstants.ACTION_STOP_VIDEO_CHAT -> {
 
-                    var reason = intent.getIntExtra("reason", VideoConstants.VOIP_REASON_OTHERS)
-
-                    var reasonString: String = ""
-                    when (reason) {
-                        VideoConstants.VOIP_REASON_REJECT_BY_FRIEND -> {
-                            //发起请求之后，对方拒绝
-                            reasonString = context!!.getString(R.string.voip_reason_reject_by_friend)
-                        }
-                        VideoConstants.VOIP_REASON_SELF_WAIT_RELAYINFO_TIMEOUT -> {
-                            //发起请求之后，对方一直不接听，最后超时
-                            reasonString = context!!.getString(R.string.voip_reason_self_wait_relayinfo_timeout)
-                        }
-                        VideoConstants.VOIP_REASON_CLOSED_BY_FRIEND -> {
-                            //连通之后，对方主动关闭
-                            reasonString = context!!.getString(R.string.voip_reason_closed_by_friend)
-                        }
-                        else -> {
-                            //其它原因
-                            reasonString = context!!.getString(R.string.voip_reason_other)
-                        }
+                    val reason = intent.getIntExtra("reason", VideoConstants.VOIP_REASON_OTHERS)
+                    val reasonString = when (reason) {
+                        VideoConstants.VOIP_REASON_REJECT_BY_FRIEND -> context!!.getString(R.string.voip_reason_reject_by_friend)
+                        VideoConstants.VOIP_REASON_SELF_WAIT_RELAYINFO_TIMEOUT -> context!!.getString(R.string.voip_reason_self_wait_relayinfo_timeout)
+                        VideoConstants.VOIP_REASON_CLOSED_BY_FRIEND -> context!!.getString(R.string.voip_reason_closed_by_friend)
+                        else -> context!!.getString(R.string.voip_reason_other)
                     }
                     Toast.makeText(context, reasonString, Toast.LENGTH_LONG).show()
                     finish()
@@ -480,7 +466,7 @@ class BooyueVideoChatActivitySF : BaseActivity() {
                             break
                         }
                     }
-                    if (bFind == false) {
+                    if (!bFind) {
                         finish()
                     }
                 }
@@ -529,7 +515,7 @@ class BooyueVideoChatActivitySF : BaseActivity() {
         val builder = AlertDialog.Builder(this@BooyueVideoChatActivitySF)
         builder.setMessage("确认退出吗?")
         builder.setTitle("提示")
-        builder.setPositiveButton("确认") { dialog, which ->
+        builder.setPositiveButton("确认") { dialog, _ ->
             dialog.dismiss()
             this@BooyueVideoChatActivitySF.finish()
         }
@@ -548,10 +534,10 @@ class BooyueVideoChatActivitySF : BaseActivity() {
 
     var updateTime: Runnable = object : Runnable {
         override fun run() {
-            if (tv_time.getVisibility() == View.GONE) {
-                tv_time.setVisibility(View.VISIBLE)
+            if (tv_time.visibility == View.GONE) {
+                tv_time.visibility = View.VISIBLE
             }
-            tv_time.setText(TimeUtils.long2TimeFormat(startTime))
+            tv_time.text = TimeUtils.long2TimeFormat(startTime)
             mHandler.postDelayed(this, 1000)
         }
     }

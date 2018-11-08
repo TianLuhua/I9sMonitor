@@ -75,7 +75,7 @@ class BooyueAudioChatActivity : BaseActivity() {
         LoggerUtils.d(TAG + "deviceName = " + devName + ",deviceType = " + devType)
         ib_speaker_switcher.visibility = View.GONE
 
-        ib_speaker_switcher.setOnClickListener({
+        ib_speaker_switcher.setOnClickListener{
             if (VideoController.getInstance().isSelfMute) {
                 VideoController.getInstance().setSelfMute2(false)
                 ib_speaker_switcher.setImageResource(R.drawable.button_speaker_hi)
@@ -83,7 +83,7 @@ class BooyueAudioChatActivity : BaseActivity() {
                 VideoController.getInstance().setSelfMute2(true)
                 ib_speaker_switcher.setImageResource(R.drawable.button_speaker_nr)
             }
-        })
+        }
 
         if (TextUtils.equals(SerialNumberManager.T6_ID, Build.ID)) {
             val layoutParams = iv_avatar.layoutParams as FrameLayout.LayoutParams
@@ -102,22 +102,22 @@ class BooyueAudioChatActivity : BaseActivity() {
         } else {
             tv_cancel.visibility = View.GONE
         }
-        tv_cancel.setOnClickListener({
+        tv_cancel.setOnClickListener{
             if (mIsReceiver) {
                 VideoController.getInstance().rejectRequestAudio(mPeerId)
             }
             finish()
-        })
-        tv_hangup.setOnClickListener({
+        }
+        tv_hangup.setOnClickListener{
             if (mIsReceiver) {
                 VideoController.getInstance().rejectRequestAudio(mPeerId);
             }
             finish()
-        })
-        tv_receive.setOnClickListener({
+        }
+        tv_receive.setOnClickListener{
             tv_receive.visibility = View.GONE
             VideoController.getInstance().acceptRequestAudio(mPeerId)
-        })
+        }
     }
 
 
@@ -177,7 +177,7 @@ class BooyueAudioChatActivity : BaseActivity() {
                 VideoConstants.ACTION_STOP_VIDEO_CHAT -> {
                     var reason = intent.getIntExtra("reason", VideoConstants.VOIP_REASON_OTHERS)
 
-                    var reasonString: String = ""
+                    var reasonString: String
                     when (reason) {
                         VideoConstants.VOIP_REASON_REJECT_BY_FRIEND -> {
                             //发起请求之后，对方拒绝
@@ -228,7 +228,7 @@ class BooyueAudioChatActivity : BaseActivity() {
                             return
                         }
                     }
-                    if (bFind == false) {
+                    if (!bFind) {
                         finish()
                     }
                 }

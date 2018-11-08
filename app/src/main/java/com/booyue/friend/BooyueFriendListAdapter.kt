@@ -81,7 +81,7 @@ class BooyueFriendListAdapter : RecyclerView.Adapter<BooyueFriendListAdapter.MyV
     }
 
 
-    fun getListItemInfo(index: Int): ListItemInfo {
+    private fun getListItemInfo(index: Int): ListItemInfo {
         val item = ListItemInfo()
         val binder = mListBinder[index]
         item.id = binder.tinyid
@@ -108,8 +108,7 @@ class BooyueFriendListAdapter : RecyclerView.Adapter<BooyueFriendListAdapter.MyV
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        val item = getListItemInfo(position) ?: return
-
+        val item = getListItemInfo(position)
         if (item.type == ListItemInfo.LISTITEM_TYPE_ADD_FRIEND) {
             holder.ivAvatar.setImageResource(R.drawable.add_more)
             holder.tvName.setText(R.string.add_friend)
@@ -177,7 +176,7 @@ class BooyueFriendListAdapter : RecyclerView.Adapter<BooyueFriendListAdapter.MyV
     }
 
 
-    inner class MyViewHolder : RecyclerView.ViewHolder {
+    inner class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         var ivAvatar: CircleImageView
         var tvName: TextView
@@ -185,7 +184,7 @@ class BooyueFriendListAdapter : RecyclerView.Adapter<BooyueFriendListAdapter.MyV
         var ibVideo: ImageButton
         var llFunction: LinearLayout
 
-        constructor(itemView: View) : super(itemView) {
+        init {
             ivAvatar = itemView.findViewById(R.id.iv_avatar) as CircleImageView
             tvName = itemView.findViewById(R.id.tv_name) as TextView
             ibPhone = itemView.findViewById(R.id.ib_phone) as ImageButton
@@ -267,7 +266,7 @@ class BooyueFriendListAdapter : RecyclerView.Adapter<BooyueFriendListAdapter.MyV
      * @param uin    标识码
      * @param strUrl 头像url
      */
-    fun fetchBinderHeadPic(uin: Long, strUrl: String) {
+    private fun fetchBinderHeadPic(uin: Long, strUrl: String) {
         synchronized(mSetFetching) {
             if (mSetFetching.contains(uin)) {
                 return

@@ -21,8 +21,8 @@ import java.io.File
 class BooyueGuideActivity : BaseActivity() {
 
     companion object {
-        val TAG = "BooyueGuideActivity"
-        val QRCODE_URL = "http://iot.qq.com/add?pid=" + "${PRODUCT_ID}" + "&sn=" + "${SERIAL_NUMBER}"
+        const val TAG = "BooyueGuideActivity"
+        val QRCODE_URL = "http://iot.qq.com/add?pid=" + "$PRODUCT_ID" + "&sn=" + "$SERIAL_NUMBER"
     }
 
     private var filePath: String? = null
@@ -42,19 +42,16 @@ class BooyueGuideActivity : BaseActivity() {
     }
 
 
-    fun generateQRCode() {
+    private fun generateQRCode() {
         filePath = getFileRoot(this@BooyueGuideActivity) + File.separator + "qr_" + System.currentTimeMillis() + ".jpg"
         LoggerUtils.d(QRCODE_URL)
         //二维码图片较大时，生成图片、保存文件的时间可能较长，因此放在新线程中
-        Thread(object : Runnable {
-            override fun run() {
-                val success = QRCodeUtils.createQRImage(QRCODE_URL, 160, 160,
-                        BitmapFactory.decodeResource(resources, R.drawable.logo), filePath)
-                LoggerUtils.d(TAG + "success = " + success)
-                showQRCode(success)
-            }
-
-        }).start()
+        Thread {
+            val success = QRCodeUtils.createQRImage(QRCODE_URL, 160, 160,
+                    BitmapFactory.decodeResource(resources, R.drawable.logo), filePath)
+            LoggerUtils.d(TAG + "success = " + success)
+            showQRCode(success)
+        }.start()
     }
 
 
@@ -64,7 +61,7 @@ class BooyueGuideActivity : BaseActivity() {
      * @param success
      */
     //    private boolean isQRcodeSuccess = false;
-    fun showQRCode(success: Boolean) {
+    private fun showQRCode(success: Boolean) {
         runOnUiThread {
             if (success) {
                 //                        isQRcodeSuccess = true;

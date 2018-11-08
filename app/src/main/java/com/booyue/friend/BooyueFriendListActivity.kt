@@ -58,12 +58,12 @@ class BooyueFriendListActivity : BaseActivity() {
     }
 
     override fun initView() {
-        SerialNumberManager.readSerialNumber(this@BooyueFriendListActivity, {
+        SerialNumberManager.readSerialNumber(this@BooyueFriendListActivity) {
             LoggerUtils.d(TAG + "onSerailNumberListener Code:" + it)
-            runOnUiThread({
+            runOnUiThread {
                 startService()
-            })
-        })
+            }
+        }
 
         // 晨芯方案商&串号没有写入文件，
         // 不需要做任何操作，此时启动线程网络获取串号并写入文件，操作执行在接口回调中（line 60）
@@ -74,11 +74,11 @@ class BooyueFriendListActivity : BaseActivity() {
         }
         ib_erase_all_binders.setOnClickListener {
 
-            DialogManager.createAlertDialog(it.context, 0, 0, null, {
+            DialogManager.createAlertDialog(it.context, 0, 0, null) {
                 TXDeviceService.eraseAllBinders()
                 /**modify by : 2018/3/1 18:18 如果是晨芯 需要删除串号文件*/
                 FileUtil.cleanSNFile()
-            })
+            }
         }
         tv_back.setOnClickListener { finish() }
         tv_pre.setOnClickListener { pre() }
@@ -191,7 +191,7 @@ class BooyueFriendListActivity : BaseActivity() {
     private fun initUpgradeView(view: View?, tips: String, apkUrl: String) {
         if (view == null) throw NullPointerException()
         LoggerUtils.d(TAG + "initUpgradeView()")
-        view.findViewById<TextView>(R.id.tv_msg).setText(tips)
+        view.findViewById<TextView>(R.id.tv_msg).text = tips
         //销毁提示框
         view.findViewById<TextView>(R.id.btn_cancel).setOnClickListener {
             if (dialog != null) {
