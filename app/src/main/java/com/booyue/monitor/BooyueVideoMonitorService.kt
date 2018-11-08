@@ -8,12 +8,12 @@ import android.content.IntentFilter
 import android.os.IBinder
 import com.booyue.*
 import com.booyue.monitor.videomonitor.VideoMonitorSF
+import com.booyue.uils.LoggerUtils
 import com.tencent.av.VideoController
 import com.tencent.av.core.VideoConstants
 import com.tencent.device.TXBinderInfo
 import com.tencent.device.TXDataPoint
 import com.tencent.device.TXDeviceService
-import com.tencent.util.LoggerUtils
 
 /**
  * Created by Tianluhua on 2018\10\31 0031.

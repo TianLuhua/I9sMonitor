@@ -2,8 +2,8 @@ package com.booyue
 
 import android.app.Application
 import android.content.Context
+import com.booyue.uils.LoggerUtils
 import com.tencent.bugly.crashreport.CrashReport
-import com.tencent.util.LoggerUtils
 import java.io.File
 
 /**

@@ -18,10 +18,10 @@ import android.os.Build;
 import android.os.Environment;
 import android.os.SystemClock;
 
+import com.booyue.uils.LoggerUtils;
 import com.tencent.av.VideoController;
 import com.tencent.device.QLog;
 import com.tencent.sharp.jni.TraeAudioSession.ITraeAudioCallback;
-import com.tencent.util.LoggerUtils;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -826,7 +826,7 @@ int VOICE_COMMUNICATION
     private int PlayAudio(int lengthInBytes) {
         // 如果当前没有活动的sharp连接，忽略收到的音视频数据，无需播放
         if (false == VideoController.getInstance().hasPendingChannel()) {
-            LoggerUtils.d(TAG + "hasPendingChannel = false" );
+            LoggerUtils.Companion.d(TAG + "hasPendingChannel = false" );
             return -1;
         }
         QLog.e("TRAE", QLog.CLR, "PlayAudio");
@@ -855,7 +855,7 @@ int VOICE_COMMUNICATION
                 } catch (Exception e) {
                     if (QLog.isColorLevel())
                         QLog.w("TRAE", QLog.CLR, "Set play thread priority failed: " + e.getMessage());
-                        LoggerUtils.d(TAG + "Set play thread priority failed: " + e.getMessage());
+                        LoggerUtils.Companion.d(TAG + "Set play thread priority failed: " + e.getMessage());
                 }
                 _doPlayInit = false;
             }
@@ -865,7 +865,7 @@ int VOICE_COMMUNICATION
                     _play_out.write(_tempBufPlay, 0, writeBytes);
                     QLog.e("TRAE", QLog.CLR, "_play_out.write ,writeByte = " + writeBytes);
                 } catch (IOException e) {
-                    LoggerUtils.d(TAG + "write data exceptiion");
+                    LoggerUtils.Companion.d(TAG + "write data exceptiion");
                             e.printStackTrace();
                 }
 
@@ -954,7 +954,7 @@ int VOICE_COMMUNICATION
                     if (QLog.isColorLevel())
                         QLog.w("TRAE", QLog.CLR, "InitPlayback: min play buf size is " +
                                 minPlayBufSize + " hw_sr:" + AudioTrack.getNativeOutputSampleRate(_streamType));
-                        LoggerUtils.d(TAG + "InitPlayback: min play buf size is " +
+                        LoggerUtils.Companion.d(TAG + "InitPlayback: min play buf size is " +
                                 minPlayBufSize + " hw_sr:" + AudioTrack.getNativeOutputSampleRate(_streamType));
                     for (int j = 1; j <= 2; j++) {
                         int playBufSize = minPlayBufSize * j;
@@ -972,7 +972,7 @@ int VOICE_COMMUNICATION
                         } catch (Exception e) {
                             if (QLog.isColorLevel())
                                 QLog.w("TRAE", QLog.CLR, e.getMessage() + " _audioTrack:" + _audioTrack);
-                            LoggerUtils.d(TAG + e.getMessage() + " _audioTrack:" + _audioTrack);
+                            LoggerUtils.Companion.d(TAG + e.getMessage() + " _audioTrack:" + _audioTrack);
                             if (_audioTrack != null)
                                 _audioTrack.release();
                             _audioTrack = null;
@@ -981,13 +981,13 @@ int VOICE_COMMUNICATION
                         }
                         if (QLog.isColorLevel())
                             QLog.w("TRAE", QLog.CLR, " _audioTrack:" + _audioTrack);
-                            LoggerUtils.d(TAG + " _audioTrack:" + _audioTrack);
+                            LoggerUtils.Companion.d(TAG + " _audioTrack:" + _audioTrack);
                         // check that the audioRecord is ready to be used
                         if (_audioTrack.getState() != AudioTrack.STATE_INITIALIZED) {
                             if (QLog.isColorLevel())
                                 QLog.w("TRAE", QLog.CLR, "InitPlayback: play not initialized playBufSize:"
                                         + playBufSize + " sr:" + _playSamplerate);
-                            LoggerUtils.d(TAG + "InitPlayback: play not initialized playBufSize:"
+                            LoggerUtils.Companion.d(TAG + "InitPlayback: play not initialized playBufSize:"
                                     + playBufSize + " sr:" + _playSamplerate);
                             _audioTrack.release();
                             _audioTrack = null;
@@ -1011,7 +1011,7 @@ int VOICE_COMMUNICATION
                 if (QLog.isColorLevel()) QLog.e("TRAE", QLog.CLR, "  track reset used:"
                         + (SystemClock.elapsedRealtime() - lasttime) + "ms");
 
-                LoggerUtils.d(TAG + "  track reset used:"
+                LoggerUtils.Companion.d(TAG + "  track reset used:"
                         + (SystemClock.elapsedRealtime() - lasttime) + "ms");
             } else {
                 QLog.e("TRAE", QLog.CLR, "_needResetAudioTrack = false");

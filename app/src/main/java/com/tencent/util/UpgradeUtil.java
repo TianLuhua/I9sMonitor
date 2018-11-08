@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Environment;
 
 import com.booyue.serial.UserRequestManager;
+import com.booyue.uils.LoggerUtils;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -31,7 +32,7 @@ public class UpgradeUtil {
      */
     public static final String TAG = "UpgradeUtil-->";
     public static void checkUpgrade(Context context,Callback callback) {
-        LoggerUtils.d(TAG + "checkUpgrade");
+        LoggerUtils.Companion.d(TAG + "checkUpgrade");
         PackageManager packageManager = context.getApplicationContext().getPackageManager();
         try {
             PackageInfo packageInfo = packageManager.getPackageInfo(context.getApplicationContext().getPackageName(), 0);

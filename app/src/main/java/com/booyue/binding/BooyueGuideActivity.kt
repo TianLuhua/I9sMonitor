@@ -8,8 +8,8 @@ import com.booyue.PRODUCT_ID
 import com.booyue.SERIAL_NUMBER
 import com.booyue.base.BaseActivity
 import com.booyue.monitor.R
+import com.booyue.uils.LoggerUtils
 import com.bumptech.glide.Glide
-import com.tencent.util.LoggerUtils
 import com.tencent.util.NetWorkUtils
 import com.tencent.util.QRCodeUtils
 import kotlinx.android.synthetic.main.activity_guide.*

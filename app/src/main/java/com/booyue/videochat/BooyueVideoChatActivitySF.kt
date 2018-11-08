@@ -13,6 +13,7 @@ import android.widget.ImageView
 import android.widget.Toast
 import com.booyue.base.BaseActivity
 import com.booyue.monitor.R
+import com.booyue.uils.LoggerUtils
 import com.tencent.av.VideoController
 import com.tencent.av.camera.VcCamera
 import com.tencent.av.core.VideoConstants
@@ -23,7 +24,6 @@ import com.tencent.av.opengl.ui.GLViewGroup
 import com.tencent.device.QLog
 import com.tencent.device.TXBinderInfo
 import com.tencent.device.TXDeviceService
-import com.tencent.util.LoggerUtils
 import com.tencent.util.TimeUtils
 import kotlinx.android.synthetic.main.activity_videochat_softcodec_booyue.*
 

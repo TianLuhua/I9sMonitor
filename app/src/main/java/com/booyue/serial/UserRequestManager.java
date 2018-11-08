@@ -1,6 +1,7 @@
 package com.booyue.serial;
 
-import com.tencent.util.LoggerUtils;
+
+import com.booyue.uils.LoggerUtils;
 
 import java.io.IOException;
 
@@ -33,9 +34,9 @@ public class UserRequestManager {
      * @param productModel 产品id（L1,T6,I6S+）
      */
     public static void getSerialNumber(String mac, Callback callback, String productModel) {
-        LoggerUtils.d(TAG + "mac = " + mac);
-        LoggerUtils.d(TAG + "channel = hhtjgs");
-        LoggerUtils.d(TAG + "product = " + productModel);
+        LoggerUtils.Companion.d(TAG + "mac = " + mac);
+        LoggerUtils.Companion.d(TAG + "channel = hhtjgs");
+        LoggerUtils.Companion.d(TAG + "product = " + productModel);
         RequestBody requestBody = new FormBody.Builder()
                 .add("channel", "hhtjgs")
                 .add("mac", mac)
@@ -51,11 +52,11 @@ public class UserRequestManager {
      * @param callback    回调
      */
     public static void checkUpgrade(String versionName, Callback callback) {
-        LoggerUtils.d(TAG + "versionName = " + versionName);
+        LoggerUtils.Companion.d(TAG + "versionName = " + versionName);
         RequestBody requestBody = new FormBody.Builder()
                 .add("version", versionName)
                 .build();
-        LoggerUtils.d(TAG + "upgrade url = " + UPGRADE_URL + "version=" + versionName);
+        LoggerUtils.Companion.d(TAG + "upgrade url = " + UPGRADE_URL + "version=" + versionName);
         RequestManager.post(UPGRADE_URL, requestBody, callback);
     }
 
@@ -66,9 +67,9 @@ public class UserRequestManager {
      * @return json字符串
      */
     public static void getI6SSerialNumber(String mac, Callback callback) {
-        LoggerUtils.d(TAG + "mac = " + mac);
+        LoggerUtils.Companion.d(TAG + "mac = " + mac);
         String path = CHENXIN_GET_SERIAL_NUMBER + mac;
-        LoggerUtils.d(TAG + "path= " + path);
+        LoggerUtils.Companion.d(TAG + "path= " + path);
         RequestManager.get(path, callback);
     }
 }

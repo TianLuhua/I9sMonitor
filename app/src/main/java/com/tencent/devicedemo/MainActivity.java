@@ -33,7 +33,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.tencent.util.LoggerUtils;
+import com.booyue.uils.LoggerUtils;
 import com.tencent.util.WindowsUtils;
 import com.tencent.av.VideoController;
 import com.tencent.device.TXBinderInfo;
@@ -324,7 +324,7 @@ public class MainActivity extends Activity {
         int displayDensityDpi = WindowsUtils.getDisplayDensityDpi(this);
         int height = WindowsUtils.getDisplayHeight(this);
         int width = WindowsUtils.getDisplayWidth(this);
-        LoggerUtils.d(TAG + "width = " + width + ",Height = " + height + ",density = " + density
+        LoggerUtils.Companion.d(TAG + "width = " + width + ",Height = " + height + ",density = " + density
 
                 + ",displayDensity = " + displayDensityDpi);
 

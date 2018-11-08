@@ -6,12 +6,12 @@ import com.booyue.CameraOperation
 import com.booyue.MicPhoneOperation
 import com.booyue.WheelOperation
 import com.booyue.monitor.IVideoMonitor
+import com.booyue.uils.LoggerUtils
 import com.tencent.av.VideoController
 import com.tencent.av.camera.VcCamera
 import com.tencent.av.thread.FutureListener
 import com.tencent.device.QLog
 import com.tencent.device.TXDeviceService
-import com.tencent.util.LoggerUtils
 
 /**
  * Created by Tianluhua on 2018\10\31 0031.

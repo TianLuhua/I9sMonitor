@@ -12,10 +12,10 @@ import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.WindowManager;
 
+import com.booyue.uils.LoggerUtils;
 import com.tencent.av.VideoController;
 import com.tencent.av.core.VcControllerImpl;
 import com.tencent.device.QLog;
-import com.tencent.util.LoggerUtils;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -220,7 +220,7 @@ public class VcCamera extends AndroidCamera{
 					if (opSize != null) {
 						PREVIEW_WIDTH = opSize.width;
 						PREVIEW_HEIGHT = opSize.height;
-						LoggerUtils.d(TAG, "OptimalEqualPreviewSize :PREVIEW_WIDTH = " + PREVIEW_WIDTH + ",,PREVIEW_HEIGHT = " + PREVIEW_HEIGHT);
+						LoggerUtils.Companion.d(TAG, "OptimalEqualPreviewSize :PREVIEW_WIDTH = " + PREVIEW_WIDTH + ",,PREVIEW_HEIGHT = " + PREVIEW_HEIGHT);
 					}
 				}
 			}
@@ -318,7 +318,7 @@ public class VcCamera extends AndroidCamera{
 		PREVIEW_WIDTH = (frameSize.width);
 		PREVIEW_HEIGHT = (frameSize.height);
 		PREVIEW_FORMAT =(videoFormat);
-		LoggerUtils.d(TAG, "frameSize: PREVIEW_WIDTH = " + PREVIEW_WIDTH + ",,PREVIEW_HEIGHT = " +
+		LoggerUtils.Companion.d(TAG, "frameSize: PREVIEW_WIDTH = " + PREVIEW_WIDTH + ",,PREVIEW_HEIGHT = " +
 				PREVIEW_HEIGHT + ",,PREVIEW_FORMAT = " + PREVIEW_FORMAT);
 		// 强制修正魅族M9和中兴U880的视频格式
 		if (DEV_MANUFACTURER.equalsIgnoreCase("meizu") && DEV_MODEL.equalsIgnoreCase("meizu_m9")) {
@@ -665,7 +665,7 @@ public class VcCamera extends AndroidCamera{
 	}
 
 	public synchronized boolean reopenCamera(SurfaceHolder holder) {
-		LoggerUtils.d(TAG + "reopenCamera");
+		LoggerUtils.Companion.d(TAG + "reopenCamera");
 		boolean result = false;
 		do {
 			if (NUM_CAMERA < 1 || camera == null) {
@@ -727,7 +727,7 @@ public class VcCamera extends AndroidCamera{
 			}
 		} catch (Exception e) {
 			if(QLog.isColorLevel()) QLog.d(TAG, QLog.CLR, "closeCamera Exception", e);
-			LoggerUtils.d(TAG ,"closeCamera Exception : " + e.getMessage());
+			LoggerUtils.Companion.d(TAG ,"closeCamera Exception : " + e.getMessage());
 		}
 
 		isCameraOpened = false;

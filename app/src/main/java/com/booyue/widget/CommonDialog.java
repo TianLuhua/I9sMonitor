@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.Window;
 
 import com.booyue.monitor.R;
-import com.tencent.util.LoggerUtils;
+import com.booyue.uils.LoggerUtils;
 
 /**
  * Created by Administrator on 2018/4/26.11:31
@@ -20,7 +20,7 @@ public class CommonDialog {
      * @return
      */
     public static AlertDialog showAppUpgradeDialog(Context context, View view){
-        LoggerUtils.d(TAG + "showAppUpgradeDialog()");
+        LoggerUtils.Companion.d(TAG + "showAppUpgradeDialog()");
         AlertDialog loadingDialog = new AlertDialog.Builder(context).create();
         if (!loadingDialog.isShowing()) {
             loadingDialog.show();

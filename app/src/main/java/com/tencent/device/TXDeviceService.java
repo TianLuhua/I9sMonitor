@@ -15,8 +15,8 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.booyue.ConfKt;
+import com.booyue.uils.LoggerUtils;
 import com.tencent.util.FileUtil;
-import com.tencent.util.LoggerUtils;
 import com.tencent.av.VideoController;
 import com.tencent.av.VideoService;
 
@@ -133,7 +133,7 @@ public class TXDeviceService extends Service {
     @Override
     public void onDestroy() {
         // TODO Auto-generated method stub
-        LoggerUtils.d(TAG + "TXDeviceService: onDestroy");
+        LoggerUtils.Companion.d(TAG + "TXDeviceService: onDestroy");
         super.onDestroy();
         mServiceInstance = null;
         mServiceBinder = null;
@@ -154,7 +154,7 @@ public class TXDeviceService extends Service {
 //                this.getCacheDir().getAbsolutePath(), 102400, logPath, 1024000, this.getCacheDir().getAbsolutePath() + "/", 1024000);
 
 
-        LoggerUtils.e(TAG + "：Conf.LICENSE:" +ConfKt.getLICENSE() + " Conf.SERIAL_NUMBER:" + ConfKt.getSERIAL_NUMBER() + "  Conf.SERVER_PUBLIC_KEY:" + ConfKt.getSERVER_PUBLIC_KEY() + " Conf.PRODUCT_ID:" +ConfKt.getPRODUCT_ID());
+        LoggerUtils.Companion.e(TAG + "：Conf.LICENSE:" +ConfKt.getLICENSE() + " Conf.SERIAL_NUMBER:" + ConfKt.getSERIAL_NUMBER() + "  Conf.SERVER_PUBLIC_KEY:" + ConfKt.getSERVER_PUBLIC_KEY() + " Conf.PRODUCT_ID:" +ConfKt.getPRODUCT_ID());
 
         init("TV_demo",ConfKt.getLICENSE().getBytes(), ConfKt.getSERIAL_NUMBER(), ConfKt.getSERVER_PUBLIC_KEY(), ConfKt.getPRODUCT_ID(), 1, NETWORK_TYPE_WIFI, SDK_RUN_MODE_DEFAULT,
                 logPath1, 102400, logPath1, 1024000, logPath1 + "/", 1024000);
@@ -377,7 +377,7 @@ public class TXDeviceService extends Service {
 
     //=============相应通知==============
     private void onGetSociallyNumber(int result, long sociallyNumber) {
-        LoggerUtils.d(TAG + "onGetSociallyNumber: result:" + result + ", sociallynumber:" + sociallyNumber);
+        LoggerUtils.Companion.d(TAG + "onGetSociallyNumber: result:" + result + ", sociallynumber:" + sociallyNumber);
 
         // 广播通知
         Intent intent = new Intent();
@@ -392,7 +392,7 @@ public class TXDeviceService extends Service {
     }
 
     private void onFriendListChange(int result, TXFriendInfo[] friendList) {
-        LoggerUtils.d(TAG + "onFriendListChange: result:" + result + ", friendList size:" + (friendList == null ? 0 : friendList.length));
+        LoggerUtils.Companion.d(TAG + "onFriendListChange: result:" + result + ", friendList size:" + (friendList == null ? 0 : friendList.length));
 
         // 广播通知
         Intent intent = new Intent();
@@ -420,7 +420,7 @@ public class TXDeviceService extends Service {
     }
 
     private void onFetchAddFriendInfo(int result, TXFriendInfo friendInfo) {
-        LoggerUtils.d(TAG + "onFetchAddFriendInfo: result:" + result + ", friend din:" + (friendInfo == null ? 0 : friendInfo.friend_din));
+        LoggerUtils.Companion.d(TAG + "onFetchAddFriendInfo: result:" + result + ", friend din:" + (friendInfo == null ? 0 : friendInfo.friend_din));
 
         // 广播通知
         Intent intent = new Intent();
@@ -435,7 +435,7 @@ public class TXDeviceService extends Service {
     }
 
     private void onReqAddFriend(int result) {
-        LoggerUtils.d(TAG + "onReqAddFriend: result:" + result);
+        LoggerUtils.Companion.d(TAG + "onReqAddFriend: result:" + result);
 
         // 广播通知
         Intent intent = new Intent();
@@ -449,7 +449,7 @@ public class TXDeviceService extends Service {
     }
 
     private void onConfirmAddFriend(int result) {
-        LoggerUtils.d(TAG + "onConfirmAddFriend: result:" + result);
+        LoggerUtils.Companion.d(TAG + "onConfirmAddFriend: result:" + result);
 
         // 广播通知
         Intent intent = new Intent();
@@ -463,7 +463,7 @@ public class TXDeviceService extends Service {
     }
 
     private void onDelFriend(int result) {
-        LoggerUtils.d(TAG + "onDelFriend: result:" + result);
+        LoggerUtils.Companion.d(TAG + "onDelFriend: result:" + result);
 
         // 广播通知
         Intent intent = new Intent();
@@ -477,7 +477,7 @@ public class TXDeviceService extends Service {
     }
 
     private void onModifyFriendRemark(int result) {
-        LoggerUtils.d(TAG + "onModifyFriendRemark: result:" + result);
+        LoggerUtils.Companion.d(TAG + "onModifyFriendRemark: result:" + result);
 
         // 广播通知
         Intent intent = new Intent();
@@ -492,7 +492,7 @@ public class TXDeviceService extends Service {
 
     //注意：sdk收到一个加好友请求就往上层抛一个通知，如果同一个好友在界面未处理前连续请求多次，需要在界面上做过滤，只弹一次提示框
     private void onReceiveAddFriendReq(long socialNumber, TXFriendInfo friendInfo, String validationMsg) {
-        LoggerUtils.d(TAG + "onReceiveAddFriendReq: friend din:" + (friendInfo == null ? 0 : friendInfo.friend_din) + ", validationMsg:" + validationMsg);
+        LoggerUtils.Companion.d(TAG + "onReceiveAddFriendReq: friend din:" + (friendInfo == null ? 0 : friendInfo.friend_din) + ", validationMsg:" + validationMsg);
 
         // 广播通知
         Intent intent = new Intent();
@@ -516,7 +516,7 @@ public class TXDeviceService extends Service {
     //     ip：   手Q的IP ， 用于ackapp通知手Q设备已联网
     //     port： 手Q的端口
     private void onReceiveWifiInfo(String ssid, String pwd, int ip, int port) {
-        LoggerUtils.d(TAG + "onReceiveWifiInfo: ssid[" + ssid + "] , password[" + pwd + "], ip[" + ip + "], port[" + port + "]");
+        LoggerUtils.Companion.d(TAG + "onReceiveWifiInfo: ssid[" + ssid + "] , password[" + pwd + "], ip[" + ip + "], port[" + port + "]");
 
         // 广播通知
         Intent intent = new Intent();
@@ -535,7 +535,7 @@ public class TXDeviceService extends Service {
 
     //解绑所有用户回调通知
     private void onEraseAllBinders(int error) {
-        LoggerUtils.d(TAG + "onEraseAllBinders: error =  " + error);
+        LoggerUtils.Companion.d(TAG + "onEraseAllBinders: error =  " + error);
         if (error == 0) {
             showToastMessage("解绑所有用户成功");
         } else {
@@ -552,16 +552,16 @@ public class TXDeviceService extends Service {
 
     // 成功上传设备注册信息到服务器（用于跨网绑定模式下是否展示二维码）
     private void onWlanUploadRegInfoSuccess() {
-        LoggerUtils.d(TAG + "onWlanUploadRegInfoSuccess: ");
+        LoggerUtils.Companion.d(TAG + "onWlanUploadRegInfoSuccess: ");
         showToastMessage("成功上传设备注册信息到服务器");
 
         String strUrl = getQRCodeUrl();
-        LoggerUtils.d(TAG + "getQRCodeUrl:" + strUrl);
+        LoggerUtils.Companion.d(TAG + "getQRCodeUrl:" + strUrl);
     }
 
     //设备绑定回调，id：表示设备的DIN；error表示错误码：0表示设备被成功绑定（之前未被绑定），1表示设备之前已经被绑定，其它表示绑定出错
     private void onBindCallback(long id, int error) {
-        LoggerUtils.d(TAG + "onBindCallback: " + id + " " + error);
+        LoggerUtils.Companion.d(TAG + "onBindCallback: " + id + " " + error);
         if (error == 0) {
             showToastMessage("设备被绑定成功");
         } else {
@@ -573,24 +573,24 @@ public class TXDeviceService extends Service {
     private void onBinderListChange(int error, TXBinderInfo[] listBinder) {
         if (error == 0) {
             showToastMessage("用户列表刷新成功");
-            LoggerUtils.d(TAG + "BinderList Fresh Success");
+            LoggerUtils.Companion.d(TAG + "BinderList Fresh Success");
         } else {
             showToastMessage("用户列表刷新失败 Error Code：" + error);
-            LoggerUtils.d(TAG + "BinderList Fresh Failed");
+            LoggerUtils.Companion.d(TAG + "BinderList Fresh Failed");
             /**modify by : 2018/3/7 9:23*/
             FileUtil.cleanSNFile();
         }
 
         if (null == listBinder) {
-            LoggerUtils.d(TAG + "onBinderListChange: listBinder is null ");
+            LoggerUtils.Companion.d(TAG + "onBinderListChange: listBinder is null ");
             return;
         }
 
-        LoggerUtils.d(TAG + "onBinderListChange: count = " + listBinder.length);
+        LoggerUtils.Companion.d(TAG + "onBinderListChange: count = " + listBinder.length);
         mBinderList.clear();
         for (int i = 0; i < listBinder.length; ++i) {
             if (null == listBinder[i]) {
-                LoggerUtils.d(TAG + "onBinderListChange: listBinder[" + i + "] is null ");
+                LoggerUtils.Companion.d(TAG + "onBinderListChange: listBinder[" + i + "] is null ");
                 continue;
             }
             FriendInfo friendInfo = new FriendInfo();
@@ -599,7 +599,7 @@ public class TXDeviceService extends Service {
             friendInfo.uin = "" + listBinder[i].tinyid;
             friendInfo.headUrl = listBinder[i].head_url;
             mBinderList.add(friendInfo);
-            LoggerUtils.d(TAG + "onBinderListChange: " + listBinder[i].binder_type + " " + listBinder[i].tinyid + " " + " " + listBinder[i].getNickName() + " " + listBinder[i].binder_gender + " " + listBinder[i].head_url);
+            LoggerUtils.Companion.d(TAG + "onBinderListChange: " + listBinder[i].binder_type + " " + listBinder[i].tinyid + " " + " " + listBinder[i].getNickName() + " " + listBinder[i].binder_gender + " " + listBinder[i].head_url);
         }
 
         Intent intent = new Intent();
@@ -612,7 +612,7 @@ public class TXDeviceService extends Service {
 
     //设备登录回调，error表示错误码：0表示登录成功，其它表示登录出错
     private void onLoginComplete(int error) {
-        LoggerUtils.d(TAG + "onLoginComplete: error =  " + error);
+        LoggerUtils.Companion.d(TAG + "onLoginComplete: error =  " + error);
         if (error == 0) {
             showToastMessage("登录成功");
         } else {
@@ -625,7 +625,7 @@ public class TXDeviceService extends Service {
 
     //上线成功后回调：电视端的所有其它操作都应该在上线成功以后才可以进行
     private void onOnlineSuccess() {
-        LoggerUtils.d(TAG + "onOnlineSuccess ");
+        LoggerUtils.Companion.d(TAG + "onOnlineSuccess ");
         showToastMessage("上线成功");
 
         //拉取绑定列表
@@ -634,44 +634,44 @@ public class TXDeviceService extends Service {
 
     //下线回调
     private void onOfflineSuccess() {
-        LoggerUtils.d(TAG + "onOfflineSuccess");
+        LoggerUtils.Companion.d(TAG + "onOfflineSuccess");
         showToastMessage("### 离线 ###");
     }
 
     //富媒体消息（Audio，Video，Picture）发送进度信息
     private void OnRichMsgSendProgress(int cookie, long transfer_progress, long max_transfer_progress) {
-        LoggerUtils.d(TAG + "OnRichMsgSendProgress: cookie = " + cookie + " progress = " + transfer_progress + " max_progress = " + max_transfer_progress);
+        LoggerUtils.Companion.d(TAG + "OnRichMsgSendProgress: cookie = " + cookie + " progress = " + transfer_progress + " max_progress = " + max_transfer_progress);
     }
 
     //富媒体消息（Audio，Video，Picture）发送结果信息
     private void OnRichMsgSendRet(int cookie, int err_code) {
-        LoggerUtils.d(TAG + "OnRichMsgSendRet: cookie = " + cookie + " err_code = " + err_code);
+        LoggerUtils.Companion.d(TAG + "OnRichMsgSendRet: cookie = " + cookie + " err_code = " + err_code);
     }
 
     //文本消息发送结果
     private void OnTextMsgSendRet(int cookie, int err_code) {
-        LoggerUtils.d(TAG + "OnTextMsgSendRet: cookie = " + cookie + " err_code = " + err_code);
+        LoggerUtils.Companion.d(TAG + "OnTextMsgSendRet: cookie = " + cookie + " err_code = " + err_code);
     }
 
     //模版消息发送结果
     private void OnTemplateMsgSendRet(int cookie, int err_code) {
-        LoggerUtils.d(TAG + "OnTemplateMsgSendRet: cookie = " + cookie + " err_code = " + err_code);
+        LoggerUtils.Companion.d(TAG + "OnTemplateMsgSendRet: cookie = " + cookie + " err_code = " + err_code);
     }
 
     //收到DataPoint
     private void onReceiveDataPoint(long from, TXDataPoint[] arrayDataPoint) throws Exception {
         if (null == arrayDataPoint) {
-            LoggerUtils.d(TAG + "onReceiveDataPoint: arrayDataPoint is null ");
+            LoggerUtils.Companion.d(TAG + "onReceiveDataPoint: arrayDataPoint is null ");
             return;
         }
 
-        LoggerUtils.d(TAG + "onReceiveDataPoint: from = " + from);
+        LoggerUtils.Companion.d(TAG + "onReceiveDataPoint: from = " + from);
         for (int i = 0; i < arrayDataPoint.length; ++i) {
             if (null == arrayDataPoint[i]) {
-                LoggerUtils.d(TAG + "onReceiveDataPoint: arrayDataPoint[" + i + "] is null");
+                LoggerUtils.Companion.d(TAG + "onReceiveDataPoint: arrayDataPoint[" + i + "] is null");
                 continue;
             }
-            LoggerUtils.d(TAG + "onReceiveDataPoint: " + arrayDataPoint[i].property_id + " " + arrayDataPoint[i].property_val + " " +
+            LoggerUtils.Companion.d(TAG + "onReceiveDataPoint: " + arrayDataPoint[i].property_id + " " + arrayDataPoint[i].property_val + " " +
                     arrayDataPoint[i].sequence + " " + arrayDataPoint[i].ret_code);
 
             String strText = "收到DataPoint Property ID：" + arrayDataPoint[i].property_id + "   Property Value：" + arrayDataPoint[i].property_val;
@@ -698,33 +698,33 @@ public class TXDeviceService extends Service {
     // ackDataPoint发送结果通知  
     private void onAckDataPointResult(int cookie, long u64UIN, int err_code) {
         String strLog = "onAckDataPointResult: cookie = " + cookie + " u64Uin = " + u64UIN + " err_code = " + err_code;
-        LoggerUtils.d(TAG + strLog);
+        LoggerUtils.Companion.d(TAG + strLog);
         showToastMessage(strLog);
     }
 
     //reportDataPoint发送结果通知
     private void onReportDataPointResult(int cookie, int err_code) {
         String strLog = "onReportDataPointResult: cookie = " + cookie + " err_code = " + err_code;
-        LoggerUtils.d(TAG + strLog);
+        LoggerUtils.Companion.d(TAG + strLog);
         showToastMessage(strLog);
     }
 
     //文件传输回调：进度信息
     private void onTransferProgress(long transfer_cookie, long transfer_progress, long max_transfer_progress) {
-        LoggerUtils.d(TAG + "onTransferProgress: cookie = " + transfer_cookie + " progress = " + transfer_progress + " max_progress = " + max_transfer_progress);
+        LoggerUtils.Companion.d(TAG + "onTransferProgress: cookie = " + transfer_cookie + " progress = " + transfer_progress + " max_progress = " + max_transfer_progress);
     }
 
     //文件传输回调：结果信息
     private void onTransferComplete(long transfer_cookie, int err_code, TXFileTransferInfo info) {
         String extra_buffer = new String(info.buffer_extra);
-        LoggerUtils.d(TAG + "onTransferComplete: cookie = " + transfer_cookie + " err_code = " + err_code + " business_name:" + info.business_name + " extra_buffer:" + extra_buffer + "   file_path" + info.file_path);
+        LoggerUtils.Companion.d(TAG + "onTransferComplete: cookie = " + transfer_cookie + " err_code = " + err_code + " business_name:" + info.business_name + " extra_buffer:" + extra_buffer + "   file_path" + info.file_path);
         String strText = "收到文件，business_name:" + info.business_name + " extra_buffer:" + extra_buffer + "   file_path" + info.file_path;
         showToastMessage(strText);
     }
 
     //文件传输回调：收到文件
     private void onReceiveFile(long transfer_cookie, long from) {
-        LoggerUtils.d(TAG + "onReceiveFile:  cookie = " + transfer_cookie + " From = " + from + " ");
+        LoggerUtils.Companion.d(TAG + "onReceiveFile:  cookie = " + transfer_cookie + " From = " + from + " ");
     }
 
     // 有设备可用的新固件版本，手机会将查询到的固件包信息通知给设备
@@ -799,7 +799,7 @@ public class TXDeviceService extends Service {
             public void run() {
                 // TODO Auto-generated method stub
                 Toast.makeText(getApplicationContext(), strMsg, Toast.LENGTH_LONG).show();
-                LoggerUtils.d(TAG + strMsg);
+                LoggerUtils.Companion.d(TAG + strMsg);
             }
 
         });

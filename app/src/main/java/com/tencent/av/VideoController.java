@@ -21,7 +21,7 @@ import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.booyue.monitor.BooyueVideoMonitorService;
-import com.tencent.util.LoggerUtils;
+import com.booyue.uils.LoggerUtils;
 import com.tencent.av.camera.AndroidCamera;
 import com.tencent.av.camera.VcCamera;
 import com.tencent.av.core.AbstractNetChannel;
@@ -824,7 +824,7 @@ public class VideoController extends AbstractNetChannel implements IVideoEventLi
     public void onRequestVideo(int uinType, String fromUin, String extraUin,
                                byte[] sig, boolean onlyAudio, String bindID, int bindType) {
         requestAudioFocus();
-        LoggerUtils.d(TAG + "onRequestVideo");
+        LoggerUtils.Companion.d(TAG + "onRequestVideo");
 
         if (hasPendingChannel()) {
             rejectRequest(fromUin);
@@ -834,7 +834,7 @@ public class VideoController extends AbstractNetChannel implements IVideoEventLi
                 QLog.d(TAG, QLog.CLR, "recv video monitor request");
                 Intent intent = new Intent(mContext, BooyueVideoMonitorService.class);
                 intent.putExtra("peerid", fromUin);
-                LoggerUtils.d(TAG + "onRequestVideo VideoMonitorService");
+                LoggerUtils.Companion.d(TAG + "onRequestVideo VideoMonitorService");
                 mContext.startService(intent);
 
 //                if (Long.parseLong(bindID) == 4100) {

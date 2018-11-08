@@ -9,8 +9,8 @@ import com.booyue.ConfKt;
 import com.booyue.MonitorApplication;
 import com.booyue.monitor.R;
 import com.booyue.annotation.Unique;
+import com.booyue.uils.LoggerUtils;
 import com.tencent.util.FileUtil;
-import com.tencent.util.LoggerUtils;
 import com.tencent.util.NetUtil;
 import com.tencent.util.NetWorkUtils;
 
@@ -50,13 +50,13 @@ public class SerialNumberManager {
      * @param context
      */
     public static void readSerialNumber(final Context context, final SerialNumberListener serialNumberListener) {
-        LoggerUtils.d(TAG + "readSerialNumber");
+        LoggerUtils.Companion.d(TAG + "readSerialNumber");
 
 
         if (I6SC_MODEL.equals(Build.MODEL)) {
             spilitSerailNumber("1700005382;FA6D878A8C124fc1;3045022100BEBCC9F4C949E159937AC590790A98A033577AC6CEA6B16B6191650B9F4FD2BE0220170BD84D14BFE3D98481741D3968DCFEE0A8A19427924CE68453AE4ECAF43BCE;04C51918B8B3E2ABB44CD61BFCE7A9E6723EBFE36EA2A6F1C76992F339B26975B7C436444EBF495541CED5E4C0687D108D");
             serialNumberListener.onSerailNumberListener(1);
-            LoggerUtils.d(TAG + "current mode :" + I6SC_MODEL);
+            LoggerUtils.Companion.d(TAG + "current mode :" + I6SC_MODEL);
             return;
         }
 
@@ -99,13 +99,13 @@ public class SerialNumberManager {
      * @param serialNumberListener
      */
     public static void handleRequestI6SSerialNumber(final SerialNumberListener serialNumberListener) {
-        LoggerUtils.d(TAG + ":handleRequestI6SSerialNumber");
+        LoggerUtils.Companion.d(TAG + ":handleRequestI6SSerialNumber");
         String mac = NetUtil.getAdresseMAC(MonitorApplication.Companion.getContext());
 //               String mac = "20:18:0E:13:74:C3";
         UserRequestManager.getI6SSerialNumber(mac, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                LoggerUtils.d(TAG + "异常 --" + e.getMessage());
+                LoggerUtils.Companion.d(TAG + "异常 --" + e.getMessage());
                 if (serialNumberListener != null) {
                     serialNumberListener.onSerailNumberListener(0);
                 }
@@ -116,7 +116,7 @@ public class SerialNumberManager {
                 boolean successful = response.isSuccessful();
                 if (successful) {
                     String content = response.body().string();
-                    LoggerUtils.d(TAG + "response = : " + content);
+                    LoggerUtils.Companion.d(TAG + "response = : " + content);
                     processI6SResponse(content, serialNumberListener);
                 }
             }
@@ -142,11 +142,11 @@ public class SerialNumberManager {
         } else if (SN.equals(uniqueWay)) {
             unique = getSerialNumber();
         }
-        LoggerUtils.format_debug("unique %s; model %s", unique, productModel);
+        LoggerUtils.Companion.format_debug("unique %s; model %s", unique, productModel);
         UserRequestManager.getSerialNumber(unique, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                LoggerUtils.d(TAG + "异常 --" + e.getMessage());
+                LoggerUtils.Companion.d(TAG + "异常 --" + e.getMessage());
                 if (serialNumberListener != null) {
                     serialNumberListener.onSerailNumberListener(0);
                 }
@@ -157,7 +157,7 @@ public class SerialNumberManager {
                 boolean successful = response.isSuccessful();
                 if (successful) {
                     String content = response.body().string();
-                    LoggerUtils.d(TAG + "content = " + content);
+                    LoggerUtils.Companion.d(TAG + "content = " + content);
                     processResponse(content, serialNumberListener);
                 }
             }
@@ -180,13 +180,13 @@ public class SerialNumberManager {
                 String s1 = new String(buf, 0, len);
                 stringBuilder.append(s1);
             }
-            LoggerUtils.d("sn = " + stringBuilder.toString());
+            LoggerUtils.Companion.d("sn = " + stringBuilder.toString());
             fileInputStream.close();
         } catch (FileNotFoundException e) {
-            LoggerUtils.e(TAG + "串号文件FileNotFoundException");
+            LoggerUtils.Companion.e(TAG + "串号文件FileNotFoundException");
             e.printStackTrace();
         } catch (IOException e) {
-            LoggerUtils.e(TAG + "读取串号文件IOException");
+            LoggerUtils.Companion.e(TAG + "读取串号文件IOException");
             e.printStackTrace();
         }
         //分割串号
@@ -200,7 +200,7 @@ public class SerialNumberManager {
      */
     public static void spilitSerailNumber(String s) {
 //        s = "1700005182;E5AE67E6D4C84750;30450220473829CA2675BF32748409BA398873D17068A2406DA860860649521A3FEC6BEC022100A1879939601B8C7DEE5DB7ACBEB35084C078B4A571392E47246B633AF62C0C75;0441F02B7DD57C571E4B9ECBDD9391A94623FE2FDF6E649079BE6BA97F48D87B5C3F6FE762EFE710D3221222132A3B7944";
-        LoggerUtils.d(TAG + s);
+        LoggerUtils.Companion.d(TAG + s);
         if (TextUtils.isEmpty(s)) {
             return;
         }
@@ -213,10 +213,10 @@ public class SerialNumberManager {
                 ConfKt.setSERVER_PUBLIC_KEY(splites[3]);
             }
         }
-        LoggerUtils.d(TAG + "Conf.PRODUCT_ID = " + ConfKt.getPRODUCT_ID());
-        LoggerUtils.d(TAG + "Conf.SERIAL_NUMBER = " + ConfKt.getSERIAL_NUMBER());
-        LoggerUtils.d(TAG + "Conf.LICENSE = " + ConfKt.getLICENSE());
-        LoggerUtils.d(TAG + "Conf.SERVER_PUBLIC_KEY = " + ConfKt.getSERVER_PUBLIC_KEY());
+        LoggerUtils.Companion.d(TAG + "Conf.PRODUCT_ID = " + ConfKt.getPRODUCT_ID());
+        LoggerUtils.Companion.d(TAG + "Conf.SERIAL_NUMBER = " + ConfKt.getSERIAL_NUMBER());
+        LoggerUtils.Companion.d(TAG + "Conf.LICENSE = " + ConfKt.getLICENSE());
+        LoggerUtils.Companion.d(TAG + "Conf.SERVER_PUBLIC_KEY = " + ConfKt.getSERVER_PUBLIC_KEY());
     }
 
     /**
@@ -226,7 +226,7 @@ public class SerialNumberManager {
      * @param serialNumberListener 接口回调
      */
     public static void processI6SResponse(String response, SerialNumberListener serialNumberListener) {
-        LoggerUtils.d(TAG + response);
+        LoggerUtils.Companion.d(TAG + response);
         if (!TextUtils.isEmpty(response)) {
             try {
                 JSONObject jsonObject = new JSONObject(response);
@@ -238,7 +238,7 @@ public class SerialNumberManager {
                     FileUtil.saveSN(data);
                     //分割串号获取对应值
                     spilitSerailNumber(data);
-                    LoggerUtils.d(TAG + data);
+                    LoggerUtils.Companion.d(TAG + data);
                     if (serialNumberListener != null) {
                         serialNumberListener.onSerailNumberListener(1);
                     }
@@ -265,7 +265,7 @@ public class SerialNumberManager {
      * @param serialNumberListener 接口回调
      */
     public static void processResponse(String response, SerialNumberListener serialNumberListener) {
-        LoggerUtils.d(TAG + response);
+        LoggerUtils.Companion.d(TAG + response);
         if (!TextUtils.isEmpty(response)) {
             try {
                 JSONObject jsonObject = new JSONObject(response);
@@ -277,7 +277,7 @@ public class SerialNumberManager {
                     FileUtil.saveSN(data);
                     //分割串号获取对应值
                     spilitSerailNumber(data);
-                    LoggerUtils.d(TAG + data);
+                    LoggerUtils.Companion.d(TAG + data);
                     if (serialNumberListener != null) {
                         serialNumberListener.onSerailNumberListener(1);
                     }
@@ -316,7 +316,7 @@ public class SerialNumberManager {
      * @return true 是网络 false 本地
      */
     public static boolean matchDevice() {
-        LoggerUtils.d("Build.ID = " + Build.ID + ",Build.MODEL = " + Build.MODEL);
+        LoggerUtils.Companion.d("Build.ID = " + Build.ID + ",Build.MODEL = " + Build.MODEL);
 
         boolean matchI6S = (SerialNumberManager.CHENXIN_ID.equals(Build.ID));
 

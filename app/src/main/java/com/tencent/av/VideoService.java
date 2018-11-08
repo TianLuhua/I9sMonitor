@@ -11,8 +11,8 @@ import android.os.IBinder;
 import android.widget.Toast;
 
 import com.booyue.audiochat.BooyueAudioChatActivity;
+import com.booyue.uils.LoggerUtils;
 import com.booyue.videochat.BooyueVideoChatActivitySF;
-import com.tencent.util.LoggerUtils;
 import com.tencent.device.ITXDeviceService;
 import com.tencent.device.TXDeviceService;
 import com.tencent.devicedemo.VideoChatActivityHW;
@@ -124,22 +124,22 @@ public class VideoService extends Service {
             String action = intent.getAction();
             if (action == TXDeviceService.OnSendVideoCall) {
                 VideoController.getInstance().onSendVideoCall(intent.getByteArrayExtra("msg"));
-                LoggerUtils.d(TAG + "onReceive: OnSendVideoCall");
+                LoggerUtils.Companion.d(TAG + "onReceive: OnSendVideoCall");
 
             } else if (action == TXDeviceService.OnSendVideoCallM2M) {
                 VideoController.getInstance().onSendVideoCallM2M(intent.getByteArrayExtra("msg"));
-                LoggerUtils.d(TAG + "onReceive: OnSendVideoCallM2M");
+                LoggerUtils.Companion.d(TAG + "onReceive: OnSendVideoCallM2M");
 
 
             } else if (action == TXDeviceService.OnSendVideoCMD) {
                 VideoController.getInstance().onSendVideoCMD(intent.getByteArrayExtra("msg"));
-                LoggerUtils.d(TAG + "onReceive: OnSendVideoCMD");
+                LoggerUtils.Companion.d(TAG + "onReceive: OnSendVideoCMD");
 
 
             } else if (action == TXDeviceService.OnReceiveVideoBuffer) {
                 VideoController.getInstance().onReceiveVideoBuffer(intent.getByteArrayExtra("msg"),
                         intent.getLongExtra("uin", 0), intent.getIntExtra("uinType", 0));
-                LoggerUtils.d(TAG + "onReceive: OnReceiveVideoBuffer");
+                LoggerUtils.Companion.d(TAG + "onReceive: OnReceiveVideoBuffer");
 
 
             } else if (action == TXDeviceService.StartVideoChatActivity) {
@@ -150,17 +150,17 @@ public class VideoService extends Service {
                     if (VideoController.getInstance().isHasLocalCam()) {
                         if (VideoController.isHardwareEncoderEnabled()) {
                             videoIntent = new Intent(VideoService.this, VideoChatActivityHW.class);
-                            LoggerUtils.d(TAG + "onReceive: VideoChatActivityHW");
+                            LoggerUtils.Companion.d(TAG + "onReceive: VideoChatActivityHW");
 
                         } else {
 //                            videoIntent = new Intent(VideoService.this, VideoChatActivitySF.class);
                             videoIntent = new Intent(VideoService.this, BooyueVideoChatActivitySF.class);
 //                            videoIntent = new Intent(VideoService.this, BooyueFriendInfoActivity.class);
-                            LoggerUtils.d(TAG + "onReceive: VideoChatActivitySF");
+                            LoggerUtils.Companion.d(TAG + "onReceive: VideoChatActivitySF");
                         }
                     } else {
                         videoIntent = new Intent(VideoService.this, VideoChatActivityNFC.class);
-                        LoggerUtils.d(TAG + "onReceive: VideoChatActivityNFC");
+                        LoggerUtils.Companion.d(TAG + "onReceive: VideoChatActivityNFC");
                     }
 
                     videoIntent.addFlags(Intent.FLAG_ACTIVITY_NO_USER_ACTION);
@@ -169,7 +169,7 @@ public class VideoService extends Service {
                     videoIntent.putExtra("dinType", intent.getIntExtra("dinType", VideoController.UINTYPE_QQ));
                     startActivity(videoIntent);
                 }
-                LoggerUtils.d(TAG + "onReceive: StartVideoChatActivity");
+                LoggerUtils.Companion.d(TAG + "onReceive: StartVideoChatActivity");
 
 
             } else if (action == TXDeviceService.StartAudioChatActivity) {
@@ -180,17 +180,17 @@ public class VideoService extends Service {
                 intent1.putExtra("peerid", String.valueOf(intent.getLongExtra("peerid", 0)));
                 intent1.putExtra("dinType", intent.getIntExtra("dinType", VideoController.UINTYPE_QQ));
                 startActivity(intent1);
-                LoggerUtils.d(TAG + "onReceive: StartAudioChatActivity");
+                LoggerUtils.Companion.d(TAG + "onReceive: StartAudioChatActivity");
 
 
             } else if (action == TXDeviceService.BinderListChange) {
                 VideoController.getInstance().updateSignature();
-                LoggerUtils.d(TAG + "onReceive: BinderListChange");
+                LoggerUtils.Companion.d(TAG + "onReceive: BinderListChange");
 
 
             } else if (action == TXDeviceService.OnRecvLANCommunicationCSReply) {
                 VideoController.recvLANCommunicationReply(intent.getByteArrayExtra("buffer"));
-                LoggerUtils.d(TAG + "onReceive: OnRecvLANCommunicationCSReply");
+                LoggerUtils.Companion.d(TAG + "onReceive: OnRecvLANCommunicationCSReply");
             }
         }
     };

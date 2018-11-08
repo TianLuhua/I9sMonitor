@@ -18,6 +18,7 @@ import com.booyue.SERVER_PUBLIC_KEY
 import com.booyue.base.BaseActivity
 import com.booyue.monitor.R
 import com.booyue.serial.SerialNumberManager
+import com.booyue.uils.LoggerUtils
 import com.booyue.widget.CommonDialog
 import com.booyue.widget.DialogManager
 import com.tencent.device.TXBinderInfo
@@ -25,7 +26,6 @@ import com.tencent.device.TXDeviceService
 import com.tencent.devicedemo.WifiDecodeActivity
 import com.tencent.util.AppUtil
 import com.tencent.util.FileUtil
-import com.tencent.util.LoggerUtils
 import com.tencent.util.UpgradeUtil
 import kotlinx.android.synthetic.main.activity_friendlist.*
 import okhttp3.Call
