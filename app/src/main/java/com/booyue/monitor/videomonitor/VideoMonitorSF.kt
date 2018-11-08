@@ -26,6 +26,8 @@ class VideoMonitorSF(private var mContext: Context, peerId: String) : IVideoMoni
     private var mCamera: VcCamera
     private var mPeerId: String = peerId
     private var mIsReceiver = false
+    private val openCamera = AsyncOpenCamera()
+    private val closeCamera = AsyncCloseCamera()
 
     init {
         this.mCamera = VideoController.getInstance().camera
@@ -37,7 +39,7 @@ class VideoMonitorSF(private var mContext: Context, peerId: String) : IVideoMoni
     override fun start() {
         this.mIsReceiver = true
         VideoController.getInstance().acceptRequest(mPeerId)
-        VideoController.getInstance().execute(AsyncOpenCamera(), object : FutureListener<Boolean> {
+        VideoController.getInstance().execute(openCamera, object : FutureListener<Boolean> {
             override fun onFutureDone(p0: Future<Boolean>?) {
                 //打开Camera完成！
             }
@@ -83,8 +85,8 @@ class VideoMonitorSF(private var mContext: Context, peerId: String) : IVideoMoni
     override fun setCameraStatu(operation: CameraOperation) {
         if (mIsReceiver) {
             val runnable = when (operation) {
-                is CameraOperation.ON -> AsyncOpenCamera()
-                is CameraOperation.OFF -> AsyncCloseCamera()
+                is CameraOperation.ON -> openCamera
+                is CameraOperation.OFF -> closeCamera
             }
             VideoController.getInstance().execute(runnable)
         }
@@ -118,7 +120,7 @@ class VideoMonitorSF(private var mContext: Context, peerId: String) : IVideoMoni
      */
     private fun terminateVideo() {
         mIsReceiver = false
-        VideoController.getInstance().execute(AsyncCloseCamera(), object : FutureListener<Boolean> {
+        VideoController.getInstance().execute(closeCamera, object : FutureListener<Boolean> {
             override fun onFutureDone(p0: Future<Boolean>?) {
                 //关闭Camera完成！
             }

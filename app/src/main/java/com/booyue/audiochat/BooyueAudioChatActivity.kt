@@ -15,7 +15,6 @@ import android.widget.Toast
 import com.booyue.base.BaseActivity
 import com.booyue.monitor.R
 import com.booyue.serial.SerialNumberManager
-import com.bumptech.glide.Glide
 import com.tencent.av.VideoController
 import com.tencent.av.core.VideoConstants
 import com.tencent.device.FriendInfo
@@ -52,7 +51,7 @@ class BooyueAudioChatActivity : BaseActivity() {
         setContentView(R.layout.activity_audio_chat_booyue)
         val intent = getIntent()
         if (intent == null) {
-            LoggerUtils.d(TAG + " intent is null")
+            LoggerUtils.d("$TAG intent is null")
             return
         }
         mPeerId = intent.getStringExtra("peerid")
@@ -60,7 +59,7 @@ class BooyueAudioChatActivity : BaseActivity() {
         mSelfDin = VideoController.getInstance().GetSelfDin()
         //判断是发起者还是接受者
         mIsReceiver = intent.getBooleanExtra("receive", false)
-        LoggerUtils.d(TAG + " peerid:" + mPeerId + " mDinType:" + mDinType + " mIsReceiver:" + mIsReceiver)
+        LoggerUtils.d("$TAG peerid:$mPeerId mDinType:$mDinType mIsReceiver:$mIsReceiver")
         if (mPeerId.toLong() == 0.toLong() || mSelfDin.toLong() == 0.toLong()) {
             finish()
         }
@@ -69,13 +68,13 @@ class BooyueAudioChatActivity : BaseActivity() {
     override fun initView() {
         tv_duration.visibility = View.GONE
         val friendInfo = VideoController.getInstance().getFriendInfo(mPeerId)
-        tv_name.setText(friendInfo.name)
+        tv_name.text = friendInfo.name
         val devName = friendInfo.devName
         val devType = friendInfo.devType
         LoggerUtils.d(TAG + "deviceName = " + devName + ",deviceType = " + devType)
         ib_speaker_switcher.visibility = View.GONE
 
-        ib_speaker_switcher.setOnClickListener{
+        ib_speaker_switcher.setOnClickListener {
             if (VideoController.getInstance().isSelfMute) {
                 VideoController.getInstance().setSelfMute2(false)
                 ib_speaker_switcher.setImageResource(R.drawable.button_speaker_hi)
@@ -87,7 +86,7 @@ class BooyueAudioChatActivity : BaseActivity() {
 
         if (TextUtils.equals(SerialNumberManager.T6_ID, Build.ID)) {
             val layoutParams = iv_avatar.layoutParams as FrameLayout.LayoutParams
-            layoutParams.topMargin = getResources().getDimension(R.dimen.dimen_34) as Int
+            layoutParams.topMargin = resources.getDimension(R.dimen.dimen_34) as Int
             iv_avatar.layoutParams = layoutParams
         }
         mainHandler = object : Handler(Looper.getMainLooper()) {
@@ -102,19 +101,19 @@ class BooyueAudioChatActivity : BaseActivity() {
         } else {
             tv_cancel.visibility = View.GONE
         }
-        tv_cancel.setOnClickListener{
+        tv_cancel.setOnClickListener {
             if (mIsReceiver) {
                 VideoController.getInstance().rejectRequestAudio(mPeerId)
             }
             finish()
         }
-        tv_hangup.setOnClickListener{
+        tv_hangup.setOnClickListener {
             if (mIsReceiver) {
-                VideoController.getInstance().rejectRequestAudio(mPeerId);
+                VideoController.getInstance().rejectRequestAudio(mPeerId)
             }
             finish()
         }
-        tv_receive.setOnClickListener{
+        tv_receive.setOnClickListener {
             tv_receive.visibility = View.GONE
             VideoController.getInstance().acceptRequestAudio(mPeerId)
         }
@@ -175,26 +174,16 @@ class BooyueAudioChatActivity : BaseActivity() {
             val action = intent.action
             when (action) {
                 VideoConstants.ACTION_STOP_VIDEO_CHAT -> {
-                    var reason = intent.getIntExtra("reason", VideoConstants.VOIP_REASON_OTHERS)
-
-                    var reasonString: String
-                    when (reason) {
-                        VideoConstants.VOIP_REASON_REJECT_BY_FRIEND -> {
-                            //发起请求之后，对方拒绝
-                            reasonString = context!!.getString(R.string.voip_reason_reject_by_friend)
-                        }
-                        VideoConstants.VOIP_REASON_SELF_WAIT_RELAYINFO_TIMEOUT -> {
-                            //发起请求之后，对方一直不接听，最后超时
-                            reasonString = context!!.getString(R.string.voip_reason_self_wait_relayinfo_timeout)
-                        }
-                        VideoConstants.VOIP_REASON_CLOSED_BY_FRIEND -> {
-                            //连通之后，对方主动关闭
-                            reasonString = context!!.getString(R.string.voip_reason_closed_by_friend)
-                        }
-                        else -> {
-                            //其它原因
-                            reasonString = context!!.getString(R.string.voip_reason_other)
-                        }
+                    val reason = intent.getIntExtra("reason", VideoConstants.VOIP_REASON_OTHERS)
+                    val reasonString = when (reason) {
+                        //发起请求之后，对方拒绝
+                        VideoConstants.VOIP_REASON_REJECT_BY_FRIEND -> context!!.getString(R.string.voip_reason_reject_by_friend)
+                        //发起请求之后，对方一直不接听，最后超时
+                        VideoConstants.VOIP_REASON_SELF_WAIT_RELAYINFO_TIMEOUT -> context!!.getString(R.string.voip_reason_self_wait_relayinfo_timeout)
+                        //连通之后，对方主动关闭
+                        VideoConstants.VOIP_REASON_CLOSED_BY_FRIEND -> context!!.getString(R.string.voip_reason_closed_by_friend)
+                        //其它原因
+                        else -> context!!.getString(R.string.voip_reason_other)
                     }
                     Toast.makeText(context, reasonString, Toast.LENGTH_LONG).show()
                     finish()
@@ -257,7 +246,7 @@ class BooyueAudioChatActivity : BaseActivity() {
                 sb.append("0")
             }
             sb.append(sec)
-            tv_duration.setText(sb.toString())
+            tv_duration.text = sb.toString()
             //不断的更新时间
             mainHandler.postDelayed(this, 1000)
         }
