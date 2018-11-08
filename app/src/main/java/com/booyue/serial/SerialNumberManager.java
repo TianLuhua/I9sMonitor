@@ -72,8 +72,9 @@ public class SerialNumberManager {
             return;
         }
         // TODO: 2018/2/26  QRCodeUtils.CHENXIN_ID 改成Build.ID
+        //由于晨芯串号重复，之后直接从服务器获取
         if (!FileUtil.isSNCached() && matchDevice()) {
-            if (CHENXIN_ID.equals(Build.ID) || CHENXIN_PRO_ID.equals(Build.ID)) {//由于晨芯串号重复，之后直接从服务器获取
+            if (CHENXIN_ID.equals(Build.ID) || CHENXIN_PRO_ID.equals(Build.ID)) {
                 handleRequestI6SSerialNumber(serialNumberListener);
             } else if (TextUtils.equals(T6_ID, Build.ID)) {
                 handleRequestSerialNumber(SN, serialNumberListener, "T6");
@@ -134,7 +135,8 @@ public class SerialNumberManager {
                                                  final SerialNumberListener serialNumberListener,
                                                  String productModel) {
         //一恒科 获取sn 手动烧写所以不会变化
-        String unique = "";//获取为空
+        //获取为空
+        String unique = "";
         if (MAC.equals(uniqueWay)) {
             unique = NetUtil.getAdresseMAC(MonitorApplication.Companion.getContext());
         } else if (SN.equals(uniqueWay)) {
@@ -199,7 +201,9 @@ public class SerialNumberManager {
     public static void spilitSerailNumber(String s) {
 //        s = "1700005182;E5AE67E6D4C84750;30450220473829CA2675BF32748409BA398873D17068A2406DA860860649521A3FEC6BEC022100A1879939601B8C7DEE5DB7ACBEB35084C078B4A571392E47246B633AF62C0C75;0441F02B7DD57C571E4B9ECBDD9391A94623FE2FDF6E649079BE6BA97F48D87B5C3F6FE762EFE710D3221222132A3B7944";
         LoggerUtils.d(TAG + s);
-        if (TextUtils.isEmpty(s)) return;
+        if (TextUtils.isEmpty(s)) {
+            return;
+        }
         if (s.contains(";")) {
             String[] splites = s.split(";");
             if (splites.length == 4) {
@@ -332,7 +336,6 @@ public class SerialNumberManager {
      * 串号返回监听
      */
     public interface SerialNumberListener {
-
         /**
          * @param ret ret=1 成功  ret=0失败
          */

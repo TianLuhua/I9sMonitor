@@ -25,6 +25,7 @@ import com.tencent.av.VideoController
 import com.tencent.device.TXBinderInfo
 import com.tencent.device.TXDeviceService
 import com.tencent.devicedemo.ListItemInfo
+import com.tencent.devicedemo.ListItemInfo.*
 import com.tencent.devicedemo.MainActivity
 import com.tencent.util.NetWorkUtils
 import java.io.File
@@ -36,21 +37,19 @@ import java.util.*
 /**
  * Created by Tianluhua on 2018\11\1 0001.
  */
-class BooyueFriendListAdapter : RecyclerView.Adapter<BooyueFriendListAdapter.MyViewHolder> {
+class BooyueFriendListAdapter(private var mContext: Context) : RecyclerView.Adapter<BooyueFriendListAdapter.MyViewHolder>() {
 
     companion object {
         val TAG = "BooyueFriendListAdapter"
     }
 
-    private var mContext: Context
     private var mHeadPicPath: String
     private var mHandler: Handler
     private var layoutInflater: LayoutInflater
     private val mSetFetching = HashSet<Long>()
     private val mListBinder = ArrayList<TXBinderInfo>()
 
-    constructor(mContext: Context) : super() {
-        this.mContext = mContext
+    init {
         this.layoutInflater = LayoutInflater.from(mContext)
         this.mHeadPicPath = mContext.cacheDir.absolutePath + "/head"
         val file = File(mHeadPicPath)
@@ -64,7 +63,6 @@ class BooyueFriendListAdapter : RecyclerView.Adapter<BooyueFriendListAdapter.MyV
         }
     }
 
-
     fun freshBinderList(binderList: List<TXBinderInfo>) {
         mListBinder.clear()
         binderList.forEach {
@@ -75,7 +73,7 @@ class BooyueFriendListAdapter : RecyclerView.Adapter<BooyueFriendListAdapter.MyV
         addItem.nick_name = ByteArray(0)
         addItem.head_url = ""
         addItem.tinyid = 0
-        addItem.binder_type = ListItemInfo.LISTITEM_TYPE_ADD_FRIEND
+        addItem.binder_type = LISTITEM_TYPE_ADD_FRIEND
         mListBinder.add(addItem)
         notifyDataSetChanged()
     }
@@ -90,9 +88,9 @@ class BooyueFriendListAdapter : RecyclerView.Adapter<BooyueFriendListAdapter.MyV
         item.nick_name = binder.nickName
 
         if (index == mListBinder.size - 1) {
-            item.type = ListItemInfo.LISTITEM_TYPE_ADD_FRIEND  //列表最后一个是添加好友项
+            item.type = LISTITEM_TYPE_ADD_FRIEND  //列表最后一个是添加好友项
         } else {
-            item.type = ListItemInfo.LISTITEM_TYPE_BINDER //其余的是设备好友
+            item.type = LISTITEM_TYPE_BINDER //其余的是设备好友
         }
         return item
     }
@@ -109,7 +107,7 @@ class BooyueFriendListAdapter : RecyclerView.Adapter<BooyueFriendListAdapter.MyV
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val item = getListItemInfo(position)
-        if (item.type == ListItemInfo.LISTITEM_TYPE_ADD_FRIEND) {
+        if (item.type == LISTITEM_TYPE_ADD_FRIEND) {
             holder.ivAvatar.setImageResource(R.drawable.add_more)
             holder.tvName.setText(R.string.add_friend)
             holder.llFunction.visibility = View.GONE
@@ -121,7 +119,7 @@ class BooyueFriendListAdapter : RecyclerView.Adapter<BooyueFriendListAdapter.MyV
             if (bitmap == null) {
                 bitmap = BitmapFactory.decodeResource(mContext.resources, R.drawable.head_portrait_default)
                 holder.ivAvatar.setImageBitmap(bitmap)
-                if (item.head_url != null && item.head_url.length > 0) {
+                if (item.head_url != null && item.head_url.isNotEmpty()) {
                     fetchBinderHeadPic(item.id, item.head_url)
                 }
             } else {
@@ -130,7 +128,7 @@ class BooyueFriendListAdapter : RecyclerView.Adapter<BooyueFriendListAdapter.MyV
 
             holder.ibPhone.setOnClickListener {
                 if (NetWorkUtils.isNetWorkAvailable(mContext)) {
-                    if (false == VideoController.getInstance().hasPendingChannel()) {
+                    if (!VideoController.getInstance().hasPendingChannel()) {
                         Toast.makeText(MonitorApplication.getContext(), R.string.launching, Toast.LENGTH_SHORT).show()
                         TXDeviceService.getInstance().startAudioChatActivity(item.id, VideoController.UINTYPE_QQ)
                         (mContext as Activity).overridePendingTransition(R.anim.dialog_enter_anim_scale, R.anim.dialog_exit_anim_scale)
@@ -157,7 +155,7 @@ class BooyueFriendListAdapter : RecyclerView.Adapter<BooyueFriendListAdapter.MyV
         }
         holder.ivAvatar.setOnClickListener {
             val item = getListItemInfo(position)
-            if (item.type == ListItemInfo.LISTITEM_TYPE_BINDER) {
+            if (item.type == LISTITEM_TYPE_BINDER) {
                 //                    Intent binder = new Intent(mContext, BinderActivity.class);
                 //                    binder.putExtra("tinyid", item.id);
                 //                    binder.putExtra("nickname", item.nick_name);
@@ -220,7 +218,7 @@ class BooyueFriendListAdapter : RecyclerView.Adapter<BooyueFriendListAdapter.MyV
     fun getBinderHeadPic(uin: Long, type: Int): Bitmap? {
         var bitmap: Bitmap? = null
         try {
-            if (ListItemInfo.LISTITEM_TYPE_ADD_FRIEND == type) {
+            if (LISTITEM_TYPE_ADD_FRIEND == type) {
                 bitmap = BitmapFactory.decodeResource(mContext.resources, R.drawable.add_more)
             } else {
                 val strHeadPic = "$mHeadPicPath/$uin.png"
@@ -295,4 +293,5 @@ class BooyueFriendListAdapter : RecyclerView.Adapter<BooyueFriendListAdapter.MyV
             }
         }.start()
     }
+
 }

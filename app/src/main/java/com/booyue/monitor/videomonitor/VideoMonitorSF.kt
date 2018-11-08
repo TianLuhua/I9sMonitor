@@ -8,7 +8,6 @@ import com.booyue.WheelOperation
 import com.booyue.monitor.IVideoMonitor
 import com.tencent.av.VideoController
 import com.tencent.av.camera.VcCamera
-import com.tencent.av.thread.Future
 import com.tencent.av.thread.FutureListener
 import com.tencent.device.QLog
 import com.tencent.device.TXDeviceService
@@ -36,14 +35,14 @@ class VideoMonitorSF(private var mContext: Context, peerId: String) : IVideoMoni
     /**
      * 开启监控
      */
+    private val openCamerafutureListener = FutureListener<Boolean> {
+        //打开Camera完成！
+    }
+
     override fun start() {
         this.mIsReceiver = true
         VideoController.getInstance().acceptRequest(mPeerId)
-        VideoController.getInstance().execute(openCamera, object : FutureListener<Boolean> {
-            override fun onFutureDone(p0: Future<Boolean>?) {
-                //打开Camera完成！
-            }
-        })
+        VideoController.getInstance().execute(openCamera, openCamerafutureListener)
     }
 
     /**
@@ -118,13 +117,13 @@ class VideoMonitorSF(private var mContext: Context, peerId: String) : IVideoMoni
     /**
      * 断开与手Q连接
      */
+    private val closeCameraFutureListener = FutureListener<Boolean> {
+        //断开完成
+    }
+
     private fun terminateVideo() {
         mIsReceiver = false
-        VideoController.getInstance().execute(closeCamera, object : FutureListener<Boolean> {
-            override fun onFutureDone(p0: Future<Boolean>?) {
-                //关闭Camera完成！
-            }
-        })
+        VideoController.getInstance().execute(closeCamera, closeCameraFutureListener)
         VideoController.getInstance().stopRing()
         if (mIsReceiver) {
             VideoController.getInstance().closeVideo(mPeerId)
