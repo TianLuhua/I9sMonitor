@@ -23,6 +23,7 @@ import com.booyue.monitor.R
 import com.booyue.widget.CircleImageView
 import com.tencent.av.VideoController
 import com.tencent.device.TXBinderInfo
+import com.tencent.device.TXDataPoint
 import com.tencent.device.TXDeviceService
 import com.tencent.devicedemo.ListItemInfo
 import com.tencent.devicedemo.ListItemInfo.*
@@ -156,6 +157,13 @@ class BooyueFriendListAdapter(private var mContext: Context) : RecyclerView.Adap
         holder.ivAvatar.setOnClickListener {
             val item = getListItemInfo(position)
             if (item.type == LISTITEM_TYPE_BINDER) {
+
+//                val dataPoint = TXDataPoint()
+//                dataPoint.property_id = 9999L
+//                dataPoint.property_val = "当前电量值：100"
+//                TXDeviceService.reportDataPoint(arrayOf(dataPoint))
+
+
                 //                    Intent binder = new Intent(mContext, BinderActivity.class);
                 //                    binder.putExtra("tinyid", item.id);
                 //                    binder.putExtra("nickname", item.nick_name);

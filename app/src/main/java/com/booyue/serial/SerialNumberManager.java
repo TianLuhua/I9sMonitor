@@ -142,7 +142,7 @@ public class SerialNumberManager {
         } else if (SN.equals(uniqueWay)) {
             unique = getSerialNumber();
         }
-        LoggerUtils.Companion.format_debug("unique %s; model %s", unique, productModel);
+//        LoggerUtils.Companion.format_debug("unique %s; model %s", unique, productModel);
         UserRequestManager.getSerialNumber(unique, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
