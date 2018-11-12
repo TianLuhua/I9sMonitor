@@ -15,7 +15,7 @@ import android.widget.Toast
 import com.booyue.base.BaseActivity
 import com.booyue.monitor.R
 import com.booyue.serial.SerialNumberManager
-import com.booyue.uils.LoggerUtils
+import com.booyue.utils.LoggerUtils
 import com.tencent.av.VideoController
 import com.tencent.av.core.VideoConstants
 import com.tencent.device.FriendInfo

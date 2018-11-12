@@ -13,7 +13,7 @@ import android.widget.ImageView
 import android.widget.Toast
 import com.booyue.base.BaseActivity
 import com.booyue.monitor.R
-import com.booyue.uils.LoggerUtils
+import com.booyue.utils.LoggerUtils
 import com.tencent.av.VideoController
 import com.tencent.av.camera.VcCamera
 import com.tencent.av.core.VideoConstants

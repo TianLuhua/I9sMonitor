@@ -6,7 +6,7 @@ import com.booyue.CameraOperation
 import com.booyue.MicPhoneOperation
 import com.booyue.WheelOperation
 import com.booyue.monitor.IVideoMonitor
-import com.booyue.uils.LoggerUtils
+import com.booyue.utils.LoggerUtils
 import com.tencent.av.VideoController
 import com.tencent.av.camera.VcCamera
 import com.tencent.av.thread.FutureListener

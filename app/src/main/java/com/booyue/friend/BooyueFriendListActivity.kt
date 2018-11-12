@@ -18,7 +18,7 @@ import com.booyue.SERVER_PUBLIC_KEY
 import com.booyue.base.BaseActivity
 import com.booyue.monitor.R
 import com.booyue.serial.SerialNumberManager
-import com.booyue.uils.LoggerUtils
+import com.booyue.utils.LoggerUtils
 import com.booyue.widget.CommonDialog
 import com.booyue.widget.DialogManager
 import com.tencent.device.TXBinderInfo

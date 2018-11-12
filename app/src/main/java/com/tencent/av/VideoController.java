@@ -21,7 +21,7 @@ import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.booyue.monitor.BooyueVideoMonitorService;
-import com.booyue.uils.LoggerUtils;
+import com.booyue.utils.LoggerUtils;
 import com.tencent.av.camera.AndroidCamera;
 import com.tencent.av.camera.VcCamera;
 import com.tencent.av.core.AbstractNetChannel;
@@ -40,7 +40,6 @@ import com.tencent.device.FriendInfo;
 import com.tencent.device.ITXDeviceService;
 import com.tencent.device.QLog;
 import com.tencent.device.TXDeviceService;
-import com.tencent.devicedemo.VideoMonitorService;
 import com.tencent.sharp.jni.TraeAudioManager;
 
 import java.io.UnsupportedEncodingException;

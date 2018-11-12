@@ -33,7 +33,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.booyue.uils.LoggerUtils;
+import com.booyue.utils.LoggerUtils;
 import com.tencent.util.WindowsUtils;
 import com.tencent.av.VideoController;
 import com.tencent.device.TXBinderInfo;

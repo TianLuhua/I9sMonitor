@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.Window;
 
 import com.booyue.monitor.R;
-import com.booyue.uils.LoggerUtils;
+import com.booyue.utils.LoggerUtils;
 
 /**
  * Created by Administrator on 2018/4/26.11:31

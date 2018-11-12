@@ -5,7 +5,6 @@ import android.app.ActivityManager.RunningAppProcessInfo;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
@@ -15,7 +14,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.booyue.ConfKt;
-import com.booyue.uils.LoggerUtils;
+import com.booyue.utils.LoggerUtils;
 import com.tencent.util.FileUtil;
 import com.tencent.av.VideoController;
 import com.tencent.av.VideoService;

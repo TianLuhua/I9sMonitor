@@ -18,7 +18,7 @@ import android.os.Build;
 import android.os.Environment;
 import android.os.SystemClock;
 
-import com.booyue.uils.LoggerUtils;
+import com.booyue.utils.LoggerUtils;
 import com.tencent.av.VideoController;
 import com.tencent.device.QLog;
 import com.tencent.sharp.jni.TraeAudioSession.ITraeAudioCallback;

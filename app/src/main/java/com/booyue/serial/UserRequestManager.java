@@ -1,7 +1,7 @@
 package com.booyue.serial;
 
 
-import com.booyue.uils.LoggerUtils;
+import com.booyue.utils.LoggerUtils;
 
 import java.io.IOException;
 

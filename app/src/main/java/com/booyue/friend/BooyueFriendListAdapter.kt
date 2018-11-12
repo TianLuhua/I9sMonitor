@@ -158,11 +158,10 @@ class BooyueFriendListAdapter(private var mContext: Context) : RecyclerView.Adap
             val item = getListItemInfo(position)
             if (item.type == LISTITEM_TYPE_BINDER) {
 
-//                val dataPoint = TXDataPoint()
-//                dataPoint.property_id = 9999L
-//                dataPoint.property_val = "当前电量值：100"
-//                TXDeviceService.reportDataPoint(arrayOf(dataPoint))
-
+                val dataPoint = TXDataPoint()
+                dataPoint.property_id = 100001L
+                dataPoint.property_val = "当前电量值：100"
+                TXDeviceService.reportDataPoint(arrayOf(dataPoint))
 
                 //                    Intent binder = new Intent(mContext, BinderActivity.class);
                 //                    binder.putExtra("tinyid", item.id);

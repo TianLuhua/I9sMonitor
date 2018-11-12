@@ -12,7 +12,7 @@ import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.WindowManager;
 
-import com.booyue.uils.LoggerUtils;
+import com.booyue.utils.LoggerUtils;
 import com.tencent.av.VideoController;
 import com.tencent.av.core.VcControllerImpl;
 import com.tencent.device.QLog;

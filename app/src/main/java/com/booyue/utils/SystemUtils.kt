@@ -1,4 +1,4 @@
-package com.booyue.uils
+package com.booyue.utils
 
 import android.app.ActivityManager
 import android.content.Context

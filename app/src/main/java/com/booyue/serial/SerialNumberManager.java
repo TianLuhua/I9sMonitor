@@ -9,7 +9,7 @@ import com.booyue.ConfKt;
 import com.booyue.MonitorApplication;
 import com.booyue.monitor.R;
 import com.booyue.annotation.Unique;
-import com.booyue.uils.LoggerUtils;
+import com.booyue.utils.LoggerUtils;
 import com.tencent.util.FileUtil;
 import com.tencent.util.NetUtil;
 import com.tencent.util.NetWorkUtils;

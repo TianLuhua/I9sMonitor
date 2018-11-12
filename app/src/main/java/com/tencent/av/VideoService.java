@@ -11,7 +11,7 @@ import android.os.IBinder;
 import android.widget.Toast;
 
 import com.booyue.audiochat.BooyueAudioChatActivity;
-import com.booyue.uils.LoggerUtils;
+import com.booyue.utils.LoggerUtils;
 import com.booyue.videochat.BooyueVideoChatActivitySF;
 import com.tencent.device.ITXDeviceService;
 import com.tencent.device.TXDeviceService;

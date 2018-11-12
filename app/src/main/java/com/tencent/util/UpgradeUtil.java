@@ -9,7 +9,7 @@ import android.net.Uri;
 import android.os.Environment;
 
 import com.booyue.serial.UserRequestManager;
-import com.booyue.uils.LoggerUtils;
+import com.booyue.utils.LoggerUtils;
 
 import java.io.BufferedInputStream;
 import java.io.File;
