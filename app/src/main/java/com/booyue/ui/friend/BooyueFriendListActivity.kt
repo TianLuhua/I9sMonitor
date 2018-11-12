@@ -1,4 +1,4 @@
-package com.booyue.friend
+package com.booyue.ui.friend
 
 import android.app.AlertDialog
 import android.content.BroadcastReceiver
@@ -18,6 +18,7 @@ import com.booyue.SERVER_PUBLIC_KEY
 import com.booyue.base.BaseActivity
 import com.booyue.monitor.R
 import com.booyue.serial.SerialNumberManager
+import com.booyue.ui.friend.adapter.BooyueFriendListAdapter
 import com.booyue.utils.LoggerUtils
 import com.booyue.widget.CommonDialog
 import com.booyue.widget.DialogManager

@@ -1,4 +1,4 @@
-package com.booyue.friend
+package com.booyue.ui.friend.adapter
 
 import android.app.Activity
 import android.content.Context
@@ -18,7 +18,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import com.booyue.MonitorApplication
-import com.booyue.binding.BooyueGuideActivity
+import com.booyue.ui.binding.BooyueGuideActivity
 import com.booyue.monitor.R
 import com.booyue.widget.CircleImageView
 import com.tencent.av.VideoController
@@ -162,6 +162,19 @@ class BooyueFriendListAdapter(private var mContext: Context) : RecyclerView.Adap
                 dataPoint.property_id = 100001L
                 dataPoint.property_val = "当前电量值：100"
                 TXDeviceService.reportDataPoint(arrayOf(dataPoint))
+
+                //external fun sendNotifyMsg(digest: String, msgId: Int, targetIds: LongArray).
+                TXDeviceService.sendNotifyMsg("NotifyMsg From Device", 100001, longArrayOf(item.id))
+                Toast.makeText(mContext, "sendNotifyMsg", Toast.LENGTH_SHORT).show()
+
+                //public static native long sendTextMsg(String text, int msgId, long[] targetIds);
+                TXDeviceService.sendTextMsg("TextMsg From Device", 100001, longArrayOf(item.id))
+                Toast.makeText(mContext, "sendTextMsg", Toast.LENGTH_SHORT).show()
+
+                // 发送模版消息
+                // external fun sendTemplateMsg(json: String): Long TemplateMsg From Device
+                TXDeviceService.sendTemplateMsg("{\" msg \":\" TextMsg From Device \"}")
+                Toast.makeText(mContext, "sendTemplateMsg", Toast.LENGTH_SHORT).show()
 
                 //                    Intent binder = new Intent(mContext, BinderActivity.class);
                 //                    binder.putExtra("tinyid", item.id);

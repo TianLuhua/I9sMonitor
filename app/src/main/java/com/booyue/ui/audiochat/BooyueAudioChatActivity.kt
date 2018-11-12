@@ -1,4 +1,4 @@
-package com.booyue.audiochat
+package com.booyue.ui.audiochat
 
 import android.content.BroadcastReceiver
 import android.content.Context

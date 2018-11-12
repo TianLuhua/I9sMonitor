@@ -1,4 +1,4 @@
-package com.booyue.videochat
+package com.booyue.ui.videovhat
 
 import android.app.AlertDialog
 import android.content.BroadcastReceiver
