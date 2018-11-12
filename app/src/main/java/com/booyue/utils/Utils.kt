@@ -55,6 +55,11 @@ class Utils {
 
         }
 
+        fun getTopActivityWeakRef(): Activity? {
+            val activity = topActivityWeakRef?.get()
+            return activity
+        }
+
         fun init(app: MonitorApplication) {
             this.application = app
             this.application?.registerActivityLifecycleCallbacks(mCallbacks)

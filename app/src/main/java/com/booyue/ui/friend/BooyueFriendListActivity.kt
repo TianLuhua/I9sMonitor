@@ -20,6 +20,7 @@ import com.booyue.monitor.R
 import com.booyue.serial.SerialNumberManager
 import com.booyue.ui.friend.adapter.BooyueFriendListAdapter
 import com.booyue.utils.LoggerUtils
+import com.booyue.utils.ToastUtils
 import com.booyue.widget.CommonDialog
 import com.booyue.widget.DialogManager
 import com.tencent.device.TXBinderInfo
@@ -47,7 +48,7 @@ class BooyueFriendListActivity : BaseActivity() {
         val TAG = "BooyueFriendListActivity"
     }
 
-    private var mNotifyReceiver = NotifyReceiver()
+    private val mNotifyReceiver = NotifyReceiver()
     private var checkUpgrade = false
     private var mBinderAdapter: BooyueFriendListAdapter? = null
     private lateinit var linearLayoutManager: LinearLayoutManager
@@ -59,22 +60,8 @@ class BooyueFriendListActivity : BaseActivity() {
     }
 
     override fun initView() {
-        SerialNumberManager.readSerialNumber(this@BooyueFriendListActivity) {
-            LoggerUtils.d(TAG + "onSerailNumberListener Code:" + it)
-            runOnUiThread {
-                startService()
-            }
-        }
 
-        // 晨芯方案商&串号没有写入文件，
-        // 不需要做任何操作，此时启动线程网络获取串号并写入文件，操作执行在接口回调中（line 60）
-        /**modify by : 2018/3/5 16:17*/ //T6改用服务端获取数据
-        if (!FileUtil.isSNCached() && SerialNumberManager.matchDevice()) {//启动线程通过回调获取
-        } else {
-            startService()
-        }
         ib_erase_all_binders.setOnClickListener {
-
             DialogManager.createAlertDialog(it.context, 0, 0, null) {
                 TXDeviceService.eraseAllBinders()
                 /**modify by : 2018/3/1 18:18 如果是晨芯 需要删除串号文件*/
@@ -100,11 +87,10 @@ class BooyueFriendListActivity : BaseActivity() {
         filter.addAction(TXDeviceService.OnReceiveAddFriendReq)//接收添加朋友请求
         filter.addAction(TXDeviceService.OnDelFriend)//删除朋友
         filter.addAction(TXDeviceService.OnModifyFriendRemark)//修改朋友标志
-        mNotifyReceiver = NotifyReceiver()
         registerReceiver(mNotifyReceiver, filter)
 
         val bNetworkSetted = this.getSharedPreferences("TXDeviceSDK", 0).getBoolean("NetworkSetted", false)
-        if (TXDeviceService.NetworkSettingMode == true && bNetworkSetted == false) {
+        if (TXDeviceService.NetworkSettingMode && !bNetworkSetted) {
             LoggerUtils.d(TAG + "start WifiDecodeActivity.class")
             val intent = Intent(this@BooyueFriendListActivity, WifiDecodeActivity::class.java)
             startActivity(intent)
@@ -212,19 +198,6 @@ class BooyueFriendListActivity : BaseActivity() {
 
 
     /**
-     * 启动QQ物联核心服务服务
-     */
-    private fun startService() {
-        if (PRODUCT_ID == 0L || TextUtils.isEmpty(LICENSE) || TextUtils.isEmpty(SERIAL_NUMBER)
-                || TextUtils.isEmpty(SERVER_PUBLIC_KEY)) {
-            showToast(R.string.unique_identifier)
-        } else {
-            val startIntent = Intent(this@BooyueFriendListActivity, TXDeviceService::class.java)
-            startService(startIntent)
-        }
-    }
-
-    /**
      * 上一页
      */
     private fun pre() {
@@ -276,25 +249,6 @@ class BooyueFriendListActivity : BaseActivity() {
 
     }
 
-    /**
-     * 只有app在前台才弹吐司
-     *
-     * @param text 弹出吐司的内容
-     */
-    fun showToast(text: String) {
-        LoggerUtils.d(TAG + text)
-        if (AppUtil.isAppOnForeground()) {
-            Toast.makeText(this, text, Toast.LENGTH_SHORT).show()
-        }
-    }
-
-    fun showToast(text: Int) {
-        if (AppUtil.isAppOnForeground()) {
-            Toast.makeText(this, text, Toast.LENGTH_SHORT).show()
-        }
-    }
-
-
     inner class NotifyReceiver : BroadcastReceiver() {
 
         override fun onReceive(context: Context?, intent: Intent?) {
@@ -323,9 +277,9 @@ class BooyueFriendListActivity : BaseActivity() {
                 TXDeviceService.OnEraseAllBinders -> {
                     val resultCode = intent.extras!!.getInt(TXDeviceService.OperationResult)
                     if (0 != resultCode) {
-                        showToast("解除绑定失败，错误码:$resultCode")
+                        ToastUtils.showToast("解除绑定失败，错误码:$resultCode")
                     } else {
-                        showToast("解除绑定成功!!!")
+                        ToastUtils.showToast("解除绑定成功!!!")
                     }
 
                 }
@@ -334,7 +288,7 @@ class BooyueFriendListActivity : BaseActivity() {
                     if (0 == result) {
                         val sociallyNum = intent.extras!!.getLong("SociallyNumber")
                         if (0L != sociallyNum) {
-                            showToast("设备号：$sociallyNum")
+                            ToastUtils.showToast("设备号：$sociallyNum")
                         }
                     }
 
@@ -348,17 +302,17 @@ class BooyueFriendListActivity : BaseActivity() {
                 TXDeviceService.OnDelFriend -> {
                     val resultCode = intent.extras!!.getInt(TXDeviceService.OperationResult)
                     if (0 != resultCode) {
-                        showToast("删除好友失败：错误码$resultCode")
+                        ToastUtils.showToast("删除好友失败：错误码$resultCode")
                     } else {
-                        showToast("删除好友成功")
+                        ToastUtils.showToast("删除好友成功")
                     }
                 }
                 TXDeviceService.OnModifyFriendRemark -> {
                     val resultCode = intent.extras!!.getInt(TXDeviceService.OperationResult)
                     if (0 != resultCode) {
-                        showToast("修改好友备注失败：错误码$resultCode")
+                        ToastUtils.showToast("修改好友备注失败：错误码$resultCode")
                     } else {
-                        showToast("修改好友备注成功")
+                        ToastUtils.showToast("修改好友备注成功")
                     }
                 }
             }

@@ -1,11 +1,11 @@
 package com.booyue.ui.binding
 
-import android.widget.Toast
 import com.booyue.base.BaseActivity
 import com.booyue.base.mvp.contract.BindingContract
 import com.booyue.base.mvp.presenter.BindingPresenter
 import com.booyue.monitor.R
 import com.booyue.utils.LoggerUtils
+import com.booyue.utils.ToastUtils
 import com.bumptech.glide.Glide
 import com.tencent.util.NetWorkUtils
 import kotlinx.android.synthetic.main.activity_guide.*
@@ -58,21 +58,17 @@ class BooyueGuideActivity : BaseActivity(), BindingContract.View {
     override fun showQRCode(success: Boolean, filePath: String) {
         runOnUiThread {
             if (success) {
-                showTips(R.string.generate_qrcode_success)
+                ToastUtils.showLongToast(R.string.generate_qrcode_success)
                 Glide.with(this@BooyueGuideActivity).load(filePath).into(iv_zxing)
             } else {
                 if (!NetWorkUtils.isNetWorkAvailable(this@BooyueGuideActivity)) {
-                    showTips(R.string.network_close)
+                    ToastUtils.showLongToast(R.string.network_close)
                 } else {
-                    showTips(R.string.generate_qrcode_fail)
+                    ToastUtils.showLongToast(R.string.generate_qrcode_fail)
                 }
             }
         }
 
-    }
-
-    private fun showTips(tips: Int) {
-        Toast.makeText(this, tips, Toast.LENGTH_SHORT).show()
     }
 
 }
