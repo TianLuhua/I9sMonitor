@@ -49,6 +49,11 @@ class BooyueGuideActivity : BaseActivity(), BindingContract.View {
         mPresenter.generateQRCode(applicationContext)
     }
 
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mPresenter.detachView()
+    }
     /**
      * 显示二维码
      *

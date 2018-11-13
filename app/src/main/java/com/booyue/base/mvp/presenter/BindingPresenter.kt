@@ -7,6 +7,7 @@ import com.booyue.PRODUCT_ID
 import com.booyue.SERIAL_NUMBER
 import com.booyue.base.BasePresenter
 import com.booyue.base.mvp.contract.BindingContract
+import com.booyue.base.mvp.model.BindingModel
 import com.booyue.monitor.R
 import com.booyue.ui.binding.BooyueGuideActivity
 import com.booyue.utils.LoggerUtils
@@ -19,6 +20,9 @@ import java.io.File
  */
 class BindingPresenter : BasePresenter<BindingContract.View>(), BindingContract.Presenter {
 
+    private val mBindModel by lazy {
+        BindingModel()
+    }
 
     companion object {
         val QRCODE_URL = "http://iot.qq.com/add?pid=" + "$PRODUCT_ID" + "&sn=" + "$SERIAL_NUMBER"
@@ -51,5 +55,11 @@ class BindingPresenter : BasePresenter<BindingContract.View>(), BindingContract.
             }
         }
         return context.filesDir.absolutePath
+    }
+
+
+    override fun detachView() {
+        super.detachView()
+        mBindModel.onDestroy()
     }
 }

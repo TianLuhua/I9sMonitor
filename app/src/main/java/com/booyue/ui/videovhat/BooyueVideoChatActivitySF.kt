@@ -310,7 +310,6 @@ class BooyueVideoChatActivitySF : BaseActivity() {
             QLog.d(TAG, QLog.CLR, "resumeCamera begin.")
         }
         val holder = av_video_surfaceView.holder
-
         VideoController.getInstance().execute(AsyncOpenCamera(holder))
 
         if (QLog.isColorLevel()) {

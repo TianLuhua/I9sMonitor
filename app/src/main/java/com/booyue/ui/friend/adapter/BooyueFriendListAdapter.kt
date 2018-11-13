@@ -20,6 +20,7 @@ import android.widget.Toast
 import com.booyue.MonitorApplication
 import com.booyue.ui.binding.BooyueGuideActivity
 import com.booyue.monitor.R
+import com.booyue.utils.runOnIOthread
 import com.booyue.widget.CircleImageView
 import com.tencent.av.VideoController
 import com.tencent.device.TXBinderInfo
@@ -159,7 +160,7 @@ class BooyueFriendListAdapter(private var mContext: Context) : RecyclerView.Adap
             if (item.type == LISTITEM_TYPE_BINDER) {
 
                 val dataPoint = TXDataPoint()
-                dataPoint.property_id = 100001L
+                dataPoint.property_id = 10101L
                 dataPoint.property_val = "当前电量值：100"
                 TXDeviceService.reportDataPoint(arrayOf(dataPoint))
 
@@ -292,26 +293,24 @@ class BooyueFriendListAdapter(private var mContext: Context) : RecyclerView.Adap
                 mSetFetching.add(uin)
             }
         }
-        object : Thread() {
-            override fun run() {
-                try {
-                    val url = URL(strUrl)
-                    val conn = url.openConnection() as HttpURLConnection
-                    conn.doInput = true
-                    conn.connect()
-                    val stream = conn.inputStream
-                    val bitmap = BitmapFactory.decodeStream(stream)
-                    saveBinderHeadPic(uin, bitmap)
-                    synchronized(mSetFetching) {
-                        mSetFetching.remove(uin)
-                    }
-                    mHandler.sendEmptyMessage(0)
-                } catch (e: Exception) {
-                    Log.i(TAG, e.toString())
+        runOnIOthread {
+            try {
+                val url = URL(strUrl)
+                val conn = url.openConnection() as HttpURLConnection
+                conn.doInput = true
+                conn.connect()
+                val stream = conn.inputStream
+                val bitmap = BitmapFactory.decodeStream(stream)
+                saveBinderHeadPic(uin, bitmap)
+                synchronized(mSetFetching) {
+                    mSetFetching.remove(uin)
                 }
-
+                mHandler.sendEmptyMessage(0)
+            } catch (e: Exception) {
+                Log.i(TAG, e.toString())
             }
-        }.start()
+        }
+
     }
 
 }
