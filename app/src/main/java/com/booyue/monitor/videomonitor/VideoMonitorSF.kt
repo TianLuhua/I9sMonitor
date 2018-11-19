@@ -1,11 +1,13 @@
 package com.booyue.monitor.videomonitor
 
 import android.content.Context
+import android.content.Intent
 import android.widget.Toast
 import com.booyue.CameraOperation
 import com.booyue.MicPhoneOperation
 import com.booyue.WheelOperation
 import com.booyue.monitor.IVideoMonitor
+import com.booyue.ui.videovhat.BooyueVideoChatActivitySF
 import com.booyue.utils.LoggerUtils
 import com.tencent.av.VideoController
 import com.tencent.av.camera.VcCamera
@@ -115,6 +117,24 @@ class VideoMonitorSF(private var mContext: Context, peerId: String) : IVideoMoni
     }
 
     /**
+     *监视模式切换到视频聊天模式
+     */
+    override fun switchToVideoChat() {
+        if (!mIsReceiver) {
+            Toast.makeText(mContext, "$TAG IsReceiver is $mIsReceiver", Toast.LENGTH_SHORT).show()
+            return
+        }
+        val intent = Intent(mContext, BooyueVideoChatActivitySF::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_USER_ACTION)
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        intent.putExtra("peerid", mPeerId)
+        intent.putExtra("dinType", intent.getIntExtra("dinType", VideoController.UINTYPE_QQ))
+        intent.putExtra("fromVideoMonitor", true)
+        mContext.startActivity(intent)
+    }
+
+
+    /**
      * 断开与手Q连接
      */
     private val closeCameraFutureListener = FutureListener<Boolean> {
@@ -137,7 +157,6 @@ class VideoMonitorSF(private var mContext: Context, peerId: String) : IVideoMoni
      * 打开Camera
      */
     inner class AsyncOpenCamera : Runnable {
-
         override fun run() {
             try {
                 if (!mCamera.openCameraWithSilent()) {
@@ -153,7 +172,6 @@ class VideoMonitorSF(private var mContext: Context, peerId: String) : IVideoMoni
             } catch (e: Exception) {
                 LoggerUtils.e("AsyncOpenCamera  Fail，" + e.message)
             }
-
         }
     }
 

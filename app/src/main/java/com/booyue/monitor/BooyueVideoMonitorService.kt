@@ -47,6 +47,8 @@ class BooyueVideoMonitorService : Service() {
             filter.addAction(TXDeviceService.OnReceiveDataPoint)
             //添加电量变化监听
             filter.addAction(Intent.ACTION_BATTERY_CHANGED)
+            //当处于监听器模式状态下，需要切换到视频聊天时候的Action注册
+            filter.addAction(I9SMONITOR_ACTION_SWITCH_TO_VIDEOCHAT)
             registerReceiver(mBroadcasterHandler, filter)
             mVideoMonitor = VideoMonitorSF(applicationContext, mPeerId)
             mVideoMonitor.start()
@@ -218,6 +220,10 @@ class BooyueVideoMonitorService : Service() {
 
                         }
                     }
+                }
+
+                I9SMONITOR_ACTION_SWITCH_TO_VIDEOCHAT -> {
+                    mVideoMonitor.switchToVideoChat()
                 }
                 else -> {
                     LoggerUtils.e("没有定义的Action")

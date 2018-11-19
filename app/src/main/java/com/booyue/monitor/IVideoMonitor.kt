@@ -23,6 +23,9 @@ interface IVideoMonitor {
     //操作驱动轮
     fun operationWheel(operation: WheelOperation)
 
+    //切换到视屏聊天界面
+    fun switchToVideoChat()
+
     fun resetEncoder(width: Int, height: Int, bitrate: Int, fps: Int)
 
     fun setVideoConnected(videoConnected: Boolean)

@@ -64,5 +64,11 @@ const val TXDATAPOINT_TURN_MOBITOR_ID = 100006167L
 const val TXDATAPOINT_HAS_OPERATION_ID = 100006168L
 
 
+/**
+ * 从监听模式切换到视频聊天模式 Action
+ */
+const val I9SMONITOR_ACTION_SWITCH_TO_VIDEOCHAT = "I9sMonitor.action.switch.to.videochat"
+
+
 
 

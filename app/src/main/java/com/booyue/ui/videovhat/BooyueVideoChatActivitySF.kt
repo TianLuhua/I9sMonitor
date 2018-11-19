@@ -45,6 +45,7 @@ class BooyueVideoChatActivitySF : BaseActivity() {
     private lateinit var mSelfDin: String
     private var mIsReceiver = false
     private var mVideoConnected = false
+    private var mFromVideoMonitor = false
     private var mSwitchVideoIndex = 0.toLong()
     private var mSwitchCameraIndex = 0.toLong()
 
@@ -81,6 +82,7 @@ class BooyueVideoChatActivitySF : BaseActivity() {
         }
     }
 
+
     override fun setView() {
         setContentView(R.layout.activity_videochat_softcodec_booyue)
         window.addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED)
@@ -96,12 +98,14 @@ class BooyueVideoChatActivitySF : BaseActivity() {
         mDinType = intent.getIntExtra("dinType", VideoController.UINTYPE_QQ)
         mSelfDin = VideoController.getInstance().GetSelfDin()
         mIsReceiver = intent.getBooleanExtra("receive", false)
+        //为了从监控模式切换到视屏聊天模式添加的标记
+        mFromVideoMonitor = intent.getBooleanExtra("fromVideoMonitor", false)
+
         if (mPeerId.toLong() == 0.toLong() || mSelfDin.toLong() == 0.toLong()) {
             LoggerUtils.e("$TAG invalid peerId: $mPeerId invalid selfDin: $mSelfDin")
             finish()
         }
         mCamera = VideoController.getInstance().camera
-
         initQQGlView()
         initCameraPreview()
     }
@@ -224,7 +228,6 @@ class BooyueVideoChatActivitySF : BaseActivity() {
         val friendInfo = VideoController.getInstance().getFriendInfo(mPeerId)
         tv_name.text = friendInfo.name
 
-
         btn_receive.setOnClickListener {
             VideoController.getInstance().stopRing()
             if (java.lang.Long.parseLong(mPeerId) != 0L) {
@@ -287,7 +290,7 @@ class BooyueVideoChatActivitySF : BaseActivity() {
 
 
     /**
-     * 接听之后的视图
+     * 接听之前的视图
      */
     private fun beforeReceive() {
         ll_receive_after.visibility = View.GONE
@@ -369,6 +372,14 @@ class BooyueVideoChatActivitySF : BaseActivity() {
     override fun onResume() {
         super.onResume()
         initReceiver()
+
+        if (mFromVideoMonitor) {
+            VideoController.getInstance().stopRing()
+            afterReceive()
+            mVideoConnected = true
+            startTime = System.currentTimeMillis()
+            mHandler.post(updateTime)
+        }
     }
 
     private fun initReceiver() {
